@@ -23,8 +23,6 @@ color:white;
 padding:20px;
 }
 
-/* LOGO */
-
 .logo{
 text-align:center;
 font-size:34px;
@@ -35,8 +33,6 @@ text-shadow:
 0 0 20px #ff8a00,
 0 0 40px #ff4500;
 }
-
-/* FILTER */
 
 .filters{
 display:flex;
@@ -52,15 +48,11 @@ border-radius:30px;
 cursor:pointer;
 }
 
-/* MENU */
-
 .menu{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
 gap:18px;
 }
-
-/* CARD */
 
 .card{
 background:rgba(255,255,255,0.08);
@@ -87,8 +79,6 @@ margin-bottom:8px;
 color:#ffb347;
 }
 
-/* CART BUTTON */
-
 .cart-btn{
 position:fixed;
 bottom:20px;
@@ -111,8 +101,6 @@ font-size:12px;
 padding:3px 7px;
 border-radius:50%;
 }
-
-/* CART */
 
 .cart{
 position:fixed;
@@ -188,10 +176,8 @@ cursor:pointer;
 <div class="menu" id="menu"></div>
 
 <div class="cart-btn" onclick="toggleCart()">
-
 🛒 الطلب
 <span class="counter" id="counter">0</span>
-
 </div>
 
 <div class="cart" id="cart">
@@ -214,7 +200,7 @@ let foods=[
 
 {name:"كريب نوتيلا",price:15,cat:"crepe",img:"https://images.unsplash.com/photo-1519671482749-fd09be7ccebf"},
 {name:"كريب لوتس",price:18,cat:"crepe",img:"https://images.unsplash.com/photo-1587731556938-38755b4803a6"},
-{name:"عصير فراولة",price:15,cat:"jus",img:"https://images.unsplash.com/photo-1572441713132-51c75654db73"}
+{name:"عصير فراولة",price:15,cat:"jus",img:"https://images.unsplash.com/photo-1553530666-ba11a7da3888"}
 
 ]
 
@@ -235,9 +221,7 @@ html+=`
 <div class="card" data-cat="${f.cat}" onclick="add('${f.name}',${f.price})">
 
 <img src="${f.img}">
-
 <h3>${f.name}</h3>
-
 <div class="price">${f.price}dh</div>
 
 </div>
@@ -301,9 +285,7 @@ count--
 total-=order[name].price
 
 if(order[name].qty<=0){
-
 delete order[name]
-
 }
 
 update()
@@ -338,11 +320,8 @@ html+=`
 <div class="controls">
 
 <button onclick="minus('${i}')">-</button>
-
 <span>${order[i].qty}</span>
-
 <button onclick="plus('${i}')">+</button>
-
 <button onclick="removeItem('${i}')">❌</button>
 
 </div>
@@ -354,20 +333,17 @@ html+=`
 }
 
 document.getElementById("items").innerHTML=html
-
 document.getElementById("total").innerText="المجموع: "+total+"dh"
 
-if(count==0){
-
+if(Object.keys(order).length===0){
 document.getElementById("cart").classList.remove("open")
-
 }
 
 }
 
 function toggleCart(){
 
-if(count==0){
+if(Object.keys(order).length===0){
 return
 }
 
@@ -392,8 +368,6 @@ msg+="%0Aالمجموع: "+total+"dh"
 window.open("https://wa.me/212774475007?text="+msg)
 
 }
-
-/* اغلاق السلة عند الضغط خارجها */
 
 document.addEventListener("click", function(e){
 
