@@ -357,6 +357,12 @@ document.getElementById("items").innerHTML=html
 
 document.getElementById("total").innerText="المجموع: "+total+"dh"
 
+if(count==0){
+
+document.getElementById("cart").classList.remove("open")
+
+}
+
 }
 
 function toggleCart(){
