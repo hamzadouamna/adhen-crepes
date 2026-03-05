@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ADHEN CREPES</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:linear-gradient(135deg,#1a1a1a,#2d2d2d);
+color:white;
+padding:20px;
+}
+
+/* LOGO */
+
+.logo{
+text-align:center;
+font-size:34px;
+margin-bottom:25px;
+
+text-shadow:
+0 0 10px #ff8a00,
+0 0 20px #ff8a00,
+0 0 40px #ff4500;
+}
+
+/* FILTER MENU */
+
+.filters{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+overflow-x:auto;
+}
+
+.filter{
+padding:10px 18px;
+background:rgba(255,255,255,0.1);
+border-radius:30px;
+cursor:pointer;
+}
+
+/* MENU */
+
+.menu{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+gap:18px;
+}
+
+/* CARD */
+
+.card{
+
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(15px);
+
+border-radius:20px;
+padding:12px;
+text-align:center;
+
+transition:0.3s;
+cursor:pointer;
+
+}
+
+/* 3D HOVER */
+
+.card:hover{
+
+transform:
+rotateX(6deg)
+rotateY(-6deg)
+scale(1.05);
+
+box-shadow:
+0 20px 40px rgba(0,0,0,0.4),
+0 0 25px rgba(255,140,0,0.9);
+
+}
+
+/* IMAGE */
+
+.card img{
+
+width:100%;
+border-radius:14px;
+margin-bottom:8px;
+
+}
+
+.price{
+color:#ffb347;
+}
+
+/* FLOAT CART */
+
+.cart-btn{
+
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+
+background:#ff7a00;
+padding:14px 25px;
+
+border-radius:30px;
+cursor:pointer;
+
+box-shadow:0 0 20px #ff7a00;
+
+}
+
+/* COUNTER */
+
+.counter{
+
+position:absolute;
+top:-6px;
+right:-6px;
+
+background:red;
+color:white;
+
+font-size:12px;
+padding:3px 7px;
+
+border-radius:50%;
+
+}
+
+/* CART */
+
+.cart{
+
+position:fixed;
+bottom:-100%;
+left:0;
+
+width:100%;
+
+background:#111;
+
+border-radius:25px 25px 0 0;
+
+padding:20px;
+
+transition:0.4s;
+
+}
+
+.cart.open{
+bottom:0;
+}
+
+.cart-items{
+margin-top:10px;
+}
+
+.total{
+margin-top:10px;
+color:#ffb347;
+}
+
+/* INPUT */
+
+input{
+
+width:100%;
+padding:12px;
+
+border:none;
+border-radius:10px;
+
+margin-top:10px;
+
+}
+
+/* BUTTON */
+
+button{
+
+width:100%;
+padding:14px;
+
+border:none;
+border-radius:12px;
+
+background:#25D366;
+color:white;
+
+margin-top:12px;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+/* SKELETON */
+
+.skeleton{
+
+height:180px;
+
+background:linear-gradient(
+90deg,
+#333 25%,
+#444 50%,
+#333 75%
+);
+
+background-size:200% 100%;
+
+animation:skeleton 1.2s infinite;
+
+border-radius:18px;
+
+}
+
+@keyframes skeleton{
+
+0%{background-position:200% 0}
+
+100%{background-position:-200% 0}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="logo">ADHEN CREPES</div>
+
+<!-- FILTER -->
+
+<div class="filters">
+
+<div class="filter" onclick="filter('all')">الكل</div>
+<div class="filter" onclick="filter('crepe')">كريب</div>
+<div class="filter" onclick="filter('jus')">عصائر</div>
+
+</div>
+
+
+<div class="menu" id="menu">
+
+<!-- skeleton loading -->
+
+<div class="skeleton"></div>
+<div class="skeleton"></div>
+<div class="skeleton"></div>
+
+</div>
+
+
+<div class="cart-btn" onclick="toggleCart()">
+
+🛒 الطلب
+<span class="counter" id="counter">0</span>
+
+</div>
+
+
+<div class="cart" id="cart">
+
+<h3>الطلب</h3>
+
+<div class="cart-items" id="items"></div>
+
+<div class="total" id="total"></div>
+
+<input id="name" placeholder="اسمك">
+
+<button onclick="send()">إرسال الطلب عبر WhatsApp</button>
+
+</div>
+
+
+<script>
+
+let foods=[
+
+{name:"كريب نوتيلا",price:15,cat:"crepe",img:"https://images.unsplash.com/photo-1519671482749-fd09be7ccebf"},
+{name:"كريب لوتس",price:18,cat:"crepe",img:"https://images.unsplash.com/photo-1587731556938-38755b4803a6"},
+{name:"عصير فراولة",price:15,cat:"jus",img:"https://images.unsplash.com/photo-1572441713132-51c75654db73"}
+
+]
+
+let order={}
+let total=0
+let count=0
+
+setTimeout(renderMenu,800)
+
+function renderMenu(){
+
+let html=""
+
+foods.forEach(f=>{
+
+html+=`
+
+<div class="card" data-cat="${f.cat}" onclick="add('${f.name}',${f.price})">
+
+<img src="${f.img}">
+
+<h3>${f.name}</h3>
+
+<div class="price">${f.price}dh</div>
+
+</div>
+
+`
+
+})
+
+document.getElementById("menu").innerHTML=html
+
+}
+
+function filter(cat){
+
+let cards=document.querySelectorAll(".card")
+
+cards.forEach(c=>{
+
+if(cat=="all" || c.dataset.cat==cat){
+
+c.style.display="block"
+
+}else{
+
+c.style.display="none"
+
+}
+
+})
+
+}
+
+function add(name,price){
+
+if(!order[name]) order[name]={qty:0,price:price}
+
+order[name].qty++
+
+count++
+
+total+=price
+
+document.getElementById("counter").innerText=count
+
+renderCart()
+
+}
+
+function renderCart(){
+
+let html=""
+
+for(let i in order){
+
+html+=`<div>${i} × ${order[i].qty}</div>`
+
+}
+
+document.getElementById("items").innerHTML=html
+
+document.getElementById("total").innerText="المجموع: "+total+"dh"
+
+}
+
+function toggleCart(){
+
+document.getElementById("cart").classList.toggle("open")
+
+}
+
+function send(){
+
+let name=document.getElementById("name").value
+
+let msg="طلب جديد%0A%0Aالاسم: "+name+"%0A%0A"
+
+for(let i in order){
+
+msg+=i+" ×"+order[i].qty+"%0A"
+
+}
+
+msg+="%0Aالمجموع: "+total+"dh"
+
+window.open("https://wa.me/212774475007?text="+msg)
+
+}
+
+</script>
+
+</body>
+
+</html>
