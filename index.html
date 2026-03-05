@@ -15,7 +15,6 @@ margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:sans-serif;
-scroll-behavior:smooth;
 }
 
 body{
@@ -37,7 +36,7 @@ text-shadow:
 0 0 40px #ff4500;
 }
 
-/* FILTER MENU */
+/* FILTER */
 
 .filters{
 display:flex;
@@ -64,180 +63,110 @@ gap:18px;
 /* CARD */
 
 .card{
-
 background:rgba(255,255,255,0.08);
 backdrop-filter:blur(15px);
-
 border-radius:20px;
 padding:12px;
 text-align:center;
-
 transition:0.3s;
 cursor:pointer;
-
 }
-
-/* 3D HOVER */
 
 .card:hover{
-
-transform:
-rotateX(6deg)
-rotateY(-6deg)
-scale(1.05);
-
-box-shadow:
-0 20px 40px rgba(0,0,0,0.4),
-0 0 25px rgba(255,140,0,0.9);
-
+transform:scale(1.05);
+box-shadow:0 0 20px orange;
 }
 
-/* IMAGE */
-
 .card img{
-
 width:100%;
 border-radius:14px;
 margin-bottom:8px;
-
 }
 
 .price{
 color:#ffb347;
 }
 
-/* FLOAT CART */
+/* CART BUTTON */
 
 .cart-btn{
-
 position:fixed;
 bottom:20px;
 left:50%;
 transform:translateX(-50%);
-
 background:#ff7a00;
 padding:14px 25px;
-
 border-radius:30px;
 cursor:pointer;
-
 box-shadow:0 0 20px #ff7a00;
-
 }
 
-/* COUNTER */
-
 .counter{
-
 position:absolute;
 top:-6px;
 right:-6px;
-
 background:red;
 color:white;
-
 font-size:12px;
 padding:3px 7px;
-
 border-radius:50%;
-
 }
 
 /* CART */
 
 .cart{
-
 position:fixed;
 bottom:-100%;
 left:0;
-
 width:100%;
-
 background:#111;
-
 border-radius:25px 25px 0 0;
-
 padding:20px;
-
 transition:0.4s;
-
 }
 
 .cart.open{
 bottom:0;
 }
 
-.cart-items{
+.cart-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
 margin-top:10px;
+}
+
+.controls button{
+padding:4px 8px;
+margin:2px;
+border:none;
+border-radius:6px;
+cursor:pointer;
 }
 
 .total{
-margin-top:10px;
+margin-top:12px;
 color:#ffb347;
 }
 
-/* INPUT */
-
 input{
-
 width:100%;
 padding:12px;
-
 border:none;
 border-radius:10px;
-
 margin-top:10px;
-
 }
 
-/* BUTTON */
-
-button{
-
+button.send{
 width:100%;
 padding:14px;
-
 border:none;
 border-radius:12px;
-
 background:#25D366;
 color:white;
-
 margin-top:12px;
-
 font-size:16px;
-
 cursor:pointer;
-
-}
-
-/* SKELETON */
-
-.skeleton{
-
-height:180px;
-
-background:linear-gradient(
-90deg,
-#333 25%,
-#444 50%,
-#333 75%
-);
-
-background-size:200% 100%;
-
-animation:skeleton 1.2s infinite;
-
-border-radius:18px;
-
-}
-
-@keyframes skeleton{
-
-0%{background-position:200% 0}
-
-100%{background-position:-200% 0}
-
 }
 
 </style>
@@ -248,8 +177,6 @@ border-radius:18px;
 
 <div class="logo">ADHEN CREPES</div>
 
-<!-- FILTER -->
-
 <div class="filters">
 
 <div class="filter" onclick="filter('all')">الكل</div>
@@ -258,17 +185,7 @@ border-radius:18px;
 
 </div>
 
-
-<div class="menu" id="menu">
-
-<!-- skeleton loading -->
-
-<div class="skeleton"></div>
-<div class="skeleton"></div>
-<div class="skeleton"></div>
-
-</div>
-
+<div class="menu" id="menu"></div>
 
 <div class="cart-btn" onclick="toggleCart()">
 
@@ -277,21 +194,19 @@ border-radius:18px;
 
 </div>
 
-
 <div class="cart" id="cart">
 
 <h3>الطلب</h3>
 
-<div class="cart-items" id="items"></div>
+<div id="items"></div>
 
 <div class="total" id="total"></div>
 
 <input id="name" placeholder="اسمك">
 
-<button onclick="send()">إرسال الطلب عبر WhatsApp</button>
+<button class="send" onclick="send()">إرسال الطلب عبر WhatsApp</button>
 
 </div>
-
 
 <script>
 
@@ -307,7 +222,7 @@ let order={}
 let total=0
 let count=0
 
-setTimeout(renderMenu,800)
+renderMenu()
 
 function renderMenu(){
 
@@ -365,19 +280,76 @@ count++
 
 total+=price
 
-document.getElementById("counter").innerText=count
-
-renderCart()
+update()
 
 }
 
-function renderCart(){
+function plus(name){
+
+order[name].qty++
+count++
+total+=order[name].price
+
+update()
+
+}
+
+function minus(name){
+
+order[name].qty--
+count--
+total-=order[name].price
+
+if(order[name].qty<=0){
+
+delete order[name]
+
+}
+
+update()
+
+}
+
+function removeItem(name){
+
+count-=order[name].qty
+total-=order[name].qty*order[name].price
+
+delete order[name]
+
+update()
+
+}
+
+function update(){
+
+document.getElementById("counter").innerText=count
 
 let html=""
 
 for(let i in order){
 
-html+=`<div>${i} × ${order[i].qty}</div>`
+html+=`
+
+<div class="cart-item">
+
+<span>${i}</span>
+
+<div class="controls">
+
+<button onclick="minus('${i}')">-</button>
+
+<span>${order[i].qty}</span>
+
+<button onclick="plus('${i}')">+</button>
+
+<button onclick="removeItem('${i}')">❌</button>
+
+</div>
+
+</div>
+
+`
 
 }
 
