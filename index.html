@@ -367,6 +367,10 @@ document.getElementById("cart").classList.remove("open")
 
 function toggleCart(){
 
+if(count==0){
+return
+}
+
 document.getElementById("cart").classList.toggle("open")
 
 }
@@ -389,8 +393,24 @@ window.open("https://wa.me/212774475007?text="+msg)
 
 }
 
+/* اغلاق السلة عند الضغط خارجها */
+
+document.addEventListener("click", function(e){
+
+let cart = document.getElementById("cart")
+let cartBtn = document.querySelector(".cart-btn")
+
+if(
+cart.classList.contains("open") &&
+!cart.contains(e.target) &&
+!cartBtn.contains(e.target)
+){
+cart.classList.remove("open")
+}
+
+})
+
 </script>
 
 </body>
-
 </html>
