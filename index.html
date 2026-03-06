@@ -203,6 +203,9 @@ cursor:pointer;
 
 </div>
 
+<!-- صوت إضافة الطلب -->
+<audio id="addSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+
 <script>
 
 let foods=[
@@ -258,7 +261,7 @@ c.style.display="none"
 
 }
 
-/* منع إضافة الطلب إذا كانت السلة مفتوحة */
+/* إضافة الطلب */
 
 function add(name,price){
 
@@ -272,6 +275,12 @@ if(!order[name]) order[name]={qty:0,price:price}
 
 order[name].qty++
 total+=price
+
+/* تشغيل الصوت */
+
+let sound=document.getElementById("addSound")
+sound.currentTime=0
+sound.play()
 
 update()
 
