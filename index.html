@@ -206,7 +206,6 @@ let foods=[
 
 let order={}
 let total=0
-let count=0
 
 renderMenu()
 
@@ -259,9 +258,6 @@ function add(name,price){
 if(!order[name]) order[name]={qty:0,price:price}
 
 order[name].qty++
-
-count++
-
 total+=price
 
 update()
@@ -271,7 +267,6 @@ update()
 function plus(name){
 
 order[name].qty++
-count++
 total+=order[name].price
 
 update()
@@ -281,7 +276,6 @@ update()
 function minus(name){
 
 order[name].qty--
-count--
 total-=order[name].price
 
 if(order[name].qty<=0){
@@ -294,9 +288,7 @@ update()
 
 function removeItem(name){
 
-count-=order[name].qty
 total-=order[name].qty*order[name].price
-
 delete order[name]
 
 update()
@@ -305,11 +297,12 @@ update()
 
 function update(){
 
-document.getElementById("counter").innerText=count
-
+let totalItems=0
 let html=""
 
 for(let i in order){
+
+totalItems+=order[i].qty
 
 html+=`
 
@@ -332,10 +325,11 @@ html+=`
 
 }
 
+document.getElementById("counter").innerText=totalItems
 document.getElementById("items").innerHTML=html
 document.getElementById("total").innerText="المجموع: "+total+"dh"
 
-if(Object.keys(order).length===0){
+if(totalItems===0){
 document.getElementById("cart").classList.remove("open")
 }
 
@@ -369,16 +363,15 @@ window.open("https://wa.me/212774475007?text="+msg)
 
 }
 
-document.addEventListener("click", function(e){
+document.addEventListener("click",function(e){
 
-let cart = document.getElementById("cart")
-let cartBtn = document.querySelector(".cart-btn")
+let cart=document.getElementById("cart")
+let cartBtn=document.querySelector(".cart-btn")
 
-if(
-cart.classList.contains("open") &&
-!cart.contains(e.target) &&
-!cartBtn.contains(e.target)
-){
+if(cart.contains(e.target)) return
+if(cartBtn.contains(e.target)) return
+
+if(cart.classList.contains("open")){
 cart.classList.remove("open")
 }
 
