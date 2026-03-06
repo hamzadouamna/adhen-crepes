@@ -305,7 +305,7 @@ html+=`
 
 <div class="cart-item">
 
-<span>${i}</span>
+<span>${i} × ${order[i].qty} = ${order[i].qty * order[i].price}dh</span>
 
 <div class="controls">
 
@@ -353,7 +353,7 @@ let msg="طلب جديد%0A%0Aالاسم: "+name+"%0A%0A"
 
 for(let i in order){
 
-msg+=i+" ×"+order[i].qty+"%0A"
+msg+=i+" ×"+order[i].qty+" = "+(order[i].qty*order[i].price)+"dh%0A"
 
 }
 
