@@ -21,20 +21,15 @@ color:white;
 padding:20px;
 }
 
-/* LOGO */
-
 .logo{
 text-align:center;
 font-size:34px;
 margin-bottom:25px;
-
 text-shadow:
 0 0 10px #ff8a00,
 0 0 20px #ff8a00,
 0 0 40px #ff4500;
 }
-
-/* FILTER */
 
 .filters{
 display:flex;
@@ -50,15 +45,11 @@ border-radius:30px;
 cursor:pointer;
 }
 
-/* MENU */
-
 .menu{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
 gap:18px;
 }
-
-/* CARD */
 
 .card{
 background:rgba(255,255,255,0.08);
@@ -85,8 +76,6 @@ margin-bottom:8px;
 color:#ffb347;
 }
 
-/* CART BUTTON */
-
 .cart-btn{
 position:fixed;
 bottom:20px;
@@ -109,8 +98,6 @@ font-size:12px;
 padding:3px 7px;
 border-radius:50%;
 }
-
-/* CART */
 
 .cart{
 position:fixed;
@@ -203,8 +190,10 @@ cursor:pointer;
 
 </div>
 
-<!-- صوت إضافة الطلب -->
-<audio id="addSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+<!-- عنصر الصوت -->
+<audio id="addSound" preload="auto">
+<source src="https://cdn.jsdelivr.net/gh/naptha/tesseract.js@master/docs/examples/audio/beep.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 
@@ -261,8 +250,6 @@ c.style.display="none"
 
 }
 
-/* إضافة الطلب */
-
 function add(name,price){
 
 let cart=document.getElementById("cart")
@@ -280,19 +267,18 @@ total+=price
 
 let sound=document.getElementById("addSound")
 sound.currentTime=0
-sound.play()
+sound.play().catch(function(err){
+console.log("الصوت لم يعمل",err)
+})
 
 update()
 
 }
 
 function plus(name){
-
 order[name].qty++
 total+=order[name].price
-
 update()
-
 }
 
 function minus(name){
