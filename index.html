@@ -2,7 +2,6 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -23,6 +22,8 @@ color:white;
 padding:20px;
 }
 
+/* LOGO */
+
 .logo{
 text-align:center;
 font-size:34px;
@@ -33,6 +34,8 @@ text-shadow:
 0 0 20px #ff8a00,
 0 0 40px #ff4500;
 }
+
+/* FILTER */
 
 .filters{
 display:flex;
@@ -48,11 +51,15 @@ border-radius:30px;
 cursor:pointer;
 }
 
+/* MENU */
+
 .menu{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
 gap:18px;
 }
+
+/* CARD */
 
 .card{
 background:rgba(255,255,255,0.08);
@@ -79,6 +86,8 @@ margin-bottom:8px;
 color:#ffb347;
 }
 
+/* CART BUTTON */
+
 .cart-btn{
 position:fixed;
 bottom:20px;
@@ -102,6 +111,25 @@ padding:3px 7px;
 border-radius:50%;
 }
 
+/* OVERLAY */
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+display:none;
+z-index:5;
+}
+
+.overlay.show{
+display:block;
+}
+
+/* CART */
+
 .cart{
 position:fixed;
 bottom:-100%;
@@ -111,6 +139,7 @@ background:#111;
 border-radius:25px 25px 0 0;
 padding:20px;
 transition:0.4s;
+z-index:10;
 }
 
 .cart.open{
@@ -166,11 +195,9 @@ cursor:pointer;
 <div class="logo">ADHEN CREPES</div>
 
 <div class="filters">
-
 <div class="filter" onclick="filter('all')">الكل</div>
 <div class="filter" onclick="filter('crepe')">كريب</div>
 <div class="filter" onclick="filter('jus')">عصائر</div>
-
 </div>
 
 <div class="menu" id="menu"></div>
@@ -179,6 +206,8 @@ cursor:pointer;
 🛒 الطلب
 <span class="counter" id="counter">0</span>
 </div>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
 
 <div class="cart" id="cart">
 
@@ -240,13 +269,9 @@ let cards=document.querySelectorAll(".card")
 cards.forEach(c=>{
 
 if(cat=="all" || c.dataset.cat==cat){
-
 c.style.display="block"
-
 }else{
-
 c.style.display="none"
-
 }
 
 })
@@ -265,9 +290,12 @@ update()
 }
 
 function plus(name){
+
 order[name].qty++
 total+=order[name].price
+
 update()
+
 }
 
 function minus(name){
@@ -286,6 +314,7 @@ update()
 function removeItem(name){
 
 total-=order[name].qty*order[name].price
+
 delete order[name]
 
 update()
@@ -309,13 +338,10 @@ html+=`
 
 <div class="controls">
 
-<button onclick="event.stopPropagation(); minus('${i}')">-</button>
-
+<button onclick="minus('${i}')">-</button>
 <span>${order[i].qty}</span>
-
-<button onclick="event.stopPropagation(); plus('${i}')">+</button>
-
-<button onclick="event.stopPropagation(); removeItem('${i}')">❌</button>
+<button onclick="plus('${i}')">+</button>
+<button onclick="removeItem('${i}')">❌</button>
 
 </div>
 
@@ -330,18 +356,27 @@ document.getElementById("items").innerHTML=html
 document.getElementById("total").innerText="المجموع: "+total+"dh"
 
 if(totalItems===0){
-document.getElementById("cart").classList.remove("open")
+closeCart()
 }
 
 }
 
 function toggleCart(){
 
-if(Object.keys(order).length===0){
-return
+if(Object.keys(order).length===0) return
+
+let cart=document.getElementById("cart")
+let overlay=document.getElementById("overlay")
+
+cart.classList.toggle("open")
+overlay.classList.toggle("show")
+
 }
 
-document.getElementById("cart").classList.toggle("open")
+function closeCart(){
+
+document.getElementById("cart").classList.remove("open")
+document.getElementById("overlay").classList.remove("show")
 
 }
 
@@ -362,20 +397,6 @@ msg+="%0Aالمجموع: "+total+"dh"
 window.open("https://wa.me/212774475007?text="+msg)
 
 }
-
-document.addEventListener("click",function(e){
-
-let cart=document.getElementById("cart")
-let cartBtn=document.querySelector(".cart-btn")
-
-if(cart.contains(e.target)) return
-if(cartBtn.contains(e.target)) return
-
-if(cart.classList.contains("open")){
-cart.classList.remove("open")
-}
-
-})
 
 </script>
 
