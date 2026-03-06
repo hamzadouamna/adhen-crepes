@@ -265,12 +265,9 @@ update()
 }
 
 function plus(name){
-
 order[name].qty++
 total+=order[name].price
-
 update()
-
 }
 
 function minus(name){
@@ -312,10 +309,13 @@ html+=`
 
 <div class="controls">
 
-<button onclick="minus('${i}')">-</button>
+<button onclick="event.stopPropagation(); minus('${i}')">-</button>
+
 <span>${order[i].qty}</span>
-<button onclick="plus('${i}')">+</button>
-<button onclick="removeItem('${i}')">❌</button>
+
+<button onclick="event.stopPropagation(); plus('${i}')">+</button>
+
+<button onclick="event.stopPropagation(); removeItem('${i}')">❌</button>
 
 </div>
 
