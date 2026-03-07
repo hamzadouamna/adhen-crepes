@@ -2,8 +2,10 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ADHEN CREPES</title>
 
 <style>
@@ -34,7 +36,7 @@ text-shadow:
 0 0 40px #ff4500;
 }
 
-/* FILTERS */
+/* FILTER */
 
 .filters{
 display:flex;
@@ -58,6 +60,8 @@ grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
 gap:18px;
 }
 
+/* CARD */
+
 .card{
 background:rgba(255,255,255,0.08);
 backdrop-filter:blur(15px);
@@ -79,10 +83,52 @@ border-radius:14px;
 margin-bottom:8px;
 }
 
-/* PRICE */
+/* PRODUCT TITLE */
+
+.card h3{
+font-size:18px;
+font-weight:600;
+margin-top:6px;
+letter-spacing:0.5px;
+text-shadow:0 0 6px rgba(255,255,255,0.4);
+}
+
+/* PRICE DESIGN */
 
 .price{
-color:#ffb347;
+
+display:inline-block;
+
+margin-top:8px;
+
+padding:5px 12px;
+
+font-weight:bold;
+
+font-size:14px;
+
+background:linear-gradient(45deg,#ff7a00,#ffb347);
+
+color:white;
+
+border-radius:20px;
+
+box-shadow:
+0 0 8px rgba(255,122,0,0.8),
+0 0 18px rgba(255,122,0,0.4);
+
+transition:0.3s;
+
+}
+
+.card:hover .price{
+
+transform:scale(1.1);
+
+box-shadow:
+0 0 12px rgba(255,140,0,1),
+0 0 25px rgba(255,140,0,0.6);
+
 }
 
 /* CART BUTTON */
@@ -107,17 +153,9 @@ animation:cartBounce 0.4s;
 
 @keyframes cartBounce{
 
-0%{
-transform:translateX(-50%) scale(1);
-}
-
-50%{
-transform:translateX(-50%) scale(1.2);
-}
-
-100%{
-transform:translateX(-50%) scale(1);
-}
+0%{transform:translateX(-50%) scale(1);}
+50%{transform:translateX(-50%) scale(1.2);}
+100%{transform:translateX(-50%) scale(1);}
 
 }
 
@@ -192,6 +230,7 @@ cursor:pointer;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -199,9 +238,11 @@ cursor:pointer;
 <div class="logo">ADHEN CREPES</div>
 
 <div class="filters">
+
 <div class="filter" onclick="filter('all')">الكل</div>
 <div class="filter" onclick="filter('crepe')">كريب</div>
 <div class="filter" onclick="filter('jus')">عصائر</div>
+
 </div>
 
 <div class="menu" id="menu"></div>
@@ -258,7 +299,7 @@ html+=`
 
 <div class="card" data-cat="${f.cat}" onclick="add(event,'${f.name}',${f.price})">
 
-<img class="food-img" src="${f.img}">
+<img src="${f.img}">
 <h3>${f.name}</h3>
 <div class="price">${f.price}dh</div>
 
@@ -317,7 +358,7 @@ setTimeout(()=>{
 cartBtn.classList.remove("cart-bounce")
 },400)
 
-/* FLY TO CART */
+/* FLY IMAGE */
 
 let img=e.currentTarget.querySelector("img")
 
@@ -428,6 +469,7 @@ html+=`
 }
 
 document.getElementById("items").innerHTML=html
+
 document.getElementById("total").innerText="المجموع: "+total+"dh"
 
 if(Object.keys(order).length===0){
@@ -450,7 +492,7 @@ cart.classList.toggle("open")
 
 }
 
-/* SEND */
+/* SEND ORDER */
 
 function send(){
 
@@ -468,7 +510,7 @@ window.open("https://wa.me/212774475007?text="+msg)
 
 }
 
-/* CLOSE CART WHEN CLICK OUTSIDE */
+/* CLOSE CART */
 
 document.addEventListener("click",function(e){
 
