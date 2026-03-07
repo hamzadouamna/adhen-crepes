@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -28,6 +29,7 @@ padding:20px;
 text-align:center;
 font-size:34px;
 margin-bottom:25px;
+
 text-shadow:
 0 0 10px #ff8a00,
 0 0 20px #ff8a00,
@@ -48,7 +50,7 @@ backdrop-filter:blur(15px);
 border-radius:20px;
 padding:12px;
 text-align:center;
-transition:0.3s;
+transition:.3s;
 cursor:pointer;
 }
 
@@ -77,6 +79,7 @@ padding:6px 14px;
 font-weight:bold;
 background:linear-gradient(45deg,#ff7a00,#ffb347);
 border-radius:20px;
+
 box-shadow:
 0 0 8px rgba(255,122,0,0.8),
 0 0 18px rgba(255,122,0,0.4);
@@ -117,7 +120,7 @@ width:100%;
 background:#111;
 border-radius:25px 25px 0 0;
 padding:20px;
-transition:0.4s;
+transition:.4s;
 }
 
 .cart.open{
@@ -144,6 +147,8 @@ margin-top:12px;
 color:#ffb347;
 }
 
+/* INPUT */
+
 input{
 width:100%;
 padding:12px;
@@ -151,6 +156,8 @@ border:none;
 border-radius:10px;
 margin-top:10px;
 }
+
+/* WHATSAPP */
 
 button.send{
 width:100%;
@@ -164,37 +171,100 @@ font-size:16px;
 cursor:pointer;
 }
 
-/* GLASS NOTIFICATION */
+/* NOTIFICATION */
 
 .toast{
+
 position:fixed;
 top:90px;
 left:50%;
-transform:translateX(-50%) translateY(-40px) scale(.8);
-padding:14px 26px;
+transform:translateX(-50%) translateY(-20px) scale(.9);
+
+display:inline-flex;
+align-items:center;
+gap:10px;
+
+padding:12px 18px;
+
 border-radius:40px;
-background:rgba(255,255,255,0.08);
+
+background:rgba(255,255,255,0.15);
+
 backdrop-filter:blur(25px);
+
 border:1px solid rgba(255,255,255,0.15);
-box-shadow:
-0 0 20px rgba(255,140,0,0.4),
-0 0 40px rgba(255,140,0,0.15);
+
+font-size:14px;
+
 opacity:0;
-transition:.45s;
-z-index:9999;
+
+transition:.35s;
+
 }
 
 .toast.show{
+
 opacity:1;
 transform:translateX(-50%) translateY(0) scale(1);
+
 }
 
-.toast.hide{
-opacity:0;
-transform:translateX(-50%) translateY(-20px) scale(.9);
+.toast-icon{
+
+width:24px;
+height:24px;
+
+border-radius:50%;
+
+background:#2ecc71;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:13px;
+
+}
+
+/* FLY IMAGE */
+
+.fly{
+
+position:fixed;
+
+width:70px;
+height:70px;
+
+border-radius:10px;
+
+pointer-events:none;
+
+z-index:999;
+
+transition:.7s cubic-bezier(.2,.8,.2,1);
+
+}
+
+/* CART BOUNCE */
+
+.cart-bounce{
+
+animation:cartBounce .4s;
+
+}
+
+@keyframes cartBounce{
+
+0%{transform:translateX(-50%) scale(1)}
+
+50%{transform:translateX(-50%) scale(1.2)}
+
+100%{transform:translateX(-50%) scale(1)}
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -222,16 +292,21 @@ transform:translateX(-50%) translateY(-20px) scale(.9);
 
 </div>
 
-<div id="toast" class="toast"></div>
+<div id="toast" class="toast">
+<div class="toast-icon">✓</div>
+<span id="toast-text"></span>
+</div>
 
 <script>
 
 let clickSound=new Audio("click.mp3")
 
 let foods=[
-{name:"كريب نوتيلا",price:15,img:"https://images.unsplash.com/photo-1519671482749-fd09be7ccebf"},
-{name:"كريب لوتس",price:18,img:"https://images.unsplash.com/photo-1587731556938-38755b4803a6"},
+
+{name:"كريب لوتس",price:18,img:"https://images.unsplash.com/photo-1519671482749-fd09be7ccebf"},
+{name:"كريب نوتيلا",price:15,img:"https://images.unsplash.com/photo-1587731556938-38755b4803a6"},
 {name:"عصير فراولة",price:15,img:"https://images.unsplash.com/photo-1553530666-ba11a7da3888"}
+
 ]
 
 let order={}
@@ -248,7 +323,7 @@ foods.forEach(f=>{
 
 html+=`
 
-<div class="card" onclick="add('${f.name}',${f.price})">
+<div class="card" onclick="add('${f.name}',${f.price},this)">
 
 <img src="${f.img}">
 <h3>${f.name}</h3>
@@ -264,38 +339,73 @@ menu.innerHTML=html
 
 }
 
-/* TOAST */
+/* NOTIFICATION */
 
-function showToast(text){
+function toast(text){
 
-let toast=document.getElementById("toast")
+let t=document.getElementById("toast")
+document.getElementById("toast-text").innerText=text
 
-toast.innerText=text
-
-toast.classList.remove("hide")
-toast.classList.add("show")
+t.classList.add("show")
 
 setTimeout(()=>{
-toast.classList.remove("show")
-toast.classList.add("hide")
-},1700)
+
+t.classList.remove("show")
+
+},1500)
 
 }
 
 /* ADD */
 
-function add(name,price){
+function add(name,price,el){
+
+let img=el.querySelector("img")
+
+let rect=img.getBoundingClientRect()
+
+let fly=document.createElement("img")
+
+fly.src=img.src
+fly.className="fly"
+
+fly.style.left=rect.left+"px"
+fly.style.top=rect.top+"px"
+
+document.body.appendChild(fly)
+
+let cartBtn=document.querySelector(".cart-btn")
+let cartRect=cartBtn.getBoundingClientRect()
+
+setTimeout(()=>{
+
+fly.style.left=cartRect.left+"px"
+fly.style.top=cartRect.top+"px"
+fly.style.opacity=0
+
+},50)
+
+setTimeout(()=>{
+
+fly.remove()
+
+cartBtn.classList.add("cart-bounce")
+
+setTimeout(()=>cartBtn.classList.remove("cart-bounce"),400)
+
+},700)
 
 if(!order[name]) order[name]={qty:0,price:price}
 
 order[name].qty++
+
 count++
 total+=price
 
 clickSound.currentTime=0
 clickSound.play()
 
-showToast("✔ تمت إضافة "+name+" للسلة")
+toast("تمت إضافة "+name)
 
 update()
 
@@ -313,13 +423,13 @@ let html=""
 
 for(let i in order){
 
-let lineTotal=order[i].qty*order[i].price
+let line=order[i].qty*order[i].price
 
 html+=`
 
 <div class="cart-item">
 
-<span>${order[i].qty} × ${i} = ${lineTotal}dh</span>
+<span>${order[i].qty} × ${i} = ${line}dh</span>
 
 <div class="controls">
 
@@ -341,18 +451,24 @@ html+=`
 
 items.innerHTML=html
 
-document.getElementById("total").innerText="المجموع: "+total+"dh"
+totalDiv=document.getElementById("total")
+totalDiv.innerText="المجموع: "+total+"dh"
 
 }
 
 /* PLUS */
 
 function plus(name){
+
 order[name].qty++
 count++
 total+=order[name].price
+
 update()
+
 }
+
+/* MINUS */
 
 function minus(name){
 
@@ -361,12 +477,16 @@ count--
 total-=order[name].price
 
 if(order[name].qty<=0){
+
 delete order[name]
+
 }
 
 update()
 
 }
+
+/* REMOVE */
 
 function removeItem(name){
 
@@ -398,7 +518,9 @@ let name=document.getElementById("name").value
 let msg="طلب جديد%0A%0Aالاسم: "+name+"%0A%0A"
 
 for(let i in order){
-msg+=i+" ×"+order[i].qty+"%0A"
+
+msg+=i+" × "+order[i].qty+"%0A"
+
 }
 
 msg+="%0Aالمجموع: "+total+"dh"
@@ -407,27 +529,23 @@ window.open("https://wa.me/212774475007?text="+msg)
 
 }
 
-/* FIX EVENT PROPAGATION */
+/* CLOSE CART FIX */
 
 document.addEventListener("click",function(e){
 
 const cart=document.getElementById("cart")
-const cartBtn=document.querySelector(".cart-btn")
+const btn=document.querySelector(".cart-btn")
 
 if(!cart.classList.contains("open")) return
 
-if(cart.contains(e.target) || cartBtn.contains(e.target)){
-return
-}
+if(cart.contains(e.target) || btn.contains(e.target)) return
 
 cart.classList.remove("open")
-
-e.stopImmediatePropagation()
-e.preventDefault()
 
 },true)
 
 </script>
 
 </body>
+
 </html>
