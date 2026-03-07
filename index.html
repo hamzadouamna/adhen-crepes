@@ -35,19 +35,14 @@ padding-bottom:140px;
 /* HEADER */
 
 .header{
-
 position:fixed;
 top:0;
 left:0;
 width:100%;
-
 z-index:1000;
-
 background:linear-gradient(135deg,#1a1a1a,#2d2d2d);
-
 padding-top:15px;
 padding-bottom:10px;
-
 }
 
 /* LOGO */
@@ -58,234 +53,130 @@ margin-bottom:10px;
 }
 
 .logo-text{
-
 font-family:"Trox";
-
 font-size:32px;
-
 letter-spacing:2px;
-
 position:relative;
-
 display:inline-block;
 
 text-shadow:
 0 0 10px #ff8a00,
 0 0 20px #ff8a00,
 0 0 40px #ff4500;
-
 }
 
 /* LIGHT SWEEP */
 
 .logo-text::after{
-
 content:"";
-
 position:absolute;
-
 top:0;
 left:-120%;
-
 width:25%;
 height:100%;
-
 background:linear-gradient(
 120deg,
 transparent,
 rgba(255,255,255,0.8),
 transparent
 );
-
 transform:skewX(-25deg);
-
 animation:shine 2.2s infinite;
-
 }
 
 @keyframes shine{
-
 0%{left:-120%}
 100%{left:120%}
-
-}
-
-/* SCROLL LINE */
-
-.header-line{
-
-width:0%;
-height:2px;
-
-margin:auto;
-
-background:linear-gradient(90deg,transparent,#ff7a00,transparent);
-
-opacity:0;
-
-transition:.4s;
-
-}
-
-.header.scrolled .header-line{
-
-width:70%;
-opacity:1;
-
 }
 
 /* MENU */
 
 .menu{
-
 display:grid;
-
 grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-
 gap:18px;
-
 margin-top:30px;
-
 }
 
 .card{
-
 background:rgba(255,255,255,0.08);
-
 backdrop-filter:blur(15px);
-
 border-radius:20px;
-
 padding:12px;
-
 text-align:center;
-
 transition:.3s;
-
 cursor:pointer;
-
 }
 
 .card:hover{
-
 transform:scale(1.05);
-
 box-shadow:0 0 20px orange;
-
 }
 
 .card img{
-
 width:100%;
-
 border-radius:14px;
-
 margin-bottom:8px;
-
 }
 
-/* FOOD NAME */
-
 .card h3{
-
 font-family:"Trox";
-
 font-size:20px;
-
 margin-top:6px;
-
 }
 
 /* PRICE */
 
 .price{
-
 display:inline-block;
-
 margin-top:8px;
-
 padding:6px 14px;
-
 font-weight:bold;
-
 background:linear-gradient(45deg,#ff7a00,#ffb347);
-
 border-radius:20px;
-
 box-shadow:
 0 0 8px rgba(255,122,0,0.8),
 0 0 18px rgba(255,122,0,0.4);
-
 }
 
 /* CART BUTTON */
 
 .cart-btn{
-
 position:fixed;
-
 bottom:40px;
-
 left:50%;
-
 transform:translateX(-50%);
-
 background:#ff7a00;
-
 padding:14px 25px;
-
 border-radius:30px;
-
 cursor:pointer;
-
 box-shadow:0 0 20px #ff7a00;
-
 }
 
 .counter{
-
 position:absolute;
-
 top:-6px;
-
 right:-6px;
-
 background:red;
-
 color:white;
-
 font-size:12px;
-
 padding:3px 7px;
-
 border-radius:50%;
-
 }
 
 /* CART */
 
 .cart{
-
 position:fixed;
-
 bottom:-100%;
-
 left:0;
-
 width:100%;
-
 background:#111;
-
 border-radius:25px 25px 0 0;
-
 padding:20px;
-
 transition:.4s;
-
 max-height:70vh;
-
 overflow:auto;
-
 }
 
 .cart.open{
@@ -293,136 +184,103 @@ bottom:0;
 }
 
 .cart-item{
-
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
-
 margin-top:10px;
-
 }
 
 .controls button{
-
 padding:4px 8px;
-
 margin:2px;
-
 border:none;
-
 border-radius:6px;
-
 cursor:pointer;
-
 }
 
 .total{
-
 margin-top:12px;
-
 color:#ffb347;
-
 }
 
 input{
-
 width:100%;
-
 padding:12px;
-
 border:none;
-
 border-radius:10px;
-
 margin-top:10px;
-
 }
 
 button.send{
-
 width:100%;
-
 padding:14px;
-
 border:none;
-
 border-radius:12px;
-
 background:#25D366;
-
 color:white;
-
 margin-top:12px;
-
 font-size:16px;
-
 cursor:pointer;
-
 }
 
 /* NOTIFICATION */
 
 .toast{
-
 position:fixed;
-
 top:120px;
-
 left:50%;
-
 transform:translateX(-50%) translateY(-20px) scale(.9);
-
 display:inline-flex;
-
 align-items:center;
-
 gap:10px;
-
 padding:12px 18px;
-
 border-radius:40px;
-
 background:rgba(255,255,255,0.15);
-
 backdrop-filter:blur(25px);
-
 border:1px solid rgba(255,255,255,0.15);
-
 font-size:14px;
-
 opacity:0;
-
 transition:.35s;
-
 }
 
 .toast.show{
-
 opacity:1;
-
 transform:translateX(-50%) translateY(0) scale(1);
-
 }
 
 .toast-icon{
-
 width:24px;
 height:24px;
-
 border-radius:50%;
-
 background:#2ecc71;
-
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
 font-size:13px;
+}
 
+/* FLY ANIMATION */
+
+.fly{
+position:fixed;
+width:70px;
+height:70px;
+border-radius:10px;
+pointer-events:none;
+z-index:999;
+transition:.7s cubic-bezier(.2,.8,.2,1);
+}
+
+/* CART BOUNCE */
+
+.cart-bounce{
+animation:cartBounce .4s;
+}
+
+@keyframes cartBounce{
+0%{transform:translateX(-50%) scale(1)}
+50%{transform:translateX(-50%) scale(1.2)}
+100%{transform:translateX(-50%) scale(1)}
 }
 
 </style>
@@ -432,13 +290,9 @@ font-size:13px;
 <body>
 
 <div class="header">
-
 <div class="logo">
 <span class="logo-text">ADHEN CREPES</span>
 </div>
-
-<div class="header-line"></div>
-
 </div>
 
 <div class="menu" id="menu"></div>
@@ -495,7 +349,7 @@ foods.forEach(f=>{
 
 html+=`
 
-<div class="card" onclick="add('${f.name}',${f.price})">
+<div class="card" onclick="add('${f.name}',${f.price},this)">
 
 <img src="${f.img}">
 
@@ -525,7 +379,51 @@ setTimeout(()=>{t.classList.remove("show")},1500)
 
 }
 
-function add(name,price){
+function add(name,price,el){
+
+let cart=document.getElementById("cart")
+
+if(cart.classList.contains("open")) return
+
+let img=el.querySelector("img")
+
+let rect=img.getBoundingClientRect()
+
+let fly=document.createElement("img")
+
+fly.src=img.src
+
+fly.className="fly"
+
+fly.style.left=rect.left+"px"
+
+fly.style.top=rect.top+"px"
+
+document.body.appendChild(fly)
+
+let cartBtn=document.querySelector(".cart-btn")
+
+let cartRect=cartBtn.getBoundingClientRect()
+
+setTimeout(()=>{
+
+fly.style.left=cartRect.left+"px"
+
+fly.style.top=cartRect.top+"px"
+
+fly.style.opacity=0
+
+},50)
+
+setTimeout(()=>{
+
+fly.remove()
+
+cartBtn.classList.add("cart-bounce")
+
+setTimeout(()=>cartBtn.classList.remove("cart-bounce"),400)
+
+},700)
 
 if(!order[name]) order[name]={qty:0,price:price}
 
@@ -580,6 +478,12 @@ items.innerHTML=html
 
 document.getElementById("total").innerText="المجموع: "+total+" DH"
 
+/* إغلاق السلة إذا أصبح الطلب صفر */
+
+if(count===0){
+cart.classList.remove("open")
+}
+
 }
 
 function plus(name){
@@ -631,9 +535,7 @@ let name=document.getElementById("name").value
 let msg="طلب جديد%0A%0Aالاسم: "+name+"%0A%0A"
 
 for(let i in order){
-
 msg+=i+" × "+order[i].qty+"%0A"
-
 }
 
 msg+="%0Aالمجموع: "+total+" DH"
@@ -642,17 +544,22 @@ window.open("https://wa.me/212774475007?text="+msg)
 
 }
 
-window.addEventListener("scroll",function(){
+/* إغلاق السلة عند الضغط خارجها بدون إضافة طلب */
 
-let header=document.querySelector(".header")
+document.addEventListener("click",function(e){
 
-if(window.scrollY>40){
-header.classList.add("scrolled")
-}else{
-header.classList.remove("scrolled")
-}
+const cart=document.getElementById("cart")
+const btn=document.querySelector(".cart-btn")
 
-})
+if(!cart.classList.contains("open")) return
+
+if(cart.contains(e.target) || btn.contains(e.target)) return
+
+cart.classList.remove("open")
+
+e.stopImmediatePropagation()
+
+},true)
 
 </script>
 
