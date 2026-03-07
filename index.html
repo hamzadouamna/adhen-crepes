@@ -2,10 +2,8 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ADHEN CREPES</title>
 
 <style>
@@ -60,8 +58,6 @@ grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
 gap:18px;
 }
 
-/* CARD */
-
 .card{
 background:rgba(255,255,255,0.08);
 backdrop-filter:blur(15px);
@@ -83,7 +79,7 @@ border-radius:14px;
 margin-bottom:8px;
 }
 
-/* PRODUCT TITLE */
+/* TITLE */
 
 .card h3{
 font-size:18px;
@@ -93,42 +89,28 @@ letter-spacing:0.5px;
 text-shadow:0 0 6px rgba(255,255,255,0.4);
 }
 
-/* PRICE DESIGN */
+/* PRICE */
 
 .price{
-
 display:inline-block;
-
 margin-top:8px;
-
 padding:5px 12px;
-
 font-weight:bold;
-
 font-size:14px;
-
 background:linear-gradient(45deg,#ff7a00,#ffb347);
-
 color:white;
-
 border-radius:20px;
-
 box-shadow:
 0 0 8px rgba(255,122,0,0.8),
 0 0 18px rgba(255,122,0,0.4);
-
 transition:0.3s;
-
 }
 
 .card:hover .price{
-
 transform:scale(1.1);
-
 box-shadow:
 0 0 12px rgba(255,140,0,1),
 0 0 25px rgba(255,140,0,0.6);
-
 }
 
 /* CART BUTTON */
@@ -230,7 +212,6 @@ cursor:pointer;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -238,11 +219,9 @@ cursor:pointer;
 <div class="logo">ADHEN CREPES</div>
 
 <div class="filters">
-
 <div class="filter" onclick="filter('all')">الكل</div>
 <div class="filter" onclick="filter('crepe')">كريب</div>
 <div class="filter" onclick="filter('jus')">عصائر</div>
-
 </div>
 
 <div class="menu" id="menu"></div>
@@ -313,27 +292,17 @@ document.getElementById("menu").innerHTML=html
 
 }
 
-/* FILTER */
-
-function filter(cat){
-
-let cards=document.querySelectorAll(".card")
-
-cards.forEach(c=>{
-
-if(cat=="all" || c.dataset.cat==cat){
-c.style.display="block"
-}else{
-c.style.display="none"
-}
-
-})
-
-}
-
 /* ADD PRODUCT */
 
 function add(e,name,price){
+
+let cart=document.getElementById("cart")
+
+/* منع إضافة منتج إذا كانت السلة مفتوحة */
+
+if(cart.classList.contains("open")){
+return
+}
 
 if(!order[name]) order[name]={qty:0,price:price}
 
@@ -346,7 +315,7 @@ clickSound.play()
 
 update()
 
-document.getElementById("cart").classList.add("open")
+cart.classList.add("open")
 
 /* CART BOUNCE */
 
@@ -394,13 +363,10 @@ clone.remove()
 /* PLUS */
 
 function plus(name){
-
 order[name].qty++
 count++
 total+=order[name].price
-
 update()
-
 }
 
 /* MINUS */
@@ -492,7 +458,7 @@ cart.classList.toggle("open")
 
 }
 
-/* SEND ORDER */
+/* SEND */
 
 function send(){
 
