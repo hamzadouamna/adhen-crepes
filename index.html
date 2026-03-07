@@ -194,9 +194,13 @@ cursor:pointer;
 
 </div>
 
-<audio id="clickSound" src="text 2.mp3" preload="auto"></audio>
-
 <script>
+
+/* تحميل الصوت مرة واحدة */
+
+let clickSound = new Audio("click.mp3")
+clickSound.preload = "auto"
+
 
 let foods=[
 
@@ -266,9 +270,10 @@ order[name].qty++
 count++
 total+=price
 
-let sound=document.getElementById("clickSound")
-sound.currentTime=0
-sound.play()
+/* تشغيل الصوت فور الكليك */
+
+clickSound.currentTime=0
+clickSound.play()
 
 update()
 
