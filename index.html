@@ -28,7 +28,8 @@ body{
 background:linear-gradient(135deg,#1a1a1a,#2d2d2d);
 color:white;
 padding:20px;
-padding-top:120px;
+padding-top:110px;
+padding-bottom:140px;
 }
 
 /* HEADER */
@@ -36,18 +37,16 @@ padding-top:120px;
 .header{
 
 position:fixed;
-
 top:0;
-
 left:0;
-
 width:100%;
 
 z-index:1000;
 
 background:linear-gradient(135deg,#1a1a1a,#2d2d2d);
 
-padding-top:20px;
+padding-top:15px;
+padding-bottom:10px;
 
 }
 
@@ -62,7 +61,7 @@ margin-bottom:10px;
 
 font-family:"Trox";
 
-font-size:40px;
+font-size:32px;
 
 letter-spacing:2px;
 
@@ -88,7 +87,7 @@ position:absolute;
 top:0;
 left:-120%;
 
-width:40%;
+width:25%;
 height:100%;
 
 background:linear-gradient(
@@ -100,7 +99,7 @@ transparent
 
 transform:skewX(-25deg);
 
-animation:shine 3s infinite;
+animation:shine 2.2s infinite;
 
 }
 
@@ -116,7 +115,6 @@ animation:shine 3s infinite;
 .header-line{
 
 width:0%;
-
 height:2px;
 
 margin:auto;
@@ -131,8 +129,7 @@ transition:.4s;
 
 .header.scrolled .header-line{
 
-width:80%;
-
+width:70%;
 opacity:1;
 
 }
@@ -146,6 +143,8 @@ display:grid;
 grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
 
 gap:18px;
+
+margin-top:30px;
 
 }
 
@@ -225,7 +224,7 @@ box-shadow:
 
 position:fixed;
 
-bottom:20px;
+bottom:40px;
 
 left:50%;
 
@@ -282,6 +281,10 @@ border-radius:25px 25px 0 0;
 padding:20px;
 
 transition:.4s;
+
+max-height:70vh;
+
+overflow:auto;
 
 }
 
@@ -406,7 +409,6 @@ transform:translateX(-50%) translateY(0) scale(1);
 .toast-icon{
 
 width:24px;
-
 height:24px;
 
 border-radius:50%;
@@ -556,7 +558,7 @@ html+=`
 
 <div class="cart-item">
 
-<span>${i} ×${order[i].qty} — ${line}dh</span>
+<span>${i} ×${order[i].qty} — ${line} DH</span>
 
 <div class="controls">
 
@@ -576,7 +578,7 @@ html+=`
 
 items.innerHTML=html
 
-document.getElementById("total").innerText="المجموع: "+total+"dh"
+document.getElementById("total").innerText="المجموع: "+total+" DH"
 
 }
 
@@ -596,9 +598,7 @@ count--
 total-=order[name].price
 
 if(order[name].qty<=0){
-
 delete order[name]
-
 }
 
 update()
@@ -636,26 +636,20 @@ msg+=i+" × "+order[i].qty+"%0A"
 
 }
 
-msg+="%0Aالمجموع: "+total+"dh"
+msg+="%0Aالمجموع: "+total+" DH"
 
 window.open("https://wa.me/212774475007?text="+msg)
 
 }
-
-/* SCROLL LINE */
 
 window.addEventListener("scroll",function(){
 
 let header=document.querySelector(".header")
 
 if(window.scrollY>40){
-
 header.classList.add("scrolled")
-
 }else{
-
 header.classList.remove("scrolled")
-
 }
 
 })
