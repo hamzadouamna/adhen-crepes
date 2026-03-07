@@ -128,12 +128,20 @@ margin-top:6px;
 /* PRICE */
 
 .price{
-display:inline-block;
+display:inline-flex;
+gap:4px;
+direction:ltr;
+align-items:center;
+
 margin-top:8px;
 padding:6px 14px;
+
 font-weight:bold;
+
 background:linear-gradient(45deg,#ff7a00,#ffb347);
+
 border-radius:20px;
+
 box-shadow:
 0 0 8px rgba(255,122,0,0.8),
 0 0 18px rgba(255,122,0,0.4);
@@ -355,7 +363,10 @@ html+=`
 
 <h3>${f.name}</h3>
 
-<div class="price">${f.price} DH</div>
+<div class="price">
+<span>${f.price}</span>
+<span>DH</span>
+</div>
 
 </div>
 
@@ -392,11 +403,9 @@ let rect=img.getBoundingClientRect()
 let fly=document.createElement("img")
 
 fly.src=img.src
-
 fly.className="fly"
 
 fly.style.left=rect.left+"px"
-
 fly.style.top=rect.top+"px"
 
 document.body.appendChild(fly)
@@ -408,9 +417,7 @@ let cartRect=cartBtn.getBoundingClientRect()
 setTimeout(()=>{
 
 fly.style.left=cartRect.left+"px"
-
 fly.style.top=cartRect.top+"px"
-
 fly.style.opacity=0
 
 },50)
@@ -478,8 +485,6 @@ items.innerHTML=html
 
 document.getElementById("total").innerText="المجموع: "+total+" DH"
 
-/* إغلاق السلة إذا أصبح الطلب صفر */
-
 if(count===0){
 cart.classList.remove("open")
 }
@@ -544,7 +549,7 @@ window.open("https://wa.me/212774475007?text="+msg)
 
 }
 
-/* إغلاق السلة عند الضغط خارجها بدون إضافة طلب */
+/* إغلاق السلة عند الضغط خارجها */
 
 document.addEventListener("click",function(e){
 
