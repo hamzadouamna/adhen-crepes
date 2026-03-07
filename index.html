@@ -29,7 +29,6 @@ padding:20px;
 text-align:center;
 font-size:34px;
 margin-bottom:25px;
-
 text-shadow:
 0 0 10px #ff8a00,
 0 0 20px #ff8a00,
@@ -65,11 +64,6 @@ border-radius:14px;
 margin-bottom:8px;
 }
 
-.card h3{
-font-size:18px;
-margin-top:6px;
-}
-
 /* PRICE */
 
 .price{
@@ -79,7 +73,6 @@ padding:6px 14px;
 font-weight:bold;
 background:linear-gradient(45deg,#ff7a00,#ffb347);
 border-radius:20px;
-
 box-shadow:
 0 0 8px rgba(255,122,0,0.8),
 0 0 18px rgba(255,122,0,0.4);
@@ -147,8 +140,6 @@ margin-top:12px;
 color:#ffb347;
 }
 
-/* INPUT */
-
 input{
 width:100%;
 padding:12px;
@@ -156,8 +147,6 @@ border:none;
 border-radius:10px;
 margin-top:10px;
 }
-
-/* WHATSAPP */
 
 button.send{
 width:100%;
@@ -178,6 +167,7 @@ cursor:pointer;
 position:fixed;
 top:90px;
 left:50%;
+
 transform:translateX(-50%) translateY(-20px) scale(.9);
 
 display:inline-flex;
@@ -203,64 +193,43 @@ transition:.35s;
 }
 
 .toast.show{
-
 opacity:1;
 transform:translateX(-50%) translateY(0) scale(1);
-
 }
 
 .toast-icon{
-
 width:24px;
 height:24px;
-
 border-radius:50%;
-
 background:#2ecc71;
-
 display:flex;
 align-items:center;
 justify-content:center;
-
 font-size:13px;
-
 }
 
 /* FLY IMAGE */
 
 .fly{
-
 position:fixed;
-
 width:70px;
 height:70px;
-
 border-radius:10px;
-
 pointer-events:none;
-
 z-index:999;
-
 transition:.7s cubic-bezier(.2,.8,.2,1);
-
 }
 
 /* CART BOUNCE */
 
 .cart-bounce{
-
 animation:cartBounce .4s;
-
 }
 
 @keyframes cartBounce{
-
 0%{transform:translateX(-50%) scale(1)}
-
 50%{transform:translateX(-50%) scale(1.2)}
-
 100%{transform:translateX(-50%) scale(1)}
-
 }
 
 </style>
@@ -322,15 +291,11 @@ let html=""
 foods.forEach(f=>{
 
 html+=`
-
 <div class="card" onclick="add('${f.name}',${f.price},this)">
-
 <img src="${f.img}">
 <h3>${f.name}</h3>
 <div class="price">${f.price}dh</div>
-
 </div>
-
 `
 
 })
@@ -348,11 +313,7 @@ document.getElementById("toast-text").innerText=text
 
 t.classList.add("show")
 
-setTimeout(()=>{
-
-t.classList.remove("show")
-
-},1500)
+setTimeout(()=>{ t.classList.remove("show") },1500)
 
 }
 
@@ -360,12 +321,16 @@ t.classList.remove("show")
 
 function add(name,price,el){
 
-let img=el.querySelector("img")
+let cart=document.getElementById("cart")
 
+if(cart.classList.contains("open")){
+return
+}
+
+let img=el.querySelector("img")
 let rect=img.getBoundingClientRect()
 
 let fly=document.createElement("img")
-
 fly.src=img.src
 fly.className="fly"
 
@@ -390,7 +355,6 @@ setTimeout(()=>{
 fly.remove()
 
 cartBtn.classList.add("cart-bounce")
-
 setTimeout(()=>cartBtn.classList.remove("cart-bounce"),400)
 
 },700)
@@ -426,7 +390,6 @@ for(let i in order){
 let line=order[i].qty*order[i].price
 
 html+=`
-
 <div class="cart-item">
 
 <span>${order[i].qty} × ${i} = ${line}dh</span>
@@ -444,28 +407,23 @@ html+=`
 </div>
 
 </div>
-
 `
 
 }
 
 items.innerHTML=html
 
-totalDiv=document.getElementById("total")
-totalDiv.innerText="المجموع: "+total+"dh"
+document.getElementById("total").innerText="المجموع: "+total+"dh"
 
 }
 
 /* PLUS */
 
 function plus(name){
-
 order[name].qty++
 count++
 total+=order[name].price
-
 update()
-
 }
 
 /* MINUS */
@@ -477,9 +435,7 @@ count--
 total-=order[name].price
 
 if(order[name].qty<=0){
-
 delete order[name]
-
 }
 
 update()
@@ -503,7 +459,9 @@ update()
 
 function toggleCart(){
 
-if(Object.keys(order).length===0) return
+if(count===0){
+return
+}
 
 cart.classList.toggle("open")
 
@@ -518,9 +476,7 @@ let name=document.getElementById("name").value
 let msg="طلب جديد%0A%0Aالاسم: "+name+"%0A%0A"
 
 for(let i in order){
-
 msg+=i+" × "+order[i].qty+"%0A"
-
 }
 
 msg+="%0Aالمجموع: "+total+"dh"
@@ -542,10 +498,11 @@ if(cart.contains(e.target) || btn.contains(e.target)) return
 
 cart.classList.remove("open")
 
+e.stopImmediatePropagation()
+
 },true)
 
 </script>
 
 </body>
-
 </html>
