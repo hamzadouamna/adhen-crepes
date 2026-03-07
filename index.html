@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ADHEN CREPES</title>
 
 <style>
@@ -27,11 +28,7 @@ padding:20px;
 text-align:center;
 font-size:34px;
 margin-bottom:25px;
-
-text-shadow:
-0 0 10px #ff8a00,
-0 0 20px #ff8a00,
-0 0 40px #ff4500;
+text-shadow:0 0 10px #ff8a00,0 0 20px #ff8a00,0 0 40px #ff4500;
 }
 
 /* FILTER */
@@ -79,14 +76,9 @@ border-radius:14px;
 margin-bottom:8px;
 }
 
-/* TITLE */
-
 .card h3{
 font-size:18px;
-font-weight:600;
 margin-top:6px;
-letter-spacing:0.5px;
-text-shadow:0 0 6px rgba(255,255,255,0.4);
 }
 
 /* PRICE */
@@ -100,17 +92,7 @@ font-size:14px;
 background:linear-gradient(45deg,#ff7a00,#ffb347);
 color:white;
 border-radius:20px;
-box-shadow:
-0 0 8px rgba(255,122,0,0.8),
-0 0 18px rgba(255,122,0,0.4);
-transition:0.3s;
-}
-
-.card:hover .price{
-transform:scale(1.1);
-box-shadow:
-0 0 12px rgba(255,140,0,1),
-0 0 25px rgba(255,140,0,0.6);
+box-shadow:0 0 8px rgba(255,122,0,0.8),0 0 18px rgba(255,122,0,0.4);
 }
 
 /* CART BUTTON */
@@ -134,11 +116,9 @@ animation:cartBounce 0.4s;
 }
 
 @keyframes cartBounce{
-
 0%{transform:translateX(-50%) scale(1);}
 50%{transform:translateX(-50%) scale(1.2);}
 100%{transform:translateX(-50%) scale(1);}
-
 }
 
 /* COUNTER */
@@ -212,6 +192,7 @@ cursor:pointer;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -219,9 +200,9 @@ cursor:pointer;
 <div class="logo">ADHEN CREPES</div>
 
 <div class="filters">
-<div class="filter" onclick="filter('all')">الكل</div>
-<div class="filter" onclick="filter('crepe')">كريب</div>
-<div class="filter" onclick="filter('jus')">عصائر</div>
+<div class="filter">الكل</div>
+<div class="filter">كريب</div>
+<div class="filter">عصائر</div>
 </div>
 
 <div class="menu" id="menu"></div>
@@ -249,17 +230,14 @@ cursor:pointer;
 
 /* SOUND */
 
-let clickSound = new Audio("click.mp3")
-clickSound.preload="auto"
+let clickSound=new Audio("click.mp3")
 
 /* FOODS */
 
 let foods=[
-
-{name:"كريب نوتيلا",price:15,cat:"crepe",img:"https://images.unsplash.com/photo-1519671482749-fd09be7ccebf"},
-{name:"كريب لوتس",price:18,cat:"crepe",img:"https://images.unsplash.com/photo-1587731556938-38755b4803a6"},
-{name:"عصير فراولة",price:15,cat:"jus",img:"https://images.unsplash.com/photo-1553530666-ba11a7da3888"}
-
+{name:"كريب نوتيلا",price:15,img:"https://images.unsplash.com/photo-1519671482749-fd09be7ccebf"},
+{name:"كريب لوتس",price:18,img:"https://images.unsplash.com/photo-1587731556938-38755b4803a6"},
+{name:"عصير فراولة",price:15,img:"https://images.unsplash.com/photo-1553530666-ba11a7da3888"}
 ]
 
 let order={}
@@ -276,7 +254,7 @@ foods.forEach(f=>{
 
 html+=`
 
-<div class="card" data-cat="${f.cat}" onclick="add(event,'${f.name}',${f.price})">
+<div class="card" onclick="add(event,'${f.name}',${f.price})">
 
 <img src="${f.img}">
 <h3>${f.name}</h3>
@@ -288,17 +266,15 @@ html+=`
 
 })
 
-document.getElementById("menu").innerHTML=html
+menu.innerHTML=html
 
 }
 
-/* ADD PRODUCT */
+/* ADD */
 
 function add(e,name,price){
 
 let cart=document.getElementById("cart")
-
-/* منع إضافة منتج إذا كانت السلة مفتوحة */
 
 if(cart.classList.contains("open")){
 return
@@ -317,56 +293,18 @@ update()
 
 cart.classList.add("open")
 
-/* CART BOUNCE */
-
-let cartBtn=document.querySelector(".cart-btn")
-
-cartBtn.classList.add("cart-bounce")
-
-setTimeout(()=>{
-cartBtn.classList.remove("cart-bounce")
-},400)
-
-/* FLY IMAGE */
-
-let img=e.currentTarget.querySelector("img")
-
-let clone=img.cloneNode(true)
-
-let rect=img.getBoundingClientRect()
-let cartRect=cartBtn.getBoundingClientRect()
-
-clone.style.position="fixed"
-clone.style.left=rect.left+"px"
-clone.style.top=rect.top+"px"
-clone.style.width="80px"
-clone.style.zIndex="1000"
-clone.style.transition="all 0.6s ease"
-
-document.body.appendChild(clone)
-
-setTimeout(()=>{
-
-clone.style.left=cartRect.left+"px"
-clone.style.top=cartRect.top+"px"
-clone.style.opacity="0.3"
-clone.style.transform="scale(0.3)"
-
-},10)
-
-setTimeout(()=>{
-clone.remove()
-},600)
-
 }
 
 /* PLUS */
 
 function plus(name){
+
 order[name].qty++
 count++
 total+=order[name].price
+
 update()
+
 }
 
 /* MINUS */
@@ -402,7 +340,7 @@ update()
 
 function update(){
 
-document.getElementById("counter").innerText=count
+counter.innerText=count
 
 let html=""
 
@@ -414,7 +352,7 @@ html+=`
 
 <div class="cart-item">
 
-<span>${lineTotal}dh = ${order[i].qty} × ${i}</span>
+<span>${order[i].qty} × ${i} = ${lineTotal}dh</span>
 
 <div class="controls">
 
@@ -434,21 +372,21 @@ html+=`
 
 }
 
-document.getElementById("items").innerHTML=html
+items.innerHTML=html
 
-document.getElementById("total").innerText="المجموع: "+total+"dh"
+totalBox="المجموع: "+total+"dh"
+
+document.getElementById("total").innerText=totalBox
 
 if(Object.keys(order).length===0){
-document.getElementById("cart").classList.remove("open")
+cart.classList.remove("open")
 }
 
 }
 
-/* TOGGLE CART */
+/* TOGGLE */
 
 function toggleCart(){
-
-let cart=document.getElementById("cart")
 
 if(Object.keys(order).length===0){
 return
@@ -476,19 +414,22 @@ window.open("https://wa.me/212774475007?text="+msg)
 
 }
 
-/* CLOSE CART */
+/* CLOSE CART FIX */
 
 document.addEventListener("click",function(e){
 
 let cart=document.getElementById("cart")
 let cartBtn=document.querySelector(".cart-btn")
 
-if(
-cart.classList.contains("open") &&
-!cart.contains(e.target) &&
-!cartBtn.contains(e.target)
-){
+if(cart.classList.contains("open")){
+
+if(cart.contains(e.target) || cartBtn.contains(e.target)){
+return
+}
+
 cart.classList.remove("open")
+e.stopPropagation()
+
 }
 
 })
