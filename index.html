@@ -10,6 +10,13 @@
 
 <style>
 
+/* TROX FONT */
+
+@font-face{
+font-family:"Trox";
+src:url("TROX.ttf") format("truetype");
+}
+
 *{
 margin:0;
 padding:0;
@@ -26,138 +33,246 @@ padding:20px;
 /* LOGO */
 
 .logo{
+
+font-family:"Trox";
+
 text-align:center;
-font-size:34px;
+
+font-size:38px;
+
 margin-bottom:25px;
+
+letter-spacing:2px;
+
 text-shadow:
 0 0 10px #ff8a00,
 0 0 20px #ff8a00,
 0 0 40px #ff4500;
+
 }
 
 /* MENU */
 
 .menu{
+
 display:grid;
+
 grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+
 gap:18px;
+
 }
 
 .card{
+
 background:rgba(255,255,255,0.08);
+
 backdrop-filter:blur(15px);
+
 border-radius:20px;
+
 padding:12px;
+
 text-align:center;
+
 transition:.3s;
+
 cursor:pointer;
+
 }
 
 .card:hover{
+
 transform:scale(1.05);
+
 box-shadow:0 0 20px orange;
+
 }
 
 .card img{
+
 width:100%;
+
 border-radius:14px;
+
 margin-bottom:8px;
+
+}
+
+/* FOOD NAME */
+
+.card h3{
+
+font-family:"Trox";
+
+font-size:20px;
+
+margin-top:6px;
+
 }
 
 /* PRICE */
 
 .price{
+
 display:inline-block;
+
 margin-top:8px;
+
 padding:6px 14px;
+
 font-weight:bold;
+
 background:linear-gradient(45deg,#ff7a00,#ffb347);
+
 border-radius:20px;
+
 box-shadow:
 0 0 8px rgba(255,122,0,0.8),
 0 0 18px rgba(255,122,0,0.4);
+
 }
 
 /* CART BUTTON */
 
 .cart-btn{
+
 position:fixed;
+
 bottom:20px;
+
 left:50%;
+
 transform:translateX(-50%);
+
 background:#ff7a00;
+
 padding:14px 25px;
+
 border-radius:30px;
+
 cursor:pointer;
+
 box-shadow:0 0 20px #ff7a00;
+
 }
 
 .counter{
+
 position:absolute;
+
 top:-6px;
+
 right:-6px;
+
 background:red;
+
 color:white;
+
 font-size:12px;
+
 padding:3px 7px;
+
 border-radius:50%;
+
 }
 
 /* CART */
 
 .cart{
+
 position:fixed;
+
 bottom:-100%;
+
 left:0;
+
 width:100%;
+
 background:#111;
+
 border-radius:25px 25px 0 0;
+
 padding:20px;
+
 transition:.4s;
+
 }
 
 .cart.open{
+
 bottom:0;
+
 }
 
 .cart-item{
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
+
 margin-top:10px;
+
 }
 
 .controls button{
+
 padding:4px 8px;
+
 margin:2px;
+
 border:none;
+
 border-radius:6px;
+
 cursor:pointer;
+
 }
 
 .total{
+
 margin-top:12px;
+
 color:#ffb347;
+
 }
 
 input{
+
 width:100%;
+
 padding:12px;
+
 border:none;
+
 border-radius:10px;
+
 margin-top:10px;
+
 }
 
 button.send{
+
 width:100%;
+
 padding:14px;
+
 border:none;
+
 border-radius:12px;
+
 background:#25D366;
+
 color:white;
+
 margin-top:12px;
+
 font-size:16px;
+
 cursor:pointer;
+
 }
 
 /* NOTIFICATION */
@@ -165,13 +280,17 @@ cursor:pointer;
 .toast{
 
 position:fixed;
+
 top:90px;
+
 left:50%;
 
 transform:translateX(-50%) translateY(-20px) scale(.9);
 
 display:inline-flex;
+
 align-items:center;
+
 gap:10px;
 
 padding:12px 18px;
@@ -193,43 +312,69 @@ transition:.35s;
 }
 
 .toast.show{
+
 opacity:1;
+
 transform:translateX(-50%) translateY(0) scale(1);
+
 }
 
 .toast-icon{
+
 width:24px;
+
 height:24px;
+
 border-radius:50%;
+
 background:#2ecc71;
+
 display:flex;
+
 align-items:center;
+
 justify-content:center;
+
 font-size:13px;
+
 }
 
 /* FLY IMAGE */
 
 .fly{
+
 position:fixed;
+
 width:70px;
+
 height:70px;
+
 border-radius:10px;
+
 pointer-events:none;
+
 z-index:999;
+
 transition:.7s cubic-bezier(.2,.8,.2,1);
+
 }
 
 /* CART BOUNCE */
 
 .cart-bounce{
+
 animation:cartBounce .4s;
+
 }
 
 @keyframes cartBounce{
+
 0%{transform:translateX(-50%) scale(1)}
+
 50%{transform:translateX(-50%) scale(1.2)}
+
 100%{transform:translateX(-50%) scale(1)}
+
 }
 
 </style>
@@ -273,7 +418,9 @@ let clickSound=new Audio("click.mp3")
 let foods=[
 
 {name:"كريب لوتس",price:18,img:"https://images.unsplash.com/photo-1519671482749-fd09be7ccebf"},
+
 {name:"كريب نوتيلا",price:15,img:"https://images.unsplash.com/photo-1587731556938-38755b4803a6"},
+
 {name:"عصير فراولة",price:15,img:"https://images.unsplash.com/photo-1553530666-ba11a7da3888"}
 
 ]
@@ -291,11 +438,17 @@ let html=""
 foods.forEach(f=>{
 
 html+=`
+
 <div class="card" onclick="add('${f.name}',${f.price},this)">
+
 <img src="${f.img}">
+
 <h3>${f.name}</h3>
+
 <div class="price">${f.price}dh</div>
+
 </div>
+
 `
 
 })
@@ -304,48 +457,50 @@ menu.innerHTML=html
 
 }
 
-/* NOTIFICATION */
-
 function toast(text){
 
 let t=document.getElementById("toast")
+
 document.getElementById("toast-text").innerText=text
 
 t.classList.add("show")
 
-setTimeout(()=>{ t.classList.remove("show") },1500)
+setTimeout(()=>{t.classList.remove("show")},1500)
 
 }
-
-/* ADD */
 
 function add(name,price,el){
 
 let cart=document.getElementById("cart")
 
-if(cart.classList.contains("open")){
-return
-}
+if(cart.classList.contains("open")) return
 
 let img=el.querySelector("img")
+
 let rect=img.getBoundingClientRect()
 
 let fly=document.createElement("img")
+
 fly.src=img.src
+
 fly.className="fly"
 
 fly.style.left=rect.left+"px"
+
 fly.style.top=rect.top+"px"
 
 document.body.appendChild(fly)
 
 let cartBtn=document.querySelector(".cart-btn")
+
 let cartRect=cartBtn.getBoundingClientRect()
 
 setTimeout(()=>{
 
 fly.style.left=cartRect.left+"px"
+
 fly.style.top=cartRect.top+"px"
+
 fly.style.opacity=0
 
 },50)
@@ -355,6 +510,7 @@ setTimeout(()=>{
 fly.remove()
 
 cartBtn.classList.add("cart-bounce")
+
 setTimeout(()=>cartBtn.classList.remove("cart-bounce"),400)
 
 },700)
@@ -364,9 +520,11 @@ if(!order[name]) order[name]={qty:0,price:price}
 order[name].qty++
 
 count++
+
 total+=price
 
 clickSound.currentTime=0
+
 clickSound.play()
 
 toast("تمت إضافة "+name)
@@ -376,8 +534,6 @@ update()
 cart.classList.add("open")
 
 }
-
-/* UPDATE */
 
 function update(){
 
@@ -390,6 +546,7 @@ for(let i in order){
 let line=order[i].qty*order[i].price
 
 html+=`
+
 <div class="cart-item">
 
 <span>${order[i].qty} × ${i} = ${line}dh</span>
@@ -407,6 +564,7 @@ html+=`
 </div>
 
 </div>
+
 `
 
 }
@@ -417,36 +575,40 @@ document.getElementById("total").innerText="المجموع: "+total+"dh"
 
 }
 
-/* PLUS */
-
 function plus(name){
-order[name].qty++
-count++
-total+=order[name].price
-update()
-}
 
-/* MINUS */
+order[name].qty++
+
+count++
+
+total+=order[name].price
+
+update()
+
+}
 
 function minus(name){
 
 order[name].qty--
+
 count--
+
 total-=order[name].price
 
 if(order[name].qty<=0){
+
 delete order[name]
+
 }
 
 update()
 
 }
 
-/* REMOVE */
-
 function removeItem(name){
 
 count-=order[name].qty
+
 total-=order[name].qty*order[name].price
 
 delete order[name]
@@ -455,19 +617,13 @@ update()
 
 }
 
-/* CART */
-
 function toggleCart(){
 
-if(count===0){
-return
-}
+if(count===0) return
 
 cart.classList.toggle("open")
 
 }
-
-/* SEND */
 
 function send(){
 
@@ -476,7 +632,9 @@ let name=document.getElementById("name").value
 let msg="طلب جديد%0A%0Aالاسم: "+name+"%0A%0A"
 
 for(let i in order){
+
 msg+=i+" × "+order[i].qty+"%0A"
+
 }
 
 msg+="%0Aالمجموع: "+total+"dh"
@@ -485,11 +643,10 @@ window.open("https://wa.me/212774475007?text="+msg)
 
 }
 
-/* CLOSE CART FIX */
-
 document.addEventListener("click",function(e){
 
 const cart=document.getElementById("cart")
+
 const btn=document.querySelector(".cart-btn")
 
 if(!cart.classList.contains("open")) return
@@ -505,4 +662,5 @@ e.stopImmediatePropagation()
 </script>
 
 </body>
+
 </html>
