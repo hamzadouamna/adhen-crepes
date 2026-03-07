@@ -2,10 +2,8 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ADHEN CREPES</title>
 
 <style>
@@ -158,7 +156,6 @@ cursor:pointer;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -166,11 +163,9 @@ cursor:pointer;
 <div class="logo">ADHEN CREPES</div>
 
 <div class="filters">
-
 <div class="filter" onclick="filter('all')">الكل</div>
 <div class="filter" onclick="filter('crepe')">كريب</div>
 <div class="filter" onclick="filter('jus')">عصائر</div>
-
 </div>
 
 <div class="menu" id="menu"></div>
@@ -196,11 +191,10 @@ cursor:pointer;
 
 <script>
 
-/* تحميل الصوت مرة واحدة */
+/* صوت الكليك */
 
 let clickSound = new Audio("click.mp3")
-clickSound.preload = "auto"
-
+clickSound.preload="auto"
 
 let foods=[
 
@@ -258,24 +252,18 @@ c.style.display="none"
 
 function add(name,price){
 
-let cart=document.getElementById("cart")
-
-if(cart.classList.contains("open")){
-return
-}
-
 if(!order[name]) order[name]={qty:0,price:price}
 
 order[name].qty++
 count++
 total+=price
 
-/* تشغيل الصوت فور الكليك */
-
 clickSound.currentTime=0
 clickSound.play()
 
 update()
+
+document.getElementById("cart").classList.add("open")
 
 }
 
@@ -346,8 +334,11 @@ html+=`
 }
 
 document.getElementById("items").innerHTML=html
-
 document.getElementById("total").innerText="المجموع: "+total+"dh"
+
+if(Object.keys(order).length===0){
+document.getElementById("cart").classList.remove("open")
+}
 
 }
 
@@ -370,9 +361,7 @@ let name=document.getElementById("name").value
 let msg="طلب جديد%0A%0Aالاسم: "+name+"%0A%0A"
 
 for(let i in order){
-
 msg+=i+" ×"+order[i].qty+"%0A"
-
 }
 
 msg+="%0Aالمجموع: "+total+"dh"
@@ -380,6 +369,8 @@ msg+="%0Aالمجموع: "+total+"dh"
 window.open("https://wa.me/212774475007?text="+msg)
 
 }
+
+/* اغلاق السلة عند الضغط خارجها */
 
 document.addEventListener("click",function(e){
 
