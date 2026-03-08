@@ -6,18 +6,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ADHEN CREPES | Premium Taste</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap" rel="stylesheet" />
 
 <style>
 
 :root{
 --primary:#ff9f1c;
+--secondary:#2ec4b6;
 --dark-bg:#0f1014;
 --card-bg:#1c1e26;
---text:#ffffff;
+--text-color:#ffffff;
+--glass:rgba(255,255,255,0.05);
 }
 
 *{
@@ -27,15 +29,14 @@ padding:0;
 }
 
 body{
-background:var(--dark-bg);
-color:white;
+background-color:var(--dark-bg);
+background-image:radial-gradient(circle at top right,#2a2a2a 0%,#0f1014 60%);
+color:var(--text-color);
 font-family:'Tajawal',sans-serif;
 text-align:center;
 overflow-x:hidden;
 padding-bottom:100px;
 }
-
-/* HEADER */
 
 header{
 padding:40px 20px;
@@ -51,6 +52,7 @@ animation:fadeUp 1s forwards .5s;
 }
 
 .tagline{
+font-size:1.1rem;
 color:#aaa;
 opacity:0;
 animation:fadeUp 1s forwards .8s;
@@ -63,21 +65,19 @@ transform:translateY(0);
 }
 }
 
-/* MENU */
-
 .container{
 max-width:1200px;
 margin:auto;
-padding:20px;
+padding:0 20px;
 }
 
 .menu{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:25px;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
 margin-top:40px;
 opacity:0;
-transform:translateY(40px);
+transform:translateY(50px);
 transition:1s;
 }
 
@@ -91,11 +91,6 @@ background:var(--card-bg);
 border-radius:20px;
 overflow:hidden;
 cursor:pointer;
-transition:.3s;
-}
-
-.card:hover{
-transform:translateY(-10px);
 }
 
 .card-img-wrapper{
@@ -122,8 +117,6 @@ border-radius:30px;
 font-weight:bold;
 }
 
-/* CART BUTTON */
-
 .cart-float{
 position:fixed;
 bottom:30px;
@@ -136,7 +129,6 @@ cursor:pointer;
 display:flex;
 gap:10px;
 font-weight:bold;
-box-shadow:0 10px 20px rgba(255,122,0,.3);
 }
 
 .counter-badge{
@@ -150,8 +142,6 @@ align-items:center;
 justify-content:center;
 font-size:13px;
 }
-
-/* CART */
 
 .overlay{
 position:fixed;
@@ -218,8 +208,6 @@ border-radius:10px;
 margin-bottom:10px;
 }
 
-/* + - buttons */
-
 .qty-controls{
 display:flex;
 align-items:center;
@@ -237,28 +225,17 @@ cursor:pointer;
 font-weight:bold;
 }
 
-/* TOTAL */
-
 .cart-total{
 font-size:20px;
 color:var(--primary);
 margin-bottom:10px;
 }
 
-/* INPUT */
-
-.input-group{
-position:sticky;
-bottom:0;
-background:#16181f;
-padding-top:10px;
-}
-
 input{
 width:100%;
 padding:12px;
-border:none;
 border-radius:10px;
+border:none;
 background:#222;
 color:white;
 }
@@ -309,15 +286,11 @@ cursor:pointer;
 المجموع: <span id="total">0</span> درهم
 </div>
 
-<div class="input-group">
-
-<input type="text" id="name" placeholder="أدخل اسمك هنا..." />
+<input id="name" placeholder="اسمك">
 
 <button class="btn-whatsapp" onclick="send()">
 إرسال الطلب عبر واتساب
 </button>
-
-</div>
 
 </aside>
 
