@@ -1,453 +1,457 @@
-The user wants to update the WhatsApp phone number in the provided HTML code.
-The current number in the code is `967736078562`.
-The new number provided is `+212 774-475007`.
-
-I need to:
-1.  Locate the `send()` function in the JavaScript section.
-2.  Find the `phoneNumber` variable.
-3.  Update the value to `212774475007` (removing the `+` and spaces/dashes as required by the WhatsApp API format).
-4.  Return the full, corrected HTML code.
-إليك الكود الكامل بعد تحديث رقم الواتساب إلى الرقم الذي طلبته (`+212 774-475007`).
-
-لقد قمت بإزالة الرموز الخاصة (مثل + و - والمسافات) من الرقم ليتوافق مع صيغة رابط الواتساب الصحيح.
-
-```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ADHEN CREPES | Premium Taste</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ADHEN CREPES | Premium Taste</title>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <style>
-        :root {
-            --primary: #ff9f1c;
-            --secondary: #2ec4b6;
-            --dark-bg: #0f1014;
-            --card-bg: #1c1e26;
-            --text-color: #ffffff;
-            --glass: rgba(255, 255, 255, 0.05);
-        }
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap" rel="stylesheet" />
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
 
-        body {
-            background-color: var(--dark-bg);
-            background-image: radial-gradient(circle at top right, #2a2a2a 0%, #0f1014 60%);
-            color: var(--text-color);
-            font-family: 'Tajawal', sans-serif;
-            text-align: center;
-            overflow-x: hidden;
-            padding-bottom: 100px;
-        }
+:root{
+--primary:#ff9f1c;
+--secondary:#2ec4b6;
+--dark-bg:#0f1014;
+--card-bg:#1c1e26;
+--text-color:#ffffff;
+--glass:rgba(255,255,255,0.05);
+}
 
-        /* HEADER & LOGO */
-        header {
-            padding: 40px 20px;
-            position: relative;
-            z-index: 10;
-        }
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
-        .logo {
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: var(--primary);
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1s forwards 0.5s;
-        }
+body{
+background-color:var(--dark-bg);
+background-image:radial-gradient(circle at top right,#2a2a2a 0%,#0f1014 60%);
+color:var(--text-color);
+font-family:'Tajawal',sans-serif;
+text-align:center;
+overflow-x:hidden;
+padding-bottom:100px;
+}
 
-        .tagline {
-            font-size: 1.1rem;
-            color: #aaa;
-            opacity: 0;
-            animation: fadeUp 1s forwards 0.8s;
-        }
+header{
+padding:40px 20px;
+position:relative;
+z-index:10;
+}
 
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+.logo{
+font-size:3rem;
+font-weight:800;
+letter-spacing:2px;
+color:var(--primary);
+text-transform:uppercase;
+margin-bottom:10px;
+opacity:0;
+transform:translateY(30px);
+animation:fadeUp 1s forwards .5s;
+}
 
-        /* MENU GRID */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+.tagline{
+font-size:1.1rem;
+color:#aaa;
+opacity:0;
+animation:fadeUp 1s forwards .8s;
+}
 
-        .menu {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease;
-        }
+@keyframes fadeUp{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
 
-        .menu.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
+.container{
+max-width:1200px;
+margin:0 auto;
+padding:0 20px;
+}
 
-        /* CARD DESIGN */
-        .card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
+.menu{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+margin-top:40px;
+opacity:0;
+transform:translateY(50px);
+transition:all 1s ease;
+}
 
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(255, 159, 28, 0.15);
-            border-color: var(--primary);
-        }
+.menu.show{
+opacity:1;
+transform:translateY(0);
+}
 
-        .card-img-wrapper {
-            height: 200px;
-            overflow: hidden;
-            position: relative;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
+.card{
+background:var(--card-bg);
+border-radius:20px;
+overflow:hidden;
+border:1px solid rgba(255,255,255,0.05);
+transition:transform .3s ease,box-shadow .3s ease;
+cursor:pointer;
+display:flex;
+flex-direction:column;
+}
 
-        .card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 10px 30px rgba(255,159,28,.15);
+border-color:var(--primary);
+}
 
-        .card:hover img {
-            transform: scale(1.1);
-        }
+.card-img-wrapper{
+height:200px;
+overflow:hidden;
+border-bottom:1px solid rgba(255,255,255,.05);
+}
 
-        .card-content {
-            padding: 20px;
-            text-align: right;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+.card img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:transform .5s ease;
+}
 
-        .card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
+.card:hover img{
+transform:scale(1.1);
+}
 
-        .price-tag {
-            background: rgba(255, 159, 28, 0.1);
-            color: var(--primary);
-            padding: 6px 15px;
-            border-radius: 50px;
-            font-weight: bold;
-            display: inline-block;
-            font-size: 1.1rem;
-            align-self: flex-start;
-        }
+.card-content{
+padding:20px;
+text-align:right;
+flex-grow:1;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
 
-        /* FLOATING CART BUTTON */
-        .cart-float {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(45deg, var(--primary), #ff7a00);
-            padding: 15px 40px;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(255, 122, 0, 0.3);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: transform 0.3s;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
+.card h3{
+font-size:1.4rem;
+margin-bottom:10px;
+}
 
-        .cart-float:hover {
-            transform: translateX(-50%) scale(1.05);
-        }
+.price-tag{
+background:rgba(255,159,28,.1);
+color:var(--primary);
+padding:6px 15px;
+border-radius:50px;
+font-weight:bold;
+display:inline-block;
+}
 
-        .counter-badge {
-            background: white;
-            color: var(--primary);
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
-            user-select: none;
-        }
+.cart-float{
+position:fixed;
+bottom:30px;
+left:50%;
+transform:translateX(-50%);
+background:linear-gradient(45deg,var(--primary),#ff7a00);
+padding:15px 40px;
+border-radius:50px;
+cursor:pointer;
+box-shadow:0 10px 20px rgba(255,122,0,.3);
+z-index:100;
+display:flex;
+align-items:center;
+gap:10px;
+font-weight:700;
+font-size:1.2rem;
+}
 
-        /* MODERN CART SIDEBAR */
-        .cart-sidebar {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            max-width: 400px;
-            height: 100vh;
-            background: #16181f;
-            z-index: 200;
-            padding: 30px;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
-        }
+.counter-badge{
+background:white;
+color:var(--primary);
+width:24px;
+height:24px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+font-size:14px;
+}
 
-        .cart-sidebar.open {
-            left: 0;
-        }
+.cart-sidebar{
+position:fixed;
+top:0;
+left:-100%;
+width:100%;
+max-width:400px;
+height:100vh;
+background:#16181f;
+z-index:200;
+padding:30px;
+transition:.4s;
+box-shadow:10px 0 30px rgba(0,0,0,.5);
+display:flex;
+flex-direction:column;
+}
 
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 15px;
-        }
+.cart-sidebar.open{
+left:0;
+}
 
-        .close-cart {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 24px;
-            cursor: pointer;
-            user-select: none;
-        }
+.cart-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+border-bottom:1px solid rgba(255,255,255,.1);
+padding-bottom:15px;
+}
 
-        .cart-items {
-            flex-grow: 1;
-            overflow-y: auto;
-            margin-bottom: 20px;
-        }
+.close-cart{
+background:none;
+border:none;
+color:#fff;
+font-size:24px;
+cursor:pointer;
+}
 
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            font-weight: 500;
-            font-size: 1.1rem;
-        }
+.cart-items{
+flex-grow:1;
+overflow-y:auto;
+margin-bottom:20px;
+}
 
-        .cart-item span {
-            user-select: none;
-        }
+.cart-item{
+display:flex;
+justify-content:space-between;
+background:rgba(255,255,255,.03);
+padding:15px;
+border-radius:12px;
+margin-bottom:10px;
+}
 
-        .cart-total {
-            font-size: 1.5rem;
-            color: var(--primary);
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-align: left;
-        }
+.cart-total{
+font-size:1.5rem;
+color:var(--primary);
+font-weight:bold;
+margin-bottom:20px;
+text-align:left;
+}
 
-        .input-group {
-            margin-top: auto;
-        }
+input{
+width:100%;
+padding:15px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+border-radius:12px;
+color:white;
+font-family:'Tajawal',sans-serif;
+outline:none;
+}
 
-        input {
-            width: 100%;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: white;
-            font-family: 'Tajawal', sans-serif;
-            outline: none;
-            transition: 0.3s;
-            font-size: 1.1rem;
-            direction: rtl;
-        }
+.btn-whatsapp{
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+background:#25d366;
+color:white;
+margin-top:15px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
 
-        input::placeholder {
-            color: #bbb;
-        }
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.6);
+opacity:0;
+pointer-events:none;
+transition:.3s;
+}
 
-        input:focus {
-            border-color: var(--primary);
-        }
+.overlay.active{
+opacity:1;
+pointer-events:all;
+}
 
-        .btn-whatsapp {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            background: #25d366;
-            color: white;
-            margin-top: 15px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            font-family: 'Tajawal', sans-serif;
-            transition: 0.3s;
-            user-select: none;
-        }
-
-        .btn-whatsapp:hover {
-            background: #1ebc57;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-        }
-
-        /* Overlay for cart */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            z-index: 150;
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.3s;
-        }
-
-        .overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        /* Scrollbar for cart items */
-        .cart-items::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .cart-items::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .cart-items::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
-        }
-    </style>
+</style>
 </head>
 
 <body>
 
-    <header>
-        <h1 class="logo">ADHEN CREPES</h1>
-        <p class="tagline">أفضل كريب في المدينة</p>
-    </header>
+<header>
+<h1 class="logo">ADHEN CREPES</h1>
+<p class="tagline">أفضل كريب في المدينة</p>
+</header>
 
-    <div class="container">
-        <div class="menu" id="menu" aria-label="قائمة الطعام">
-            <!-- Menu items injected by JavaScript -->
-        </div>
-    </div>
+<div class="container">
+<div class="menu" id="menu"></div>
+</div>
 
-    <!-- Floating Cart Button -->
-    <button class="cart-float" id="cartBtn" aria-label="سلة الطلبات" onclick="toggleCart()">
-        <span>🛒</span>
-        <span>سلة الطلبات</span>
-        <span class="counter-badge" id="counter">0</span>
-    </button>
+<button class="cart-float" id="cartBtn" onclick="toggleCart()">
+🛒 سلة الطلبات
+<span class="counter-badge" id="counter">0</span>
+</button>
 
-    <!-- Overlay -->
-    <div class="overlay" id="overlay" onclick="toggleCart()" tabindex="-1" aria-hidden="true"></div>
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
 
-    <!-- Cart Sidebar -->
-    <aside class="cart-sidebar" id="cart" aria-label="سلة الطلب" role="dialog" aria-modal="true" aria-hidden="true">
-        <div class="cart-header">
-            <h2>طلبك الحالي</h2>
-            <button class="close-cart" id="closeCart" aria-label="إغلاق السلة">✕</button>
-        </div>
+<aside class="cart-sidebar" id="cart">
+<div class="cart-header">
+<h2>طلبك الحالي</h2>
+<button class="close-cart" id="closeCart">✕</button>
+</div>
 
-        <div class="cart-items" id="items" role="list">
-            <!-- Cart items go here -->
-        </div>
+<div class="cart-items" id="items"></div>
 
-        <div class="cart-total" aria-live="polite" aria-atomic="true">
-            المجموع: <span id="total">0</span> درهم
-        </div>
+<div class="cart-total">
+المجموع: <span id="total">0</span> درهم
+</div>
 
-        <div class="input-group">
-            <input type="text" id="name" placeholder="أدخل اسمك هنا..." aria-label="اسم العميل" />
-            <button class="btn-whatsapp" onclick="send()">إرسال الطلب عبر واتساب</button>
-        </div>
-    </aside>
+<input type="text" id="name" placeholder="أدخل اسمك هنا..." />
 
-    <script>
-        const foods = [
-            { name: "كريب لوتس", price: 18, img: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=400&q=80" },
-            { name: "كريب نوتيلا", price: 15, img: "https://images.unsplash.com/photo-1587731556938-38755b4803a6?auto=format&fit=crop&w=400&q=80" },
-            { name: "عصير فراولة", price: 15, img: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=400&q=80" },
-            { name: "كريب جبنة", price: 16, img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=400&q=80" },
-            { name: "كريب لحم", price: 22, img: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80" }
-        ];
+<button class="btn-whatsapp" onclick="send()">إرسال الطلب عبر واتساب</button>
 
-        let order = {};
-        let total = 0;
+</aside>
 
-        const menuElement = document.getElementById('menu');
-        const counterElement = document.getElementById('counter');
-        const cartElement = document.getElementById('cart');
-        const overlayElement = document.getElementById('overlay');
-        const itemsElement = document.getElementById('items');
-        const totalElement = document.getElementById('total');
-        const nameInput = document.getElementById('name');
-        const closeCartBtn = document.getElementById('closeCart');
-        const cartBtn = document.getElementById('cartBtn');
+<script>
 
-        // Render the menu items
-        function renderMenu() {
-            let html = '';
+const foods=[
+{name:"كريب لوتس",price:18,img:"https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=400&q=80"},
+{name:"كريب نوتيلا",price:15,img:"https://images.unsplash.com/photo-1587731556938-38755b4803a6?auto=format&fit=crop&w=400&q=80"},
+{name:"عصير فراولة",price:15,img:"https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=400&q=80"}
+];
 
-            foods.forEach((food, index) => {
-                html += `
-                <article class="card" role="button" tabindex="0" aria-label="أضف ${food.name} بسعر ${food.price} درهم" style="animation-delay:${index * 0.1}s">
-                    <div class="card-img-wrapper">
-                        <img src="${food.img}" alt="${food.name}" loading="lazy" />
-                    </div>
-                    <div class="card-content">
-                        <h3>${food.name}</h3>
-                        <span class="price-tag">${food.price} درهم</span>
-                    </div>
-                </article>`;
-            });
+let order={}
+let total=0
 
-            menuElement.innerHTML = html;
+const menuElement=document.getElementById("menu")
+const counterElement=document.getElementById("counter")
+const cartElement=document.getElementById("cart")
+const overlayElement=document.getElementById("overlay")
+const itemsElement=document.getElementById("items")
+const totalElement=document.getElementById("total")
+const nameInput=document.getElementById("name")
 
-            // Add click & keyboard event listeners to cards
-            const cards = menuElement.querySelectorAll('.card');
-            cards.forEach((card, index) => {
-                card.addEventListener('click', () => add(foods[index].name, foods[index].price));
-                card.addEventListener('keydown', (e) => {
-                    if (e.key ===
+function renderMenu(){
+
+let html=""
+
+foods.forEach((food,index)=>{
+
+html+=`
+<article class="card" onclick="add('${food.name}',${food.price})">
+<div class="card-img-wrapper">
+<img src="${food.img}" loading="lazy">
+</div>
+<div class="card-content">
+<h3>${food.name}</h3>
+<span class="price-tag">${food.price} درهم</span>
+</div>
+</article>
+`
+
+})
+
+menuElement.innerHTML=html
+
+}
+
+function add(name,price){
+
+if(order[name]) order[name]++
+else order[name]=1
+
+updateCart()
+
+}
+
+function remove(name){
+
+order[name]--
+
+if(order[name]==0) delete order[name]
+
+updateCart()
+
+}
+
+function updateCart(){
+
+itemsElement.innerHTML=""
+total=0
+let count=0
+
+for(const[name,qty]of Object.entries(order)){
+
+const food=foods.find(f=>f.name===name)
+
+total+=food.price*qty
+count+=qty
+
+itemsElement.innerHTML+=`
+<div class="cart-item">
+<span>${qty} × ${name}</span>
+<span>${qty*food.price} درهم</span>
+</div>
+`
+
+}
+
+counterElement.textContent=count
+totalElement.textContent=total
+
+}
+
+function toggleCart(){
+
+cartElement.classList.toggle("open")
+overlayElement.classList.toggle("active")
+
+}
+
+function send(){
+
+const name=nameInput.value.trim()
+
+if(!name){
+alert("الرجاء إدخال اسمك")
+return
+}
+
+let message=`مرحبا، اسمي ${name} وأرغب في طلب:\n\n`
+
+for(const[name,qty]of Object.entries(order)){
+
+const food=foods.find(f=>f.name===name)
+
+message+=`- ${qty} × ${name} = ${qty*food.price} درهم\n`
+
+}
+
+message+=`\nالمجموع: ${total} درهم`
+
+const encoded=encodeURIComponent(message)
+
+const phoneNumber='212774475007'
+
+const url=`https://wa.me/${phoneNumber}?text=${encoded}`
+
+window.open(url,'_blank')
+
+}
+
+window.onload=()=>{
+renderMenu()
+setTimeout(()=>menuElement.classList.add("show"),300)
+}
+
+</script>
+
+</body>
+</html>
