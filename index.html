@@ -32,7 +32,6 @@
 
 body {
     background-color: var(--dark-bg);
-    /* Subtle noise texture for premium feel */
     background-image: 
         radial-gradient(circle at 10% 20%, rgba(46, 196, 182, 0.05) 0%, transparent 40%),
         radial-gradient(circle at 90% 80%, rgba(255, 159, 28, 0.05) 0%, transparent 40%),
@@ -422,29 +421,4 @@ input:focus {
     <div class="menu" id="menu"></div>
 </div>
 
-<button class="cart-float" id="cartBtn" onclick="toggleCart()">
-    🛒 الطلب
-    <span class="counter-badge" id="counter">0</span>
-</button>
-
-<div class="overlay" id="overlay" onclick="toggleCart()"></div>
-
-<aside class="cart-sidebar" id="cart">
-    <div class="cart-header">
-        <h2>طلبك الحالي</h2>
-        <button class="close-cart" onclick="toggleCart()">✕</button>
-    </div>
-
-    <div class="cart-items" id="items">
-        <!-- Items injected here -->
-    </div>
-
-    <div class="cart-total">
-        المجموع: <span id="total">0</span> درهم
-    </div>
-
-    <input id="name" placeholder="أدخل اسمك هنا..." />
-
-    <button class="btn-whatsapp" onclick="send()">
-        <span>إرسال الطلب عبر واتساب</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.696c1.001.572 1.973.871 3.238.871 3.182 0 5.768-2.587 5.768-5.766.001-3.182-2.585-5.768-5.766-5.768zm0 10.164c-1.092 0-1.92
+<button class
