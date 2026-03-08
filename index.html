@@ -1,69 +1,15 @@
-The user has provided a complete, functional HTML/CSS/JS code snippet for a simple food ordering website (specifically for "ADHEN CREPES"). The user's prompt at the end is "Developer landing page graphic design and proficionel".
-
-This is a bit ambiguous. It could mean:
-1.  **Critique:** "Is this professional?"
-2.  **Improvement:** "Make this look more professional."
-3.  **Context:** "I am a developer looking for a landing page design like this."
-
-Given the code provided is a bit basic (inline styles, simple animations, hardcoded data), the most helpful response is to **upgrade the design and code quality** to meet the "professional" standard requested.
-
-**Plan:**
-1.  **Analyze the current code:**
-    *   *Pros:* Functional, simple, uses a dark theme, has animations.
-    *   *Cons:* Inline CSS (hard to maintain), basic layout, generic fonts, simple animations that might feel "cheap" if not tuned, hardcoded data structure.
-2.  **Propose a "Professional" Upgrade:**
-    *   **Visuals:** Use a modern font (Google Fonts), better color palette (gold/orange on dark grey/black), glassmorphism effects, and smoother transitions.
-    *   **Structure:** Separate CSS into a cleaner structure (or keep it in one file but organized).
-    *   **UX:** Better mobile responsiveness, sticky header, better cart interaction.
-    *   **Code Quality:** Use CSS variables, cleaner JS logic.
-
-**Drafting the Response:**
-*   **Acknowledge:** Start by validating the current code (it works!).
-*   **The "Professional" Version:** Provide a significantly upgraded version of the code.
-    *   *Design:* Add a hero section, better card styling (shadows, hover effects), a sticky navbar.
-    *   *Tech:* Use `rem` for sizing, CSS Grid/Flexbox better, and a cleaner JS structure.
-*   **Explanation:** Briefly explain *why* the changes make it more professional (e.g., typography, spacing, visual hierarchy).
-
-**Refining the "Professional" Code:**
-*   *Font:* 'Cairo' or 'Tajawal' are great for Arabic.
-*   *Colors:* Keep the dark mode but add a gradient background or a subtle pattern.
-*   *Animations:* Make the reveal smoother.
-*   *Cart:* Make it slide in from the side or look more like a modern modal.
-
-Let's build the "Pro" version.
-
-*Self-Correction during drafting:* The user might just want a *landing page* design concept, not necessarily a full e-commerce site. However, since they provided a full ordering system, I should stick to that context but make it look like a high-end brand.
-
-**Final Output Structure:**
-1.  **Introduction:** "Here is a professional, high-end redesign of your code."
-2.  **The Code:** A single HTML file containing the improved CSS and JS.
-3.  **Key Improvements List:** Bullet points explaining the changes (Typography, UI/UX, Responsiveness).
-To make this landing page look **professional** and **high-end**, we need to focus on modern UI/UX principles: better typography, spacing, visual hierarchy, and smoother animations.
-
-Here is a completely redesigned version of your code. I have upgraded the design to a "Premium Dark Mode" aesthetic, improved the user experience, and cleaned up the code structure.
-
-### Key Improvements Made:
-1.  **Typography:** Switched to **'Tajawal'**, a modern, professional Arabic font.
-2.  **Visuals:** Added a subtle gradient background and "Glassmorphism" effects (semi-transparent backgrounds) to the cards and cart.
-3.  **Animations:** Replaced the basic letter-spacing animation with a smoother fade-in and slide-up effect.
-4.  **Responsiveness:** Improved the grid layout for mobile and desktop.
-5.  **UX:** Added a sticky header and a cleaner cart interface.
-
-### The Professional Code
-
-```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ADHEN CREPES | Premium Taste</title>
-    
-    <!-- Google Fonts for Professional Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap" rel="stylesheet" />
 
     <style>
         :root {
@@ -118,7 +64,10 @@ Here is a completely redesigned version of your code. I have upgraded the design
         }
 
         @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* MENU GRID */
@@ -152,6 +101,9 @@ Here is a completely redesigned version of your code. I have upgraded the design
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .card:hover {
@@ -164,6 +116,7 @@ Here is a completely redesigned version of your code. I have upgraded the design
             height: 200px;
             overflow: hidden;
             position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .card img {
@@ -180,6 +133,10 @@ Here is a completely redesigned version of your code. I have upgraded the design
         .card-content {
             padding: 20px;
             text-align: right;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .card h3 {
@@ -196,6 +153,7 @@ Here is a completely redesigned version of your code. I have upgraded the design
             font-weight: bold;
             display: inline-block;
             font-size: 1.1rem;
+            align-self: flex-start;
         }
 
         /* FLOATING CART BUTTON */
@@ -214,6 +172,8 @@ Here is a completely redesigned version of your code. I have upgraded the design
             align-items: center;
             gap: 10px;
             transition: transform 0.3s;
+            font-weight: 700;
+            font-size: 1.2rem;
         }
 
         .cart-float:hover {
@@ -231,13 +191,14 @@ Here is a completely redesigned version of your code. I have upgraded the design
             justify-content: center;
             font-weight: bold;
             font-size: 14px;
+            user-select: none;
         }
 
         /* MODERN CART SIDEBAR */
         .cart-sidebar {
             position: fixed;
             top: 0;
-            left: -100%; /* Hidden by default */
+            left: -100%;
             width: 100%;
             max-width: 400px;
             height: 100vh;
@@ -245,7 +206,7 @@ Here is a completely redesigned version of your code. I have upgraded the design
             z-index: 200;
             padding: 30px;
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
         }
@@ -259,7 +220,7 @@ Here is a completely redesigned version of your code. I have upgraded the design
             justify-content: space-between;
             align-items: center;
             margin-bottom: 30px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 15px;
         }
 
@@ -269,6 +230,7 @@ Here is a completely redesigned version of your code. I have upgraded the design
             color: #fff;
             font-size: 24px;
             cursor: pointer;
+            user-select: none;
         }
 
         .cart-items {
@@ -281,10 +243,16 @@ Here is a completely redesigned version of your code. I have upgraded the design
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255,255,255,0.03);
+            background: rgba(255, 255, 255, 0.03);
             padding: 15px;
             border-radius: 12px;
             margin-bottom: 10px;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .cart-item span {
+            user-select: none;
         }
 
         .cart-total {
@@ -302,13 +270,19 @@ Here is a completely redesigned version of your code. I have upgraded the design
         input {
             width: 100%;
             padding: 15px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             color: white;
             font-family: 'Tajawal', sans-serif;
             outline: none;
             transition: 0.3s;
+            font-size: 1.1rem;
+            direction: rtl;
+        }
+
+        input::placeholder {
+            color: #bbb;
         }
 
         input:focus {
@@ -320,7 +294,7 @@ Here is a completely redesigned version of your code. I have upgraded the design
             padding: 15px;
             border: none;
             border-radius: 12px;
-            background: #25D366;
+            background: #25d366;
             color: white;
             margin-top: 15px;
             font-size: 16px;
@@ -328,6 +302,7 @@ Here is a completely redesigned version of your code. I have upgraded the design
             cursor: pointer;
             font-family: 'Tajawal', sans-serif;
             transition: 0.3s;
+            user-select: none;
         }
 
         .btn-whatsapp:hover {
@@ -342,18 +317,32 @@ Here is a completely redesigned version of your code. I have upgraded the design
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(5px);
             z-index: 150;
             opacity: 0;
             pointer-events: none;
             transition: 0.3s;
         }
+
         .overlay.active {
             opacity: 1;
             pointer-events: all;
         }
 
+        /* Scrollbar for cart items */
+        .cart-items::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .cart-items::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .cart-items::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
     </style>
 </head>
 
@@ -365,69 +354,231 @@ Here is a completely redesigned version of your code. I have upgraded the design
     </header>
 
     <div class="container">
-        <div class="menu" id="menu">
-            <!-- Items injected by JS -->
+        <div class="menu" id="menu" aria-label="قائمة الطعام">
+            <!-- Menu items injected by JavaScript -->
         </div>
     </div>
 
     <!-- Floating Cart Button -->
-    <div class="cart-float" onclick="toggleCart()">
+    <button class="cart-float" id="cartBtn" aria-label="سلة الطلبات" onclick="toggleCart()">
         <span>🛒</span>
         <span>سلة الطلبات</span>
         <span class="counter-badge" id="counter">0</span>
-    </div>
+    </button>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleCart()" tabindex="-1" aria-hidden="true"></div>
 
     <!-- Cart Sidebar -->
-    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
-    <div class="cart-sidebar" id="cart">
+    <aside class="cart-sidebar" id="cart" aria-label="سلة الطلب" role="dialog" aria-modal="true" aria-hidden="true">
         <div class="cart-header">
             <h2>طلبك الحالي</h2>
-            <button class="close-cart" onclick="toggleCart()">✕</button>
-        </div>
-        
-        <div class="cart-items" id="items">
-            <!-- Items go here -->
+            <button class="close-cart" id="closeCart" aria-label="إغلاق السلة">✕</button>
         </div>
 
-        <div class="cart-total">
+        <div class="cart-items" id="items" role="list">
+            <!-- Cart items go here -->
+        </div>
+
+        <div class="cart-total" aria-live="polite" aria-atomic="true">
             المجموع: <span id="total">0</span> درهم
         </div>
 
         <div class="input-group">
-            <input type="text" id="name" placeholder="أدخل اسمك هنا...">
+            <input type="text" id="name" placeholder="أدخل اسمك هنا..." aria-label="اسم العميل" />
             <button class="btn-whatsapp" onclick="send()">إرسال الطلب عبر واتساب</button>
         </div>
-    </div>
+    </aside>
 
     <script>
-        /* DATA */
         const foods = [
-            { name: "كريب لوتس", price: 18, img: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf" },
-            { name: "كريب نوتيلا", price: 15, img: "https://images.unsplash.com/photo-1587731556938-38755b4803a6" },
-            { name: "عصير فراولة", price: 15, img: "https://images.unsplash.com/photo-1553530666-ba11a7da3888" },
-            { name: "كريب جبنة", price: 16, img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47" },
-            { name: "كريب لحم", price: 22, img: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec" }
+            { name: "كريب لوتس", price: 18, img: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=400&q=80" },
+            { name: "كريب نوتيلا", price: 15, img: "https://images.unsplash.com/photo-1587731556938-38755b4803a6?auto=format&fit=crop&w=400&q=80" },
+            { name: "عصير فراولة", price: 15, img: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=400&q=80" },
+            { name: "كريب جبنة", price: 16, img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=400&q=80" },
+            { name: "كريب لحم", price: 22, img: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=400&q=80" }
         ];
 
         let order = {};
         let total = 0;
-        let count = 0;
 
-        /* INITIALIZATION */
+        const menuElement = document.getElementById('menu');
+        const counterElement = document.getElementById('counter');
+        const cartElement = document.getElementById('cart');
+        const overlayElement = document.getElementById('overlay');
+        const itemsElement = document.getElementById('items');
+        const totalElement = document.getElementById('total');
+        const nameInput = document.getElementById('name');
+        const closeCartBtn = document.getElementById('closeCart');
+        const cartBtn = document.getElementById('cartBtn');
+
+        // Render the menu items
+        function renderMenu() {
+            let html = '';
+
+            foods.forEach((food, index) => {
+                html += `
+                <article class="card" role="button" tabindex="0" aria-label="أضف ${food.name} بسعر ${food.price} درهم" style="animation-delay:${index * 0.1}s">
+                    <div class="card-img-wrapper">
+                        <img src="${food.img}" alt="${food.name}" loading="lazy" />
+                    </div>
+                    <div class="card-content">
+                        <h3>${food.name}</h3>
+                        <span class="price-tag">${food.price} درهم</span>
+                    </div>
+                </article>`;
+            });
+
+            menuElement.innerHTML = html;
+
+            // Add click & keyboard event listeners to cards
+            const cards = menuElement.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.addEventListener('click', () => add(foods[index].name, foods[index].price));
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        add(foods[index].name, foods[index].price);
+                    }
+                });
+            });
+        }
+
+        // Add item to order
+        function add(name, price) {
+            if (order[name]) {
+                order[name]++;
+            } else {
+                order[name] = 1;
+            }
+            updateCart();
+        }
+
+        // Remove item from order
+        function remove(name) {
+            if (order[name]) {
+                order[name]--;
+                if (order[name] === 0) {
+                    delete order[name];
+                }
+                updateCart();
+            }
+        }
+
+        // Update cart UI and total
+        function updateCart() {
+            // Reset
+            itemsElement.innerHTML = '';
+            total = 0;
+            let count = 0;
+
+            for (const [name, qty] of Object.entries(order)) {
+                const food = foods.find(f => f.name === name);
+                const price = food.price;
+
+                total += price * qty;
+                count += qty;
+
+                const itemEl = document.createElement('div');
+                itemEl.className = 'cart-item';
+
+                const qtySpan = document.createElement('span');
+                qtySpan.textContent = `${qty} × `;
+
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = name;
+
+                const priceSpan = document.createElement('span');
+                priceSpan.textContent = price * qty + ' درهم';
+
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = '−';
+                removeBtn.style.marginRight = '10px';
+                removeBtn.style.background = 'transparent';
+                removeBtn.style.border = 'none';
+                removeBtn.style.color = 'var(--primary)';
+                removeBtn.style.fontWeight = 'bold';
+                removeBtn.style.cursor = 'pointer';
+                removeBtn.setAttribute('aria-label', `إزالة واحد من ${name}`);
+
+                removeBtn.addEventListener('click', () => remove(name));
+
+                itemEl.appendChild(removeBtn);
+                itemEl.appendChild(qtySpan);
+                itemEl.appendChild(nameSpan);
+                itemEl.appendChild(priceSpan);
+
+                itemsElement.appendChild(itemEl);
+            }
+
+            counterElement.textContent = count;
+            totalElement.textContent = total;
+
+            // Disable 'send' button if cart empty
+            document.querySelector('.btn-whatsapp').disabled = count === 0;
+
+            // Update aria-hidden for accessibility
+            cartElement.setAttribute('aria-hidden', !cartElement.classList.contains('open'));
+        }
+
+        // Toggle cart visibility
+        function toggleCart() {
+            cartElement.classList.toggle('open');
+            overlayElement.classList.toggle('active');
+
+            // Update accessibility attributes
+            const isOpen = cartElement.classList.contains('open');
+            cartElement.setAttribute('aria-hidden', !isOpen);
+            overlayElement.setAttribute('aria-hidden', !isOpen);
+
+            if (isOpen) {
+                nameInput.focus();
+                document.body.style.overflow = 'hidden'; // Prevent background scroll
+            } else {
+                cartBtn.focus();
+                document.body.style.overflow = ''; // Re-enable scroll
+            }
+        }
+
+        // Send order via WhatsApp
+        function send() {
+            const name = nameInput.value.trim();
+            if (Object.keys(order).length === 0) {
+                alert('الرجاء إضافة طلب قبل الإرسال!');
+                return;
+            }
+            if (name.length < 2) {
+                alert('الرجاء إدخال اسم صحيح.');
+                nameInput.focus();
+                return;
+            }
+            let message = `مرحبا، اسمي ${name} وأرغب في طلب:\n\n`;
+            for (const [name, qty] of Object.entries(order)) {
+                const food = foods.find(f => f.name === name);
+                message += `- ${qty} × ${name} = ${qty * food.price} درهم\n`;
+            }
+            message += `\nالمجموع: ${total} درهم\n\nشكراً لكم!`;
+
+            const encoded = encodeURIComponent(message);
+            const phoneNumber = '967736078562'; // Replace with your WhatsApp number including country code
+            const url = `https://wa.me/${phoneNumber}?text=${encoded}`;
+
+            window.open(url, '_blank');
+        }
+
+        // Initialization on page load
         window.onload = () => {
             renderMenu();
             setTimeout(() => {
-                document.getElementById("menu").classList.add("show");
+                menuElement.classList.add('show');
             }, 300);
+            updateCart();
+
+            // Close cart on close button click
+            closeCartBtn.addEventListener('click', toggleCart);
+            // Close cart on overlay click handled inline
         };
+    </script>
+</body>
 
-        /* FUNCTIONS */
-        function renderMenu() {
-            const menuContainer = document.getElementById("menu");
-            let html = "";
-
-            foods.forEach((f, index) => {
-                // Stagger animation for cards
-                const delay = index * 0.1; 
-                html += `
-                <div class="card" onclick="add('${f.name}', ${f.price})" style="animation
+</html>
