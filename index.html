@@ -165,8 +165,18 @@ overflow:auto;
 .cart-item{
 display:flex;
 justify-content:space-between;
+align-items:center;
 padding:10px 0;
 border-bottom:1px solid #eee;
+}
+
+.qty-btn{
+width:28px;
+height:28px;
+border:none;
+border-radius:50%;
+background:#eee;
+cursor:pointer;
 }
 
 </style>
@@ -191,9 +201,7 @@ border-bottom:1px solid #eee;
 </section>
 
 <div class="container">
-
 <div class="products-grid" id="products-container"></div>
-
 </div>
 
 <div class="cart-bar" id="cart-bar">
@@ -230,7 +238,7 @@ Total : <strong id="modal-total">0</strong> DH
 
 <script>
 
-const WHATSAPP_NUMBER="212600000000"
+const WHATSAPP_NUMBER="212774475007"
 
 const products=[
 
@@ -267,27 +275,14 @@ const container=document.getElementById("products-container")
 products.forEach(p=>{
 
 container.innerHTML+=`
-
 <div class="card">
-
 <img src="${p.image}">
-
 <div class="card-body">
-
 <div class="card-title">${p.name}</div>
-
 <div class="card-price">${p.price} DH</div>
-
-<button class="add-btn" onclick="addToCart(${p.id})">
-
-Ajouter
-
-</button>
-
+<button class="add-btn" onclick="addToCart(${p.id})">Ajouter</button>
 </div>
-
 </div>
-
 `
 
 })
@@ -301,13 +296,25 @@ const product=products.find(p=>p.id===id)
 const item=cart.find(i=>i.id===id)
 
 if(item){
-
 item.qty++
-
 }else{
-
 cart.push({...product,qty:1})
+}
 
+updateCart()
+
+}
+
+function changeQty(id,value){
+
+const item=cart.find(i=>i.id===id)
+
+if(!item) return
+
+item.qty+=value
+
+if(item.qty<=0){
+cart=cart.filter(i=>i.id!==id)
 }
 
 updateCart()
@@ -344,15 +351,15 @@ container.innerHTML=""
 cart.forEach(item=>{
 
 container.innerHTML+=`
-
 <div class="cart-item">
-
-<div>${item.name} x${item.qty}</div>
-
-<div>${item.price*item.qty} DH</div>
-
+<div>${item.name}</div>
+<div>
+<button class="qty-btn" onclick="changeQty(${item.id},-1)">-</button>
+<span style="margin:0 8px">${item.qty}</span>
+<button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+<span style="margin-left:10px">${item.price*item.qty} DH</span>
 </div>
-
+</div>
 `
 
 })
@@ -372,9 +379,7 @@ function checkout(){
 let message="Bonjour je veux commander:%0A"
 
 cart.forEach(i=>{
-
 message+=`${i.name} x${i.qty} - ${i.price*i.qty} DH%0A`
-
 })
 
 window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`)
