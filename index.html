@@ -191,7 +191,80 @@
 </head>
 <body>
 
+    <!-- Header -->
     <header>
         <div class="brand">Adhen <span>Crepes</span></div>
         <div style="position: relative; cursor: pointer;" onclick="toggleModal()">
-            <i class="fas fa-shopping-b
+            <i class="fas fa-shopping-bag fa-lg" style="color: var(--dark);"></i>
+            <span id="header-count" style="background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; margin-left: -10px; margin-top: 5px;">0</span>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Adhen Crepes</h1>
+        <p>Délicieux, frais et fait avec amour</p>
+    </section>
+
+    <!-- Products -->
+    <div class="container">
+        <h2 class="section-title">Notre Menu</h2>
+        <div class="products-grid" id="products-container">
+            <!-- Products will be injected here by JS -->
+        </div>
+    </div>
+
+    <!-- Cart Bar -->
+    <div class="cart-bar" id="cart-bar">
+        <div class="cart-details">
+            <span class="cart-count" id="cart-count-text">0 articles</span>
+            <span class="cart-total" id="cart-total-text">0.00 DT</span>
+        </div>
+        <button class="checkout-btn" onclick="checkout()">
+            <i class="fab fa-whatsapp"></i> Commander
+        </button>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="toggleModal()">&times;</span>
+            <h2>Votre Commande</h2>
+            <div id="cart-items-container" style="margin-top: 20px;">
+                <!-- Cart items go here -->
+            </div>
+            <div style="margin-top: 20px; text-align: right; font-weight: bold; font-size: 1.2rem;">
+                Total: <span id="modal-total">0.00</span> DT
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. CONFIGURATION ---
+        // REPLACE THIS WITH YOUR WHATSAPP NUMBER (International format without +)
+        // Example: 21650123456
+        const WHATSAPP_NUMBER = "21650000000"; 
+
+        // --- 2. 30 PRODUCTS DATA ---
+        const products = [
+            // CREPES SUCRÉES (10)
+            { id: 1, name: "Crêpe Sucre", price: 5.00, image: "https://images.unsplash.com/photo-1519676867240-f03134e44224?auto=format&fit=crop&w=500&q=60" },
+            { id: 2, name: "Crêpe Nutella", price: 7.00, image: "https://images.unsplash.com/photo-1541592106381-b31e9674c96b?auto=format&fit=crop&w=500&q=60" },
+            { id: 3, name: "Crêpe Chocolat", price: 7.00, image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=60" },
+            { id: 4, name: "Crêpe Banane", price: 8.00, image: "https://images.unsplash.com/photo-1541592106381-b31e9674c96b?auto=format&fit=crop&w=500&q=60" },
+            { id: 5, name: "Crêpe Fruits Rouges", price: 9.00, image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=60" },
+            { id: 6, name: "Crêpe Caramel", price: 8.00, image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=60" },
+            { id: 7, name: "Crêpe Miel", price: 7.00, image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=60" },
+            { id: 8, name: "Crêpe Glace", price: 10.00, image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=60" },
+            { id: 9, name: "Crêpe Pâte à Tartiner", price: 8.00, image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=60" },
+            { id: 10, name: "Crêpe Mixte", price: 10.00, image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=60" },
+
+            // CREPES SALÉES (10)
+            { id: 11, name: "Crêpe Jambon Fromage", price: 10.00, image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=500&q=60" },
+            { id: 12, name: "Crêpe Poulet Champignon", price: 12.00, image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=500&q=60" },
+            { id: 13, name: "Crêpe Saucisse", price: 11.00, image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=500&q=60" },
+            { id: 14, name: "Crêpe Fromage", price: 9.00, image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=500&q=60" },
+            { id: 15, name: "Crêpe Oeuf Fromage", price: 11.00, image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=500&q=60" },
+            { id: 16, name: "Crêpe Thon", price: 12.00, image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=500&q=60" },
+            { id: 17, name: "Crêpe Légumes", price: 10.00, image: "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=500&q=60" },
+            { id: 18, name: "Crêpe Curry Poulet", price: 13.00, image: "https://images.unsplash.com/photo-152
