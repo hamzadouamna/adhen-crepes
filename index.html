@@ -184,6 +184,7 @@ nav a:hover::after { width: 100%; }
     margin-bottom: 20px;
     color: var(--white);
     line-height: 1.2;
+    animation: fadeInDown 1s ease-out;
 }
 
 .hero-content p {
@@ -193,12 +194,14 @@ nav a:hover::after { width: 100%; }
     margin-left: auto;
     margin-right: auto;
     opacity: 0.9;
+    animation: fadeInUp 1s ease-out 0.3s backwards;
 }
 
 .hero-buttons {
     display: flex;
     gap: 20px;
     justify-content: center;
+    animation: fadeInUp 1s ease-out 0.6s backwards;
 }
 
 /* --- TOURS (Cards) --- */
@@ -215,6 +218,13 @@ nav a:hover::after { width: 100%; }
     box-shadow: var(--shadow);
     transition: var(--transition);
     position: relative;
+    opacity: 0; /* Hidden for animation */
+    transform: translateY(30px);
+}
+
+.card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .card:hover {
@@ -272,6 +282,13 @@ nav a:hover::after { width: 100%; }
     border-radius: 12px;
     box-shadow: var(--shadow);
     transition: var(--transition);
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.package.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .package:hover { transform: scale(1.02); }
@@ -319,6 +336,14 @@ nav a:hover::after { width: 100%; }
     overflow: hidden;
     border-radius: 8px;
     cursor: pointer;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.5s ease;
+}
+
+.gallery-item.visible {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .gallery-item img {
@@ -338,6 +363,14 @@ nav a:hover::after { width: 100%; }
     padding: 50px;
     border-radius: 12px;
     box-shadow: var(--shadow);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.form-container.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .form-group { margin-bottom: 20px; }
@@ -407,6 +440,17 @@ footer {
     100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
 }
 
+/* --- ANIMATIONS --- */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
     .hero-content h1 { font-size: 2.5rem; }
@@ -448,10 +492,10 @@ footer {
         </div>
         <nav id="navbar">
             <ul>
-                <li><a href="#tours">Experiences</a></li>
-                <li><a href="#packages">Packages</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#booking">Book Now</a></li>
+                <li><a href="#tours" onclick="toggleMenu()">Experiences</a></li>
+                <li><a href="#packages" onclick="toggleMenu()">Packages</a></li>
+                <li><a href="#gallery" onclick="toggleMenu()">Gallery</a></li>
+                <li><a href="#booking" onclick="toggleMenu()">Book Now</a></li>
             </ul>
         </nav>
     </div>
@@ -464,41 +508,4 @@ footer {
         <p>Experience luxury desert adventures in Agafay. From quad biking to private camel dinners under the stars.</p>
         <div class="hero-buttons">
             <a class="btn" href="#booking">Book Experience</a>
-            <a class="btn btn-outline" href="https://wa.me/212663250329">
-                <i class="fab fa-whatsapp"></i> WhatsApp Us
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- Tours Section -->
-<section id="tours" class="section-padding">
-    <div class="container">
-        <div class="section-title">
-            <h2>Our Experiences</h2>
-            <span></span>
-        </div>
-        
-        <div class="tours-grid">
-            <!-- Card 1 -->
-            <div class="card">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470" alt="Agafay Dinner">
-                </div>
-                <div class="card-content">
-                    <h3>Agafay Dinner</h3>
-                    <p>Luxury dinner with traditional Moroccan entertainment under the desert stars.</p>
-                    <span class="price-tag">440 MAD</span>
-                    <a href="#booking" class="btn" style="width:100%; text-align:center;">Book Now</a>
-                </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="card">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b" alt="Quad Adventure">
-                </div>
-                <div class="card-content">
-                    <h3>Quad Adventure</h3>
-                    <p>Explore the rocky desert landscape with powerful quad bikes and safety gear.</p>
-                    <span class="price-tag">350 MAD</span>
+            <a class="btn btn-outline" href="https://wa.me/21
