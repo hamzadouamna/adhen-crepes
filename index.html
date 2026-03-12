@@ -4,19 +4,28 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>88 Connect | Marrakech Desert Experiences</title>
 
-<meta name="description" content="88 Connect Marrakech - Luxury Agafay desert experiences. Quad bike, camel ride, dinner show and hot air balloon booking.">
+<meta name="description" content="Luxury desert experiences in Marrakech Agafay. Quad bike, camel ride, dinner show and hot air balloon. Book with 88 Connect.">
 
-<meta name="keywords" content="Marrakech desert tour, Agafay desert, quad Marrakech, camel ride Marrakech, hot air balloon Marrakech">
+<meta name="keywords" content="Marrakech desert tour, Agafay desert, quad Marrakech, camel ride Marrakech">
+
+<meta name="robots" content="index, follow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
+
+*{
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
 
 body{
 margin:0;
@@ -25,24 +34,25 @@ background:#0f0f0f;
 color:white;
 }
 
-header{
-position:fixed;
-width:100%;
-background:black;
-padding:15px 0;
-z-index:1000;
-}
-
 .container{
 width:90%;
 max-width:1200px;
 margin:auto;
 }
 
+header{
+position:fixed;
+width:100%;
+background:rgba(0,0,0,0.85);
+backdrop-filter:blur(10px);
+z-index:1000;
+}
+
 nav{
 display:flex;
 justify-content:space-between;
 align-items:center;
+padding:15px 0;
 }
 
 .logo{
@@ -60,13 +70,16 @@ list-style:none;
 nav a{
 color:white;
 text-decoration:none;
+font-weight:500;
 }
 
 .hero{
 height:100vh;
-background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+background:
+linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.8)),
 url("https://images.unsplash.com/photo-1501785888041-af3ef285b470");
 background-size:cover;
+background-position:center;
 display:flex;
 align-items:center;
 text-align:center;
@@ -74,14 +87,13 @@ text-align:center;
 
 .hero h1{
 font-size:60px;
-margin-bottom:20px;
-opacity:0;
-transform:translateY(40px);
-transition:1.5s;
+margin-bottom:15px;
+animation:fadeUp 1.2s ease forwards;
 }
 
 .hero p{
 font-size:20px;
+opacity:0.9;
 }
 
 .btn{
@@ -89,10 +101,15 @@ background:#d4af37;
 padding:15px 35px;
 border-radius:30px;
 text-decoration:none;
-color:white;
+color:black;
 font-weight:600;
 display:inline-block;
 margin-top:20px;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:scale(1.05);
 }
 
 .section{
@@ -149,6 +166,11 @@ width:100%;
 height:250px;
 object-fit:cover;
 border-radius:10px;
+transition:0.4s;
+}
+
+.gallery img:hover{
+transform:scale(1.05);
 }
 
 .form{
@@ -168,16 +190,26 @@ border:none;
 border-radius:5px;
 }
 
+.form button{
+border:none;
+cursor:pointer;
+}
+
 footer{
 background:black;
 text-align:center;
-padding:50px 0;
+padding:60px 0;
+}
+
+footer a{
+color:#d4af37;
+text-decoration:none;
 }
 
 .whatsapp{
 position:fixed;
-bottom:30px;
-right:30px;
+bottom:25px;
+right:25px;
 background:#25d366;
 width:60px;
 height:60px;
@@ -187,6 +219,12 @@ align-items:center;
 justify-content:center;
 font-size:30px;
 color:white;
+box-shadow:0 0 15px rgba(0,0,0,0.5);
+}
+
+@keyframes fadeUp{
+0%{opacity:0;transform:translateY(40px)}
+100%{opacity:1;transform:translateY(0)}
 }
 
 .hidden{
@@ -230,21 +268,19 @@ transform:translateY(0);
 </header>
 
 
-
 <section class="hero">
 
 <div class="container">
 
-<h1>Discover Marrakech</h1>
+<h1>Discover Marrakech Desert</h1>
 
-<p>Luxury Desert Experiences with 88 Connect</p>
+<p>Luxury experiences in Agafay Desert</p>
 
-<a class="btn" href="#booking">Book Experience</a>
+<a class="btn" href="#booking">Book Now</a>
 
 </div>
 
 </section>
-
 
 
 <section id="experiences" class="section hidden">
@@ -252,23 +288,20 @@ transform:translateY(0);
 <div class="container">
 
 <div class="title">
-
 <h2>Our Experiences</h2>
-
 </div>
 
 <div class="cards">
 
-
 <div class="card">
 
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
+<img loading="lazy" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
 
 <div class="card-content">
 
 <h3>Agafay Dinner</h3>
 
-<p>Dinner under the stars with Moroccan folklore show</p>
+<p>Dinner with Moroccan folklore show</p>
 
 <div class="price">440 MAD</div>
 
@@ -278,17 +311,15 @@ transform:translateY(0);
 
 </div>
 
-
-
 <div class="card">
 
-<img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b">
+<img loading="lazy" src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b">
 
 <div class="card-content">
 
 <h3>Quad Adventure</h3>
 
-<p>Explore Agafay desert with quad bikes</p>
+<p>Explore Agafay with quad bikes</p>
 
 <div class="price">350 MAD</div>
 
@@ -298,17 +329,15 @@ transform:translateY(0);
 
 </div>
 
-
-
 <div class="card">
 
-<img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429">
+<img loading="lazy" src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429">
 
 <div class="card-content">
 
 <h3>Camel Ride</h3>
 
-<p>Traditional sunset camel ride</p>
+<p>Sunset camel ride</p>
 
 <div class="price">250 MAD</div>
 
@@ -318,11 +347,9 @@ transform:translateY(0);
 
 </div>
 
-
-
 <div class="card">
 
-<img src="https://images.unsplash.com/photo-1530870110042-98b2cb110834">
+<img loading="lazy" src="https://images.unsplash.com/photo-1530870110042-98b2cb110834">
 
 <div class="card-content">
 
@@ -338,13 +365,11 @@ transform:translateY(0);
 
 </div>
 
-
 </div>
 
 </div>
 
 </section>
-
 
 
 <section id="gallery" class="section hidden">
@@ -352,20 +377,15 @@ transform:translateY(0);
 <div class="container">
 
 <div class="title">
-
 <h2>Gallery</h2>
-
 </div>
 
 <div class="gallery">
 
-<img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470">
-
-<img src="https://images.unsplash.com/photo-1539020140153-e479b8c22e70">
-
-<img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b">
-
-<img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429">
+<img loading="lazy" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470">
+<img loading="lazy" src="https://images.unsplash.com/photo-1539020140153-e479b8c22e70">
+<img loading="lazy" src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b">
+<img loading="lazy" src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429">
 
 </div>
 
@@ -374,22 +394,19 @@ transform:translateY(0);
 </section>
 
 
-
 <section id="booking" class="section">
 
 <div class="container">
 
 <div class="title">
-
 <h2>Book Your Experience</h2>
-
 </div>
 
 <div class="form">
 
-<input id="name" placeholder="Your Name">
+<input id="name" placeholder="Your Name" required>
 
-<input id="phone" placeholder="WhatsApp Number">
+<input id="phone" placeholder="WhatsApp Number" required>
 
 <select id="tour">
 
@@ -401,9 +418,7 @@ transform:translateY(0);
 </select>
 
 <button onclick="sendBooking()" class="btn">
-
 Book On WhatsApp
-
 </button>
 
 </div>
@@ -413,7 +428,6 @@ Book On WhatsApp
 </section>
 
 
-
 <footer>
 
 <h2>88 Connect</h2>
@@ -421,27 +435,17 @@ Book On WhatsApp
 <p>Marrakech Luxury Desert Experiences</p>
 
 <p>
-
 <i class="fab fa-instagram"></i>
-
-<a href="https://instagram.com/88connect">
-
+<a target="_blank" href="https://instagram.com/88connect">
 @88connect
-
 </a>
-
 </p>
 
 <p>
-
 <i class="fab fa-whatsapp"></i>
-
-<a href="https://wa.me/212663250329">
-
+<a target="_blank" href="https://wa.me/212663250329">
 +212 663 250 329
-
 </a>
-
 </p>
 
 <p>Marrakech Morocco</p>
@@ -449,60 +453,45 @@ Book On WhatsApp
 </footer>
 
 
-
 <a href="https://wa.me/212663250329" class="whatsapp">
-
 <i class="fab fa-whatsapp"></i>
-
 </a>
-
 
 
 <script>
 
-window.onload = function(){
-
-document.querySelector(".hero h1").style.opacity="1"
-
-document.querySelector(".hero h1").style.transform="translateY(0)"
-
-}
-
-
 const observer = new IntersectionObserver(entries=>{
-
 entries.forEach(entry=>{
-
 if(entry.isIntersecting){
-
 entry.target.classList.add("show")
-
 }
-
 })
-
 })
 
 document.querySelectorAll(".hidden").forEach(el=>observer.observe(el))
 
 
-
 function sendBooking(){
 
-const name=document.getElementById("name").value
-
-const phone=document.getElementById("phone").value
-
+const name=document.getElementById("name").value.trim()
+const phone=document.getElementById("phone").value.trim()
 const tour=document.getElementById("tour").value
 
-const message="Hello 88 Connect 👋%0AName: "+name+"%0ATour: "+tour+"%0AWhatsApp: "+phone
+if(name==="" || phone===""){
+alert("Please fill your name and WhatsApp number")
+return
+}
 
-window.open("https://wa.me/212663250329?text="+message)
+const message=`Hello 88 Connect 👋
+Name: ${name}
+Tour: ${tour}
+WhatsApp: ${phone}`
+
+window.open("https://wa.me/212663250329?text="+encodeURIComponent(message))
 
 }
 
 </script>
-
 
 </body>
 </html>
