@@ -1,394 +1,453 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Adhen Crepes</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-<style>
-
-:root{
---primary:#ff9f1c;
---dark:#1b1b1b;
---light:#f8f9fa;
---white:#fff;
---radius:12px;
---shadow:0 4px 15px rgba(0,0,0,0.1);
-}
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
-}
-
-body{
-background:var(--light);
-padding-bottom:120px;
-}
-
-header{
-background:white;
-padding:15px 5%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:0 2px 10px rgba(0,0,0,0.05);
-position:sticky;
-top:0;
-z-index:10;
-}
-
-.brand{
-font-size:22px;
-font-weight:700;
-color:var(--primary);
-}
-
-.hero{
-background:url('https://images.unsplash.com/photo-1519676867240-f03134e44224?auto=format&fit=crop&w=1350&q=80');
-background-size:cover;
-background-position:center;
-color:white;
-text-align:center;
-padding:60px 10px;
-}
-
-.container{
-max-width:1100px;
-margin:auto;
-padding:20px;
-}
-
-.products-grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
-gap:20px;
-}
-
-.card{
-background:white;
-border-radius:var(--radius);
-overflow:hidden;
-box-shadow:var(--shadow);
-display:flex;
-flex-direction:column;
-}
-
-.card img{
-height:170px;
-object-fit:cover;
-}
-
-.card-body{
-padding:15px;
-flex-grow:1;
-display:flex;
-flex-direction:column;
-}
-
-.card-title{
-font-weight:600;
-margin-bottom:5px;
-}
-
-.card-price{
-color:var(--primary);
-font-weight:700;
-margin-bottom:10px;
-}
-
-.add-btn{
-background:var(--dark);
-color:white;
-border:none;
-padding:10px;
-border-radius:8px;
-cursor:pointer;
-}
-
-.cart-bar{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:white;
-padding:15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:0 -5px 20px rgba(0,0,0,0.1);
-transform:translateY(100%);
-transition:0.3s;
-}
-
-.cart-bar.active{
-transform:translateY(0);
-}
-
-.checkout-btn{
-background:#25D366;
-color:white;
-padding:10px 20px;
-border-radius:40px;
-border:none;
-cursor:pointer;
-}
-
-.modal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.5);
-justify-content:center;
-align-items:center;
-}
-
-.modal-content{
-background:white;
-padding:20px;
-width:90%;
-max-width:500px;
-border-radius:12px;
-max-height:80vh;
-overflow:auto;
-}
-
-.cart-item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:10px 0;
-border-bottom:1px solid #eee;
-}
-
-.qty-btn{
-width:28px;
-height:28px;
-border:none;
-border-radius:50%;
-background:#eee;
-cursor:pointer;
-}
-
-</style>
-</head>
-
-<body>
-
-<header>
-
-<div class="brand">Adhen Crepes</div>
-
-<div onclick="toggleModal()" style="cursor:pointer">
-<i class="fas fa-shopping-bag"></i>
-<span id="header-count">0</span>
-</div>
-
-</header>
-
-<section class="hero">
-<h1>Adhen Crepes</h1>
-<p>Délicieux & frais</p>
-</section>
-
-<div class="container">
-<div class="products-grid" id="products-container"></div>
-</div>
-
-<div class="cart-bar" id="cart-bar">
-
-<div>
-<span id="cart-count-text">0 articles</span>
-<br>
-<strong id="cart-total-text">0 DH</strong>
-</div>
-
-<button class="checkout-btn" onclick="checkout()">
-<i class="fab fa-whatsapp"></i> Commander
-</button>
-
-</div>
-
-<div class="modal" id="cart-modal">
-
-<div class="modal-content">
-
-<h3>Votre commande</h3>
-
-<div id="cart-items-container"></div>
-
-<p style="margin-top:15px">
-Total : <strong id="modal-total">0</strong> DH
-</p>
-
-<button onclick="toggleModal()">Fermer</button>
-
-</div>
-
-</div>
-
-<script>
-
-const WHATSAPP_NUMBER="212774475007"
-
-const products=[
-
-{id:1,name:"Crêpe Sucre",price:10,image:"https://images.unsplash.com/photo-1519676867240-f03134e44224"},
-{id:2,name:"Crêpe Nutella",price:15,image:"https://images.unsplash.com/photo-1541592106381-b31e9674c96b"},
-{id:3,name:"Crêpe Chocolat",price:15,image:"https://images.unsplash.com/photo-1565299585323-38d6b0865b47"},
-{id:4,name:"Crêpe Banane",price:16,image:"https://images.unsplash.com/photo-1541592106381-b31e9674c96b"},
-{id:5,name:"Crêpe Fruits",price:18,image:"https://images.unsplash.com/photo-1565299585323-38d6b0865b47"},
-
-{id:6,name:"Crêpe Caramel",price:16,image:"https://images.unsplash.com/photo-1565299585323-38d6b0865b47"},
-{id:7,name:"Crêpe Miel",price:15,image:"https://images.unsplash.com/photo-1565299585323-38d6b0865b47"},
-{id:8,name:"Crêpe Glace",price:20,image:"https://images.unsplash.com/photo-1565299585323-38d6b0865b47"},
-{id:9,name:"Crêpe Mixte",price:20,image:"https://images.unsplash.com/photo-1565299585323-38d6b0865b47"},
-{id:10,name:"Crêpe Fraise",price:17,image:"https://images.unsplash.com/photo-1565299585323-38d6b0865b47"},
-
-{id:11,name:"Crêpe Jambon Fromage",price:20,image:"https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec"},
-{id:12,name:"Crêpe Poulet",price:22,image:"https://images.unsplash.com/photo-1528735602780-2552fd46c7af"},
-{id:13,name:"Crêpe Saucisse",price:21,image:"https://images.unsplash.com/photo-1528735602780-2552fd46c7af"},
-{id:14,name:"Crêpe Fromage",price:18,image:"https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec"},
-{id:15,name:"Crêpe Oeuf Fromage",price:20,image:"https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec"},
-
-{id:16,name:"Crêpe Thon",price:22,image:"https://images.unsplash.com/photo-1528735602780-2552fd46c7af"},
-{id:17,name:"Crêpe Légumes",price:20,image:"https://images.unsplash.com/photo-1504754524776-8f4f37790ca0"},
-{id:18,name:"Crêpe Poulet Curry",price:23,image:"https://images.unsplash.com/photo-1528735602780-2552fd46c7af"}
-
-]
-
-let cart=[]
-
-function renderProducts(){
-
-const container=document.getElementById("products-container")
-
-products.forEach(p=>{
-
-container.innerHTML+=`
-<div class="card">
-<img src="${p.image}">
-<div class="card-body">
-<div class="card-title">${p.name}</div>
-<div class="card-price">${p.price} DH</div>
-<button class="add-btn" onclick="addToCart(${p.id})">Ajouter</button>
-</div>
-</div>
-`
-
-})
-
-}
-
-function addToCart(id){
-
-const product=products.find(p=>p.id===id)
-
-const item=cart.find(i=>i.id===id)
-
-if(item){
-item.qty++
-}else{
-cart.push({...product,qty:1})
-}
-
-updateCart()
-
-}
-
-function changeQty(id,value){
-
-const item=cart.find(i=>i.id===id)
-
-if(!item) return
-
-item.qty+=value
-
-if(item.qty<=0){
-cart=cart.filter(i=>i.id!==id)
-}
-
-updateCart()
-
-}
-
-function updateCart(){
-
-let total=0
-let count=0
-
-cart.forEach(i=>{
-total+=i.price*i.qty
-count+=i.qty
-})
-
-document.getElementById("header-count").innerText=count
-document.getElementById("cart-count-text").innerText=count+" articles"
-document.getElementById("cart-total-text").innerText=total+" DH"
-document.getElementById("modal-total").innerText=total
-
-document.getElementById("cart-bar").classList.toggle("active",count>0)
-
-renderCart()
-
-}
-
-function renderCart(){
-
-const container=document.getElementById("cart-items-container")
-
-container.innerHTML=""
-
-cart.forEach(item=>{
-
-container.innerHTML+=`
-<div class="cart-item">
-<div>${item.name}</div>
-<div>
-<button class="qty-btn" onclick="changeQty(${item.id},-1)">-</button>
-<span style="margin:0 8px">${item.qty}</span>
-<button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
-<span style="margin-left:10px">${item.price*item.qty} DH</span>
-</div>
-</div>
-`
-
-})
-
-}
-
-function toggleModal(){
-
-const modal=document.getElementById("cart-modal")
-
-modal.style.display=modal.style.display==="flex"?"none":"flex"
-
-}
-
-function checkout(){
-
-let message="Bonjour je veux commander:%0A"
-
-cart.forEach(i=>{
-message+=`${i.name} x${i.qty} - ${i.price*i.qty} DH%0A`
-})
-
-window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`)
-
-}
-
-renderProducts()
-
-</script>
-
-</body>
-</html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover the Magic of Marrakech & Agafay Desert Experiences. Book luxury desert tours, quad biking, and camel rides with 88 Connect style service.">
+    <meta name="keywords" content="Morocco travel, Marrakech tours, Agafay Desert, Quad Bike, Camel Ride, Luxury Travel, 88 Connect">
+    <meta name="author" content="Morocco Luxury Travel">
+    <title>Marrakech & Agafay | Luxury Desert Experiences</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary-gold: #D4AF37;
+            --primary-gold-dark: #b59020;
+            --deep-blue: #0f172a;
+            --sand-bg: #f9f7f2;
+            --text-dark: #1a1a1a;
+            --text-light: #666;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--sand-bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--deep-blue);
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .text-center { text-align: center; }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-gold);
+            margin: 15px auto 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 2px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .btn-gold {
+            background-color: var(--primary-gold);
+            color: var(--white);
+        }
+
+        .btn-gold:hover {
+            background-color: var(--primary-gold-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border-color: var(--white);
+            color: var(--white);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--deep-blue);
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--primary-gold);
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        .mobile-toggle {
+            display: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1539020140153-e479b8c22e70?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* --- EXPERIENCES --- */
+        .experiences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .experience-card {
+            background: var(--white);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-img {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            color: var(--primary-gold);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* --- PREMIUM PACKAGES --- */
+        .packages-section {
+            background-color: var(--white);
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            align-items: center;
+        }
+
+        .package-card {
+            background: var(--sand-bg);
+            padding: 40px;
+            border: 1px solid #eee;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .package-card.vip {
+            background: var(--deep-blue);
+            color: var(--white);
+            transform: scale(1.05);
+            border: 2px solid var(--primary-gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        .package-card.vip h3, .package-card.vip .price {
+            color: var(--primary-gold);
+        }
+
+        .package-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .package-card .price {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--deep-blue);
+        }
+
+        .package-features {
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .package-features li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .package-features i {
+            color: var(--primary-gold);
+        }
+
+        /* --- GALLERY --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* --- WHY CHOOSE US --- */
+        .why-us {
+            background-color: var(--deep-blue);
+            color: var(--white);
+        }
+
+        .why-us .section-title {
+            color: var(--white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .feature-box {
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-gold);
+            margin-bottom: 20px;
+        }
+
+        /* --- TESTIMONIALS --- */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border-radius: 4px;
+        }
+
+        .stars {
+            color: var(--primary-gold);
+            margin-bottom: 15px;
+        }
+
+        .client-name {
+            font-weight: 700;
+            margin-top: 15px;
+            display: block;
+            color: var(--deep-blue);
+        }
+
+        /* --- RESERVATION --- */
+        .reservation-section {
+            background: linear-gradient(rgba(249, 247, 242, 0.9), rgba(249, 247, 242, 0.9)), url('https://images.unsplash.com/photo-1549141029-885482252226?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .booking-form {
+            background: var(--white);
+            padding: 40px;
+            max-width: 800px;
+            margin: 50px auto 0;
+            box-shadow: var(--shadow);
+            border-radius: 4px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+        }
+
+        /* --- MAP --- */
+        .map-container {
+            height: 400px;
+            width: 100%;
+            filter: grayscale(20%);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #0a0f1c;
+            color: #ccc;
+            padding: 60px 0 2
