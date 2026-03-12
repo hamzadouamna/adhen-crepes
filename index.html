@@ -289,16 +289,28 @@ Book Your Experience
 <div class="pricing-card">
 <h3>Quad Tour</h3>
 <div class="price">350 MAD</div>
+<p>⏱ 2 Hours</p>
+<p>📍 Agafay Desert</p>
+<p>👥 Max 20 Persons</p>
+⭐ 4.9 / 5
 </div>
 
 <div class="pricing-card">
 <h3>Desert Dinner</h3>
 <div class="price">500 MAD</div>
+<p>⏱ 3 Hours</p>
+<p>📍 Agafay Desert</p>
+<p>👥 Max 20 Persons</p>
+⭐ 4.8 / 5
 </div>
 
 <div class="pricing-card">
 <h3>Hot Air Balloon</h3>
 <div class="price">1500 MAD</div>
+<p>⏱ 4 Hours</p>
+<p>📍 Marrakech</p>
+<p>👥 Max 16 Persons</p>
+⭐ 5.0 / 5
 </div>
 
 </div>
@@ -391,6 +403,14 @@ let persons = document.getElementById("persons").value
 let date = document.getElementById("date").value
 let message = document.getElementById("message").value
 
+let price = 0
+
+if(activity === "Quad Tour"){ price = 350 }
+if(activity === "Desert Dinner"){ price = 500 }
+if(activity === "Hot Air Balloon"){ price = 1500 }
+
+let total = price * persons
+
 let text =
 "NEW BOOKING - 88 CONNECT %0A%0A"+
 "Name: "+name+"%0A"+
@@ -398,6 +418,7 @@ let text =
 "Activity: "+activity+"%0A"+
 "Persons: "+persons+"%0A"+
 "Date: "+date+"%0A"+
+"Total Price: "+total+" MAD %0A"+
 "Message: "+message
 
 let url = "https://wa.me/212663250329?text="+text
