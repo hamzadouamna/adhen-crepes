@@ -1,116 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>88 Connect | Marrakech Desert Experiences</title>
+<title>88 Connect | Marrakech Desert Adventures</title>
 
-<meta name="description" content="Luxury desert experiences in Agafay Marrakech. Quad bike, camel ride, hot air balloon and dinner show. Book with 88 Connect.">
-
-<meta name="keywords" content="Marrakech desert tour, Agafay desert, quad Marrakech, camel ride Marrakech">
-
-<meta name="robots" content="index,follow">
-
-<meta property="og:title" content="88 Connect Marrakech Desert Experiences">
-<meta property="og:description" content="Luxury desert tours in Marrakech Agafay.">
-<meta property="og:type" content="website">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-
-*{box-sizing:border-box;scroll-behavior:smooth}
 
 body{
 margin:0;
 font-family:Poppins;
-background:#0f0f0f;
-color:white;
-}
-
-.container{
-width:90%;
-max-width:1200px;
-margin:auto;
+background:#fff;
+color:#333;
 }
 
 header{
-position:fixed;
-width:100%;
-background:rgba(0,0,0,0.8);
-backdrop-filter:blur(10px);
-z-index:1000;
-}
-
-nav{
+background:#000;
+color:white;
+padding:20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:15px 0;
 }
 
-.logo{
-color:#d4af37;
-font-size:24px;
-font-weight:700;
-}
-
-nav ul{
-display:flex;
-gap:25px;
-list-style:none;
-}
-
-nav a{
-color:white;
-text-decoration:none;
+header h1{
+margin:0;
 }
 
 .hero{
-height:100vh;
-background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
-url("https://images.unsplash.com/photo-1501785888041-af3ef285b470");
-background-size:cover;
-background-position:center;
+height:90vh;
+background:url('https://images.unsplash.com/photo-1609942072337-78d19e8c6d90') center/cover;
 display:flex;
 align-items:center;
+justify-content:center;
 text-align:center;
+color:white;
 }
 
-.hero h1{
-font-size:60px;
-margin-bottom:20px;
+.hero h2{
+font-size:48px;
 }
 
 .btn{
-background:#d4af37;
-color:black;
-padding:15px 35px;
+background:#ff6600;
+padding:15px 30px;
+color:white;
 border-radius:30px;
 text-decoration:none;
-font-weight:600;
 display:inline-block;
-margin-top:20px;
+margin:10px;
 }
 
 .section{
-padding:100px 0;
+padding:80px 10%;
+text-align:center;
 }
 
-.cards{
+.activities{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
 }
 
 .card{
-background:#1a1a1a;
-border-radius:10px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+border-radius:15px;
 overflow:hidden;
 }
 
@@ -120,411 +77,109 @@ height:200px;
 object-fit:cover;
 }
 
-.card-content{
-padding:25px;
+.card h3{
+margin:15px;
 }
 
-.price{
-color:#d4af37;
-font-size:20px;
-margin:10px 0;
-}
-
-.gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:15px;
-}
-
-.gallery img{
-width:100%;
-height:250px;
-object-fit:cover;
-border-radius:10px;
-}
-
-.reviews{
-text-align:center;
-max-width:800px;
-margin:auto;
-}
-
-.review{
-background:#1a1a1a;
-padding:25px;
-margin-bottom:20px;
-border-radius:10px;
-}
-
-.form{
-max-width:600px;
-margin:auto;
-background:#1a1a1a;
-padding:40px;
-border-radius:10px;
-}
-
-.form input,
-.form select{
-width:100%;
-padding:15px;
-margin-bottom:15px;
-border:none;
-border-radius:5px;
+.testimonials{
+background:#f6f6f6;
 }
 
 footer{
-background:black;
-text-align:center;
-padding:50px 0;
-}
-
-.whatsapp{
-position:fixed;
-bottom:25px;
-right:25px;
-background:#25d366;
-width:60px;
-height:60px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:30px;
+background:#000;
 color:white;
-}
-
-.hidden{
-opacity:0;
-transform:translateY(50px);
-transition:1s;
-}
-
-.show{
-opacity:1;
-transform:translateY(0);
+text-align:center;
+padding:30px;
 }
 
 </style>
-
-<script type="application/ld+json">
-
-{
-"@context":"https://schema.org",
-"@type":"TouristTrip",
-"name":"88 Connect Desert Experiences",
-"description":"Luxury desert tours in Agafay Marrakech",
-"provider":{
-"@type":"LocalBusiness",
-"name":"88 Connect",
-"telephone":"+212663250329",
-"address":{
-"@type":"PostalAddress",
-"addressLocality":"Marrakech",
-"addressCountry":"Morocco"
-}
-}
-}
-
-</script>
-
 </head>
 
 <body>
 
 <header>
-
-<div class="container">
-
-<nav>
-
-<div class="logo">88 CONNECT</div>
-
-<ul>
-
-<li><a href="#experiences">Experiences</a></li>
-<li><a href="#gallery">Gallery</a></li>
-<li><a href="#booking">Booking</a></li>
-
-</ul>
-
-</nav>
-
-</div>
-
+<h1>88 Connect</h1>
+<a class="btn" href="https://wa.me/212663250329">WhatsApp</a>
 </header>
 
 <section class="hero">
 
-<div class="container">
+<div>
 
-<h1>Discover Marrakech Desert</h1>
+<h2>Explore Marrakech Like Never Before</h2>
 
-<p>Luxury Agafay Desert Experiences</p>
+<p>Quad, Camel, Buggy & Hot Air Balloon Adventures</p>
 
-<a class="btn" href="#booking">Book Now</a>
+<a class="btn" href="#">Book Now</a>
+<a class="btn" href="https://wa.me/212663250329">WhatsApp</a>
 
 </div>
 
 </section>
 
-<section id="experiences" class="section hidden">
+<section class="section">
 
-<div class="container">
+<h2>Why Choose 88 Connect</h2>
 
-<h2>Our Experiences</h2>
+<p>Professional guides, best prices and unforgettable experiences in Marrakech.</p>
 
-<div class="cards">
+</section>
+
+<section class="section">
+
+<h2>Our Activities</h2>
+
+<div class="activities">
 
 <div class="card">
-
-<img loading="lazy" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
-
-<div class="card-content">
-
-<h3>Agafay Dinner</h3>
-
-<p>Dinner with Moroccan folklore show</p>
-
-<div class="price">440 MAD</div>
-
-</div>
-
+<img src="https://images.unsplash.com/photo-1609942072337-78d19e8c6d90">
+<h3>Quad Bike Tour</h3>
 </div>
 
 <div class="card">
-
-<img loading="lazy" src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b">
-
-<div class="card-content">
-
-<h3>Quad Adventure</h3>
-
-<p>Explore Agafay desert with quad</p>
-
-<div class="price">350 MAD</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<img loading="lazy" src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429">
-
-<div class="card-content">
-
+<img src="https://images.unsplash.com/photo-1596838132731-3301c3d2f6c5">
 <h3>Camel Ride</h3>
-
-<p>Sunset camel ride</p>
-
-<div class="price">250 MAD</div>
-
-</div>
-
 </div>
 
 <div class="card">
+<img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a">
+<h3>Buggy Adventure</h3>
+</div>
 
-<img loading="lazy" src="https://images.unsplash.com/photo-1530870110042-98b2cb110834">
-
-<div class="card-content">
-
+<div class="card">
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
 <h3>Hot Air Balloon</h3>
-
-<p>Fly above Marrakech</p>
-
-<div class="price">1400 MAD</div>
-
-</div>
-
-</div>
-
 </div>
 
 </div>
 
 </section>
 
-<section id="gallery" class="section hidden">
+<section class="section testimonials">
 
-<div class="container">
+<h2>Client Reviews</h2>
 
-<h2>Gallery</h2>
+<p>★★★★★ Amazing desert experience!</p>
 
-<div class="gallery">
+<p>★★★★★ Best activity in Marrakech!</p>
 
-<img loading="lazy" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470">
-
-<img loading="lazy" src="https://images.unsplash.com/photo-1539020140153-e479b8c22e70">
-
-<img loading="lazy" src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b">
-
-<img loading="lazy" src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429">
-
-</div>
-
-</div>
+<p>★★★★★ Professional and friendly guides.</p>
 
 </section>
 
 <section class="section">
 
-<div class="reviews">
+<h2>Book Your Adventure</h2>
 
-<h2>Customer Reviews</h2>
-
-<div class="review">
-★★★★★
-<p>Amazing Agafay experience!</p>
-<span>John – UK</span>
-</div>
-
-<div class="review">
-★★★★★
-<p>Best desert tour in Marrakech.</p>
-<span>Sophie – France</span>
-</div>
-
-</div>
-
-</section>
-
-<section id="booking" class="section">
-
-<div class="container">
-
-<h2>Book Your Experience</h2>
-
-<div class="form">
-
-<input id="name" placeholder="Your Name">
-
-<input id="phone" placeholder="WhatsApp Number">
-
-<select id="tour">
-
-<option>Agafay Dinner</option>
-<option>Quad Adventure</option>
-<option>Camel Ride</option>
-<option>Hot Air Balloon</option>
-
-</select>
-
-<input type="date" id="date">
-
-<select id="time">
-
-<option>10:00</option>
-<option>12:00</option>
-<option>15:00</option>
-<option>18:00</option>
-
-</select>
-
-<input type="number" id="guests" placeholder="Number of Guests">
-
-<button onclick="sendBooking()" class="btn">
-
-Book On WhatsApp
-
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<div class="container">
-
-<h2>Find Us</h2>
-
-<iframe
-width="100%"
-height="350"
-style="border:0"
-loading="lazy"
-allowfullscreen
-src="https://www.google.com/maps?q=Marrakech&output=embed">
-
-</iframe>
-
-</div>
+<a class="btn" href="https://wa.me/212663250329">Book via WhatsApp</a>
 
 </section>
 
 <footer>
 
-<h2>88 Connect</h2>
-
-<p>Marrakech Luxury Desert Experiences</p>
-
-<p>
-
-<a href="https://instagram.com/88connect" target="_blank">
-
-<i class="fab fa-instagram"></i> @88connect
-
-</a>
-
-</p>
-
-<p>
-
-<a href="https://wa.me/212663250329" target="_blank">
-
-<i class="fab fa-whatsapp"></i> +212 663 250 329
-
-</a>
-
-</p>
+<p>© 2026 88 Connect Marrakech</p>
 
 </footer>
-
-<a href="https://wa.me/212663250329" class="whatsapp">
-
-<i class="fab fa-whatsapp"></i>
-
-</a>
-
-<script>
-
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("show")
-}
-})
-})
-
-document.querySelectorAll(".hidden").forEach(el=>observer.observe(el))
-
-function sendBooking(){
-
-const name=document.getElementById("name").value
-const phone=document.getElementById("phone").value
-const tour=document.getElementById("tour").value
-const date=document.getElementById("date").value
-const time=document.getElementById("time").value
-const guests=document.getElementById("guests").value
-
-const message=
-`Hello 88 Connect 👋
-Name: ${name}
-Tour: ${tour}
-Date: ${date}
-Time: ${time}
-Guests: ${guests}
-Phone: ${phone}`
-
-window.open("https://wa.me/212663250329?text="+encodeURIComponent(message))
-
-}
-
-</script>
 
 </body>
 </html>
