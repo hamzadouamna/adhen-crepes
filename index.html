@@ -28,14 +28,6 @@
     <meta name="twitter:description" content="Experience unforgettable adventures in Marrakech with 88 Connect.">
     <meta name="twitter:image" content="https://88-connect.com/wp-content/themes/88connect/public/bgs/bg-5.webp">
     
-    <!-- Additional SEO -->
-    <meta name="theme-color" content="#000000">
-    <meta name="language" content="French">
-    <meta name="geo.region" content="MA-MAR">
-    <meta name="geo.placename" content="Marrakech">
-    <meta name="geo.position" content="31.6295;-7.9811">
-    <meta name="ICBM" content="31.6295, -7.9811">
-    
     <!-- Preconnect for Performance -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,41 +41,6 @@
     
     <!-- Google Fonts - Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    
-    <!-- Schema.org Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "TravelAgency",
-        "name": "88 Connect",
-        "url": "https://88-connect.com",
-        "logo": "https://88-connect.com/wp-content/themes/88connect/public/logo.jpg",
-        "description": "Experience unforgettable adventures in Marrakech with 88 Connect. Quad tours, hot air balloon rides, desert dinners & more.",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Allal El fasi",
-            "addressLocality": "Marrakesh",
-            "addressCountry": "MA"
-        },
-        "telephone": "+212663250329",
-        "priceRange": "$$",
-        "openingHoursSpecification": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-            "opens": "08:00",
-            "closes": "22:00"
-        },
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "reviewCount": "21"
-        },
-        "sameAs": [
-            "https://web.facebook.com/profile.php?id=61553559000713",
-            "https://www.instagram.com/88connect/"
-        ]
-    }
-    </script>
     
     <style>
         :root {
@@ -431,3 +388,90 @@
         .testimonial-card .author {
             font-weight: 600;
             color: var(--text-white);
+        }
+        
+        /* Booking Form Section */
+        .booking-section {
+            padding: 80px 0;
+            background: var(--secondary-color);
+        }
+        
+        .booking-box {
+            background: var(--primary-color);
+            padding: 50px;
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .booking-box h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .booking-form {
+            margin-top: 30px;
+        }
+        
+        .booking-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .booking-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-white);
+        }
+        
+        .booking-form input,
+        .booking-form select,
+        .booking-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-white);
+            font-size: 1rem;
+        }
+        
+        .booking-form input:focus,
+        .booking-form select:focus,
+        .booking-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(255, 159, 28, 0.3);
+        }
+        
+        .booking-form input::placeholder {
+            color: var(--text-gray);
+        }
+        
+        .booking-form .btn-submit {
+            background: var(--accent-color);
+            color: var(--text-white);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+        
+        .booking-form .btn-submit:hover {
+            background: #ff8c00;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 159, 28, 0.3);
+        }
+        
+        /* Contact CTA */
+        .contact-cta-section {
+            padding: 80px 0;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://88-connect.com/wp-content/themes/88connect/public/imgs/img-2.jpg');
+            background-size: cover;
+            background-position: center;
