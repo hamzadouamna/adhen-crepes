@@ -1,260 +1,264 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>88 CONNECT - Luxury Adventures Marrakech</title>
-    
-    <meta name="description" content="Premium Quad tours, Desert dinners, and Hot Air Balloon rides in Marrakech.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+import React, { useState, useEffect, useMemo } from 'react';
 
-    <style>
-        :root {
-            --primary: #050505;
-            --accent: #ff9f1c;
-            --accent-glow: rgba(255, 159, 28, 0.3);
-            --glass: rgba(255, 255, 255, 0.03);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+// --- الإعدادات الثابتة ---
+const PRICES = {
+  "Quad Tour": 350,
+  "Desert Dinner": 500,
+  "Hot Air Balloon": 1500
+};
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--primary);
-            color: #fff;
-            overflow-x: hidden;
-        }
+const WHATSAPP_NUMBER = "212663250329";
 
-        /* --- Optimized Header --- */
-        .header {
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 15px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
+export default function App() {
+  // --- الحالة (State) ---
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    activity: '',
+    persons: 1,
+    date: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [minDate, setMinDate] = useState("");
 
-        .nav-link {
-            color: #ccc !important;
-            margin: 0 15px;
-            font-weight: 500;
-            transition: var(--transition);
-        }
+  // تحديد تاريخ اليوم كأقل تاريخ مسموح به
+  useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    setMinDate(today);
+  }, []);
 
-        .nav-link:hover { color: var(--accent) !important; }
+  // حساب السعر الإجمالي تلقائياً (Optimization)
+  const totalPrice = useMemo(() => {
+    return (PRICES[formData.activity] || 0) * formData.persons;
+  }, [formData.activity, formData.persons]);
 
-        /* --- Hero Section --- */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://88-connect.com/wp-content/themes/88connect/public/bgs/bg-5.webp') center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
+  // --- الوظائف (Functions) ---
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -2px;
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-        /* --- Grid & Cards --- */
-        .activity-card {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            aspect-ratio: 4/5;
-            transition: var(--transition);
-        }
+    try {
+      // 1. هنا نرسل البيانات لقاعدة البيانات (Backend API)
+      // مثال: await fetch('/api/bookings', { method: 'POST', body: JSON.stringify(formData) });
+      
+      // محاكاة تأخير بسيط للتحميل
+      await new Promise(resolve => setTimeout(resolve, 800));
 
-        .activity-card img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.6s ease;
-        }
+      // 2. تجهيز نص الواتساب واحترافية التنسيق
+      const text = encodeURIComponent(
+        `*NEW BOOKING - 88 CONNECT*\n` +
+        `--------------------------\n` +
+        `👤 *الاسم:* ${formData.name}\n` +
+        `📞 *الهاتف:* ${formData.phone}\n` +
+        `🌵 *النشاط:* ${formData.activity}\n` +
+        `👥 *الأشخاص:* ${formData.persons}\n` +
+        `📅 *التاريخ:* ${formData.date}\n` +
+        `💰 *الإجمالي:* ${totalPrice} MAD\n` +
+        `💬 *الرسالة:* ${formData.message || 'لا يوجد'}`
+      );
 
-        .activity-card:hover img { transform: scale(1.1); }
-
-        .activity-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            display: flex;
-            align-items: flex-end;
-            padding: 30px;
-        }
-
-        /* --- Forms --- */
-        .booking-box {
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 40px;
-            border-radius: 24px;
-        }
-
-        .form-control, .form-select {
-            background: rgba(255,255,255,0.05) !important;
-            border: 1px solid rgba(255,255,255,0.1) !important;
-            color: #fff !important;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-        }
-
-        .btn-accent {
-            background: var(--accent);
-            color: #000;
-            font-weight: 700;
-            padding: 15px 30px;
-            border-radius: 50px;
-            border: none;
-            width: 100%;
-            transition: var(--transition);
-        }
-
-        .btn-accent:hover {
-            background: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px var(--accent-glow);
-        }
-
-        @media (max-width: 768px) {
-            .header .container { flex-direction: row; justify-content: space-between; }
-            nav { display: none; } /* Simplified for example, usually a hamburger here */
-        }
-    </style>
-</head>
-<body>
-
-<header class="header">
-    <div class="container d-flex justify-content-between align-items-center">
-        <img src="https://88-connect.com/wp-content/themes/88connect/public/logo.jpg" alt="88 Connect" height="40" style="filter: invert(1)">
-        <nav class="d-none d-md-block">
-            <a href="#activities" class="nav-link d-inline">Activities</a>
-            <a href="#pricing" class="nav-link d-inline">Pricing</a>
-        </nav>
-        <a href="https://wa.me/212663250329" class="btn btn-sm btn-outline-light rounded-pill px-4">WhatsApp</a>
-    </div>
-</header>
-
-<section class="hero">
-    <div class="container">
-        <h1>Unleash the <span style="color: var(--accent)">Adventure</span></h1>
-        <p class="lead mb-4">The ultimate Marrakech experience awaits.</p>
-        <a href="#booking" class="btn-accent" style="width: auto; display: inline-block;">Book Now</a>
-    </div>
-</section>
-
-<section id="activities" class="container py-5">
-    <h2 class="text-center mb-5 fw-bold">Popular Experiences</h2>
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="activity-card">
-                <img src="https://88-connect.com/wp-content/themes/88connect/public/imgs/img-about-1.png" alt="Quads" loading="lazy">
-                <div class="activity-overlay"><h3>Quad Tours</h3></div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="activity-card">
-                <img src="https://88-connect.com/wp-content/themes/88connect/public/bgs/bg-5.webp" alt="Dinner" loading="lazy">
-                <div class="activity-overlay"><h3>Desert Dinner</h3></div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="activity-card">
-                <img src="https://88-connect.com/wp-content/themes/88connect/public/imgs/img-2.jpg" alt="Balloon" loading="lazy">
-                <div class="activity-overlay"><h3>Hot Air Balloon</h3></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="booking" class="container py-5">
-    <div class="booking-box mx-auto" style="max-width: 600px;">
-        <h2 class="text-center mb-4">Secure Your Spot</h2>
-        <form id="bookingForm">
-            <input id="name" type="text" class="form-control" placeholder="Full Name" required>
-            <input id="phone" type="tel" class="form-control" placeholder="Phone Number" required>
-            
-            <div class="row">
-                <div class="col-6">
-                    <select id="activity" class="form-select" required onchange="calculatePreview()">
-                        <option value="">Activity</option>
-                        <option value="Quad Tour">Quad Tour</option>
-                        <option value="Desert Dinner">Desert Dinner</option>
-                        <option value="Hot Air Balloon">Hot Air Balloon</option>
-                    </select>
-                </div>
-                <div class="col-6">
-                    <input id="persons" type="number" class="form-control" min="1" max="20" placeholder="Pax" required onchange="calculatePreview()">
-                </div>
-            </div>
-
-            <input id="date" type="date" class="form-control" required>
-            <textarea id="message" class="form-control" placeholder="Special requirements..."></textarea>
-            
-            <div id="pricePreview" class="text-center mb-3 text-accent fw-bold" style="color: var(--accent)"></div>
-
-            <button type="submit" class="btn-accent">Send WhatsApp Booking</button>
-        </form>
-    </div>
-</section>
-
-<script>
-    // Set minimum date to today
-    document.getElementById('date').min = new Date().toISOString().split("T")[0];
-
-    const prices = {
-        "Quad Tour": 350,
-        "Desert Dinner": 500,
-        "Hot Air Balloon": 1500
-    };
-
-    function calculatePreview() {
-        const act = document.getElementById("activity").value;
-        const pax = document.getElementById("persons").value;
-        const preview = document.getElementById("pricePreview");
-        
-        if(act && pax) {
-            preview.innerText = `Estimated Total: ${prices[act] * pax} MAD`;
-        } else {
-            preview.innerText = "";
-        }
+      // 3. التوجيه للواتساب
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, '_blank');
+      
+    } catch (error) {
+      alert("حدث خطأ، يرجى المحاولة مرة أخرى.");
+    } finally {
+      setIsSubmitting(false);
     }
+  };
 
-    document.getElementById('bookingForm').onsubmit = function(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById("name").value;
-        const phone = document.getElementById("phone").value;
-        const activity = document.getElementById("activity").value;
-        const persons = document.getElementById("persons").value;
-        const date = document.getElementById("date").value;
-        const msg = document.getElementById("message").value;
+  return (
+    <div style={styles.app}>
+      {/* Navigation */}
+      <nav style={styles.nav}>
+        <div style={styles.container}>
+          <img 
+            src="https://88-connect.com/wp-content/themes/88connect/public/logo.jpg" 
+            alt="88 Connect" 
+            style={styles.logo} 
+          />
+          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} style={styles.navBtn}>WhatsApp</a>
+        </div>
+      </nav>
 
-        const total = (prices[activity] || 0) * persons;
+      {/* Hero Section */}
+      <header style={styles.hero}>
+        <h1 style={styles.heroTitle}>Unleash The <span style={{color: '#ff9f1c'}}>Adventure</span></h1>
+        <p style={styles.heroSubtitle}>Experience Marrakech like never before with 88 Connect</p>
+      </header>
 
-        const text = `*NEW BOOKING - 88 CONNECT*%0A` +
-                     `--------------------------%0A` +
-                     `*Name:* ${encodeURIComponent(name)}%0A` +
-                     `*Phone:* ${encodeURIComponent(phone)}%0A` +
-                     `*Activity:* ${activity}%0A` +
-                     `*Persons:* ${persons}%0A` +
-                     `*Date:* ${date}%0A` +
-                     `*Total:* ${total} MAD%0A` +
-                     `*Message:* ${encodeURIComponent(msg)}`;
+      {/* Booking Section */}
+      <section id="booking" style={styles.section}>
+        <div style={styles.bookingCard}>
+          <h2 style={styles.cardTitle}>Book Your Experience</h2>
+          
+          <form onSubmit={handleSubmit} style={styles.form}>
+            <div style={styles.inputGroup}>
+              <input 
+                type="text" name="name" placeholder="Full Name" required 
+                style={styles.input} onChange={handleChange} 
+              />
+              <input 
+                type="tel" name="phone" placeholder="WhatsApp Number" required 
+                style={styles.input} onChange={handleChange} 
+              />
+            </div>
 
-        window.open(`https://wa.me/212663250329?text=${text}`, '_blank');
-    };
-</script>
+            <div style={styles.inputGroup}>
+              <select 
+                name="activity" required style={styles.input} 
+                onChange={handleChange} value={formData.activity}
+              >
+                <option value="">Select Activity</option>
+                {Object.keys(PRICES).map(act => <option key={act} value={act}>{act}</option>)}
+              </select>
+              
+              <input 
+                type="number" name="persons" min="1" max="20" placeholder="Persons" required 
+                style={styles.input} onChange={handleChange} 
+              />
+            </div>
 
-</body>
-</html>
+            <input 
+              type="date" name="date" required min={minDate} 
+              style={styles.input} onChange={handleChange} 
+            />
+
+            <textarea 
+              name="message" placeholder="Special requirements..." 
+              style={{...styles.input, height: '100px', resize: 'none'}} 
+              onChange={handleChange}
+            ></textarea>
+
+            <div style={styles.priceContainer}>
+              Total Price: <span style={styles.priceAmount}>{totalPrice} MAD</span>
+            </div>
+
+            <button type="submit" disabled={isSubmitting} style={styles.submitBtn}>
+              {isSubmitting ? 'Processing...' : 'Confirm & Book via WhatsApp'}
+            </button>
+          </form>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer style={styles.footer}>
+        <p>© {new Date().getFullYear()} 88 CONNECT MARRAKECH - Professional Adventure Tours</p>
+      </footer>
+    </div>
+  );
+}
+
+// --- التصميم (Styles Object) ---
+const styles = {
+  app: {
+    backgroundColor: '#050505',
+    color: '#fff',
+    minHeight: '100vh',
+    direction: 'ltr',
+    fontFamily: "'Inter', sans-serif",
+  },
+  nav: {
+    padding: '20px 0',
+    background: 'rgba(5, 5, 5, 0.9)',
+    backdropFilter: 'blur(10px)',
+    position: 'fixed',
+    width: '100%',
+    top: 0,
+    zIndex: 1000,
+    borderBottom: '1px solid #222'
+  },
+  container: {
+    maxWidth: '1100px',
+    margin: '0 auto',
+    padding: '0 20px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  logo: { height: '40px', filter: 'invert(1)' },
+  navBtn: {
+    backgroundColor: 'transparent',
+    border: '1px solid #ff9f1c',
+    color: '#ff9f1c',
+    padding: '8px 20px',
+    borderRadius: '50px',
+    textDecoration: 'none',
+    fontWeight: '600',
+    fontSize: '0.9rem'
+  },
+  hero: {
+    height: '60vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    background: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("https://88-connect.com/wp-content/themes/88connect/public/bgs/bg-5.webp") center/cover',
+    padding: '0 20px'
+  },
+  heroTitle: { fontSize: '3.5rem', fontWeight: '900', marginBottom: '10px' },
+  heroSubtitle: { fontSize: '1.2rem', color: '#ccc', fontWeight: '300' },
+  section: { padding: '80px 20px' },
+  bookingCard: {
+    maxWidth: '700px',
+    margin: '-120px auto 0',
+    background: '#121212',
+    padding: '40px',
+    borderRadius: '24px',
+    boxShadow: '0 25px 50px rgba(0,0,0,0.5)',
+    border: '1px solid #222',
+    position: 'relative',
+    zIndex: 10
+  },
+  cardTitle: { textAlign: 'center', marginBottom: '30px', fontWeight: '800' },
+  form: { display: 'flex', flexDirection: 'column', gap: '15px' },
+  inputGroup: { display: 'flex', gap: '15px', flexWrap: 'wrap' },
+  input: {
+    flex: 1,
+    minWidth: '200px',
+    backgroundColor: '#1a1a1a',
+    border: '1px solid #333',
+    borderRadius: '12px',
+    padding: '15px',
+    color: '#fff',
+    fontSize: '1rem',
+    outline: 'none',
+    transition: 'border 0.3s'
+  },
+  priceContainer: {
+    textAlign: 'center',
+    fontSize: '1.3rem',
+    margin: '20px 0',
+    padding: '15px',
+    backgroundColor: 'rgba(255, 159, 28, 0.1)',
+    borderRadius: '12px',
+    border: '1px dashed #ff9f1c'
+  },
+  priceAmount: { color: '#ff9f1c', fontWeight: '900' },
+  submitBtn: {
+    backgroundColor: '#ff9f1c',
+    color: '#000',
+    padding: '18px',
+    borderRadius: '50px',
+    border: 'none',
+    fontWeight: '700',
+    fontSize: '1.1rem',
+    cursor: 'pointer',
+    transition: '0.3s ease',
+    boxShadow: '0 10px 20px rgba(255, 159, 28, 0.2)'
+  },
+  footer: {
+    padding: '40px',
+    textAlign: 'center',
+    color: '#666',
+    fontSize: '0.8rem',
+    borderTop: '1px solid #111'
+  }
+};
