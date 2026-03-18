@@ -1,671 +1,264 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ki Shop Perfumes</title>
 
-<title>88 CONNECT - Book Your Adventure in Marrakech</title>
-
-<meta name="description" content="Experience unforgettable adventures in Marrakech with 88 Connect. Quad tours, hot air balloon rides, desert dinners & more.">
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
-
-:root{
-    --primary: #050505;
-    --secondary: #121212;
-    --accent: #ff9f1c;
-    --accent-glow: rgba(255, 159, 28, 0.4);
-    --white: #ffffff;
-    --gray: #888888;
-    --glass: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
 body{
-    font-family:'Inter',sans-serif;
-    background:var(--primary);
-    color:var(--white);
-    line-height:1.6;
-    overflow-x: hidden;
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#050505;
+  color:white;
 }
 
-/* --- Header & Nav --- */
-.header{
-    background: rgba(5, 5, 5, 0.85);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    padding:20px 0;
-    position:fixed;
-    width:100%;
-    top:0;
-    z-index:1000;
-    border-bottom: 1px solid var(--glass-border);
-    transition: var(--transition);
-}
-
-.header .container{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.header img{
-    height:50px;
-    filter: brightness(0) invert(1);
-    transition: var(--transition);
-}
-
-.header a{
-    color:var(--white);
-    text-decoration:none;
-    margin-left:25px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    position: relative;
-    transition: var(--transition);
-}
-
-.header a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: var(--accent);
-    transition: var(--transition);
-}
-
-.header a:hover::after {
-    width: 100%;
-}
-
-.btn-book{
-    background:var(--accent);
-    padding:10px 25px;
-    border-radius:50px;
-    color:white;
-    text-decoration:none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    box-shadow: 0 4px 15px var(--accent-glow);
-    transition: var(--transition);
-}
-
-.btn-book:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px var(--accent-glow);
-    background: #ffb042;
-}
-
-/* --- Hero Section --- */
+/* HERO */
 .hero{
-    background:linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 100%), url('https://88-connect.com/wp-content/themes/88connect/public/bgs/bg-5.webp');
-    background-size:cover;
-    background-position:center;
-    background-attachment: fixed;
-    height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    position: relative;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(circle at center, transparent 0%, var(--primary) 90%);
-    pointer-events: none;
+  text-align:center;
+  padding:80px 20px;
+  background:linear-gradient(135deg,#000,#111);
 }
 
 .hero h1{
-    font-size:4.5rem;
-    font-weight:900;
-    margin-bottom:20px;
-    letter-spacing: -1px;
-    background: linear-gradient(to right, #fff, #ccc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: fadeInUp 1s ease-out;
+  font-size:3rem;
+  color:#ffd700;
 }
 
-.hero p{
-    font-size:1.4rem;
-    margin-bottom:40px;
-    color:#ddd;
-    font-weight: 300;
-    letter-spacing: 0.5px;
-    animation: fadeInUp 1.2s ease-out;
+.badge{
+  background:red;
+  display:inline-block;
+  padding:5px 12px;
+  border-radius:20px;
+  margin-top:10px;
+  font-size:0.9rem;
 }
 
-.btn-hero{
-    background:var(--accent);
-    padding:18px 50px;
-    border-radius:50px;
-    color:white;
-    text-decoration:none;
-    font-weight: 700;
-    font-size: 1.1rem;
-    box-shadow: 0 10px 30px var(--accent-glow);
-    transition: var(--transition);
-    display: inline-block;
-    animation: fadeInUp 1.4s ease-out;
+/* TIMER */
+#timer{
+  font-size:1.2rem;
+  color:#ffd700;
+  margin-top:10px;
 }
 
-.btn-hero:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 20px 40px var(--accent-glow);
+/* GRID */
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:20px;
+  padding:30px;
 }
 
-/* --- General Section Styles --- */
-.section{
-    padding:100px 0;
-    position: relative;
+.card{
+  background:#111;
+  padding:15px;
+  border-radius:15px;
+  text-align:center;
+  cursor:pointer;
+  transition:0.3s;
 }
 
-.section-title{
-    text-align:center;
-    margin-bottom:70px;
+.card img{
+  width:100%;
+  border-radius:10px;
 }
 
-.section-title h2{
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin-bottom: 15px;
-    position: relative;
-    display: inline-block;
+.card:hover{
+  transform:scale(1.05);
 }
 
-.section-title h2::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
-    background: var(--accent);
-    margin: 10px auto 0;
-    border-radius: 2px;
+.selected{
+  border:2px solid gold;
 }
 
-/* --- Activities Grid --- */
-.activities-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:30px;
+/* VIDEO */
+.video{
+  text-align:center;
+  padding:30px;
 }
 
-.activity-card{
-    position:relative;
-    border-radius:20px;
-    overflow:hidden;
-    height:400px;
-    cursor: pointer;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    transition: var(--transition);
+.video iframe{
+  width:90%;
+  height:250px;
+  border-radius:15px;
 }
 
-.activity-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+/* REVIEWS */
+.reviews{
+  padding:30px;
 }
 
-.activity-card img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition: transform 0.8s ease;
+.review{
+  background:#111;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:10px;
 }
 
-.activity-card:hover img {
-    transform: scale(1.1);
+/* FORM */
+.form{
+  padding:30px;
 }
 
-.activity-overlay{
-    position:absolute;
-    bottom:0;
-    left:0;
-    right:0;
-    background:linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.4));
-    padding:40px 30px;
-    transform: translateY(20px);
-    transition: var(--transition);
+input,button{
+  width:100%;
+  padding:15px;
+  margin-top:10px;
+  border-radius:10px;
+  border:none;
 }
 
-.activity-card:hover .activity-overlay {
-    transform: translateY(0);
+input{
+  background:#111;
+  color:white;
 }
 
-.activity-overlay h3{
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 5px;
+button{
+  background:#ffd700;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-/* --- Pricing Cards --- */
-.pricing-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:30px;
-}
-
-.pricing-card{
-    background: var(--secondary);
-    padding:50px 30px;
-    border-radius:25px;
-    text-align:center;
-    border: 1px solid var(--glass-border);
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-}
-
-.pricing-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-10px);
-    background: #1a1a1a;
-}
-
-.pricing-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 5px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-}
-
-.pricing-card:hover::before {
-    transform: scaleX(1);
-}
-
-.pricing-card h3{
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: #fff;
-}
-
-.price{
-    font-size:3rem;
-    color:var(--accent);
-    font-weight: 800;
-    margin-bottom: 25px;
-    display: block;
-    text-shadow: 0 0 20px var(--accent-glow);
-}
-
-.pricing-card p{
-    color: #aaa;
-    margin-bottom: 15px;
-    font-size: 1rem;
-}
-
-/* --- Booking Section --- */
-.booking-box{
-    background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-    padding:60px;
-    border-radius:30px;
-    max-width:800px;
-    margin:auto;
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    position: relative;
-}
-
-.booking-box::after {
-    content: '';
-    position: absolute;
-    top: -2px; left: -2px; right: -2px; bottom: -2px;
-    background: linear-gradient(45deg, var(--accent), transparent, var(--accent));
-    z-index: -1;
-    border-radius: 32px;
-    opacity: 0.3;
-    filter: blur(10px);
-}
-
-.booking-box h2{
-    text-align: center;
-    font-size: 2.2rem;
-    margin-bottom: 40px;
-    font-weight: 800;
-}
-
-.booking-form input,
-.booking-form select,
-.booking-form textarea{
-    width:100%;
-    padding:18px 20px;
-    margin-bottom:20px;
-    background:#050505;
-    border:1px solid #333;
-    color:white;
-    border-radius:12px;
-    font-size: 1rem;
-    font-family: 'Inter', sans-serif;
-    transition: var(--transition);
-}
-
-.booking-form input:focus,
-.booking-form select:focus,
-.booking-form textarea:focus {
-    outline: none;
-    border-color: var(--accent);
-    background: #0a0a0a;
-    box-shadow: 0 0 15px var(--accent-glow);
-}
-
-.booking-form textarea {
-    resize: vertical;
-    min-height: 120px;
-}
-
-.btn-submit{
-    background:var(--accent);
-    border:none;
-    padding:18px;
-    border-radius:50px;
-    width:100%;
-    font-weight:700;
-    color:white;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: var(--transition);
-    box-shadow: 0 10px 25px var(--accent-glow);
-}
-
-.btn-submit:hover {
-    background: #ffb042;
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px var(--accent-glow);
-}
-
-/* --- Footer --- */
+/* FOOTER INFO */
 .footer{
-    padding:60px 0;
-    text-align:center;
-    border-top:1px solid #222;
-    background: #000;
-    color: #666;
-    font-size: 0.9rem;
+  text-align:center;
+  padding:20px;
+  color:#aaa;
 }
 
-/* --- Animations --- */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ANIMATION */
+.fade{
+  opacity:0;
+  transform:translateY(30px);
+  transition:1s;
 }
 
-/* --- Responsive Tweaks --- */
-@media (max-width: 768px) {
-    .hero h1 { font-size: 2.8rem; }
-    .hero p { font-size: 1.1rem; }
-    .header .container { flex-direction: column; gap: 15px; }
-    .header nav { margin: 10px 0; }
-    .header a { margin: 0 10px; }
-    .booking-box { padding: 30px; }
+.show{
+  opacity:1;
+  transform:translateY(0);
 }
-
 </style>
-
 </head>
 
 <body>
 
-<header class="header">
+<div class="hero">
+  <h1>Ki Shop Perfumes</h1>
+  <p>20 عطر فاخر بثمن 49dh فقط 🔥</p>
+  <div class="badge">OFFRE LIMITÉE</div>
+  <div id="timer"></div>
+  <p>🔥 +1000 clients satisfaits</p>
+</div>
 
-<div class="container">
+<!-- PRODUCTS -->
+<div class="products" id="products"></div>
 
-<a href="#">
-<img src="https://88-connect.com/wp-content/themes/88connect/public/logo.jpg">
-</a>
+<!-- VIDEO -->
+<div class="video fade">
+  <h2>🎥 شاهد الجودة</h2>
+  <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
+</div>
 
-<nav>
-<a href="#activities">Activities</a>
-<a href="#pricing">Pricing</a>
-<a href="#booking">Book</a>
-</nav>
+<!-- REVIEWS -->
+<div class="reviews fade">
+  <h2>⭐ آراء الزبناء</h2>
 
-<a href="https://wa.me/212663250329" class="btn-book">
-WhatsApp
-</a>
+  <div class="review">⭐⭐⭐⭐⭐ - محمد: عطر زوين وبثمن رخيص 😍</div>
+  <div class="review">⭐⭐⭐⭐⭐ - سارة: توصيل سريع وجودة ممتازة</div>
+  <div class="review">⭐⭐⭐⭐ - يوسف: غادي نعاود نطلب 👍</div>
 
 </div>
 
-</header>
-
-
-<section class="hero">
-
-<div>
-
-<h1>Unleash the Adventure</h1>
-
-<p>Experience Marrakech like never before</p>
-
-<a href="#booking" class="btn-hero">
-Book Your Experience
-</a>
-
+<!-- FORM -->
+<div class="form fade">
+  <h2>اطلب دابا</h2>
+  <input id="name" placeholder="الاسم">
+  <input id="phone" placeholder="رقم الهاتف">
+  <button onclick="sendOrder()">إرسال عبر واتساب</button>
 </div>
 
-</section>
-
-
-<section id="activities" class="section">
-
-<div class="container">
-
-<div class="section-title">
-<h2>Our Activities</h2>
+<div class="footer">
+  الدفع عند الاستلام 🚚 | توصيل لجميع المدن
 </div>
-
-<div class="activities-grid">
-
-<div class="activity-card">
-<img src="https://88-connect.com/wp-content/themes/88connect/public/imgs/img-about-1.png">
-<div class="activity-overlay">
-<h3>Quad Tours</h3>
-</div>
-</div>
-
-<div class="activity-card">
-<img src="https://88-connect.com/wp-content/themes/88connect/public/bgs/bg-5.webp">
-<div class="activity-overlay">
-<h3>Desert Dinner</h3>
-</div>
-</div>
-
-<div class="activity-card">
-<img src="https://88-connect.com/wp-content/themes/88connect/public/imgs/img-2.jpg">
-<div class="activity-overlay">
-<h3>Hot Air Balloon</h3>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section id="pricing" class="section">
-
-<div class="container">
-
-<div class="section-title">
-<h2>Packages</h2>
-</div>
-
-<div class="pricing-grid">
-
-<div class="pricing-card">
-<h3>Quad Tour</h3>
-<div class="price">350 MAD</div>
-<p>⏱ 2 Hours</p>
-<p>📍 Agafay Desert</p>
-<p>👥 Max 20 Persons</p>
-⭐ 4.9 / 5
-</div>
-
-<div class="pricing-card">
-<h3>Desert Dinner</h3>
-<div class="price">500 MAD</div>
-<p>⏱ 3 Hours</p>
-<p>📍 Agafay Desert</p>
-<p>👥 Max 20 Persons</p>
-⭐ 4.8 / 5
-</div>
-
-<div class="pricing-card">
-<h3>Hot Air Balloon</h3>
-<div class="price">1500 MAD</div>
-<p>⏱ 4 Hours</p>
-<p>📍 Marrakech</p>
-<p>👥 Max 16 Persons</p>
-⭐ 5.0 / 5
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section id="booking" class="section">
-
-<div class="container">
-
-<div class="booking-box">
-
-<h2>Book Your Adventure</h2>
-
-<form class="booking-form">
-
-<input id="name" type="text" placeholder="Name" required>
-
-<input id="phone" type="tel" placeholder="Phone" required>
-
-<select id="activity" required>
-<option value="">Choose Activity</option>
-<option>Quad Tour</option>
-<option>Desert Dinner</option>
-<option>Hot Air Balloon</option>
-</select>
-
-<select id="persons" required>
-
-<option value="">Number of Persons</option>
-
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-<option>6</option>
-<option>7</option>
-<option>8</option>
-<option>9</option>
-<option>10</option>
-<option>11</option>
-<option>12</option>
-<option>13</option>
-<option>14</option>
-<option>15</option>
-<option>16</option>
-<option>17</option>
-<option>18</option>
-<option>19</option>
-<option>20</option>
-
-</select>
-
-<input id="date" type="date" required>
-
-<textarea id="message" placeholder="Message"></textarea>
-
-<button type="button" onclick="sendBooking()" class="btn-submit">
-Send Booking
-</button>
-
-</form>
-
-</div>
-
-</div>
-
-</section>
-
-
-<footer class="footer">
-
-<p>© 2026 88 Connect Marrakech</p>
-
-</footer>
-
 
 <script>
 
-function sendBooking(){
+let perfumes = [
+"Amber","Oud Royal","Rose Musk","Vanilla Dream","Black Orchid",
+"White Musk","Jasmine Gold","Ocean Fresh","Night Intense","Sweet Candy",
+"Dark Wood","Royal Gold","Cherry Love","Fresh Lemon","Spicy Oud",
+"Blue Sky","Coffee Mix","Floral Touch","Magic Night","Luxury Mix"
+];
 
-let name = document.getElementById("name").value
-let phone = document.getElementById("phone").value
-let activity = document.getElementById("activity").value
-let persons = document.getElementById("persons").value
-let date = document.getElementById("date").value
-let message = document.getElementById("message").value
+let selected = [];
 
-let price = 0
+let container = document.getElementById("products");
 
-if(activity === "Quad Tour"){ price = 350 }
-if(activity === "Desert Dinner"){ price = 500 }
-if(activity === "Hot Air Balloon"){ price = 1500 }
+perfumes.forEach((p,i)=>{
+  let div = document.createElement("div");
+  div.className="card fade";
 
-let total = price * persons
+  div.innerHTML = `
+    <img src="https://picsum.photos/200?random=${i}">
+    <p>${p}</p>
+    <strong>49dh</strong>
+  `;
 
-let text =
-"NEW BOOKING - 88 CONNECT %0A%0A"+
-"Name: "+name+"%0A"+
-"Phone: "+phone+"%0A"+
-"Activity: "+activity+"%0A"+
-"Persons: "+persons+"%0A"+
-"Date: "+date+"%0A"+
-"Total Price: "+total+" MAD %0A"+
-"Message: "+message
+  div.onclick=()=>{
+    div.classList.toggle("selected");
 
-let url = "https://wa.me/212663250329?text="+text
+    if(selected.includes(p)){
+      selected = selected.filter(x=>x!==p);
+    }else{
+      selected.push(p);
+    }
+  }
 
-window.open(url,'_blank')
+  container.appendChild(div);
+});
 
+function sendOrder(){
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+
+  if(name==="" || phone==="" || selected.length===0){
+    alert("عمر المعلومات كاملة");
+    return;
+  }
+
+  let text = `طلب جديد - Ki Shop Perfumes
+الاسم: ${name}
+الهاتف: ${phone}
+العطور: ${selected.join(", ")}
+المجموع: ${selected.length*49} DH`;
+
+  let url = "https://wa.me/212600315821?text=" + encodeURIComponent(text);
+
+  window.open(url);
 }
+
+/* TIMER */
+let time = 3600;
+setInterval(()=>{
+  let m = Math.floor(time/60);
+  let s = time%60;
+  document.getElementById("timer").innerText = `ينتهي العرض خلال ${m}:${s}`;
+  time--;
+},1000);
+
+/* ANIMATION SCROLL */
+let elements = document.querySelectorAll(".fade");
+
+window.addEventListener("scroll",()=>{
+  elements.forEach(el=>{
+    let pos = el.getBoundingClientRect().top;
+    if(pos < window.innerHeight){
+      el.classList.add("show");
+    }
+  });
+});
 
 </script>
 
