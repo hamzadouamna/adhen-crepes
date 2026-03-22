@@ -1,265 +1,133 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ki Shop Perfumes</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-
+<meta name="description" content="كراء السيارات في المغرب – KS Rental Cars. أفضل الأسعار اليومية، حجز مباشر عبر WhatsApp أو النموذج الإلكتروني.">
+<title>كراء السيارات في المغرب – KS Rental Cars</title>
 <style>
-body{
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background:#050505;
-  color:white;
-}
+  body {margin:0; font-family: Arial, sans-serif; background:#f9f9f9; scroll-behavior:smooth;}
+  header {background:#022c43; color:#fff; padding:30px 10px; text-align:center; transition:all 0.3s;}
+  header h1 {margin:0; font-size:2em; }
+  header p {margin-top:10px; font-size:1.1em;}
+  .container {width:90%; max-width:1200px; margin:auto; padding:20px;}
+  .cars {display:flex; flex-wrap:wrap; gap:20px; justify-content:center;}
+  .car-card {background:#fff; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.1); width:280px; text-align:center; overflow:hidden; transition: transform 0.3s, box-shadow 0.3s;}
+  .car-card:hover {transform: translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.2);}
+  .car-card img {width:100%; height:180px; object-fit:cover; border-bottom: 2px solid #e67e22;}
+  .car-card h3 {margin:15px 0 5px; color:#022c43;}
+  .car-card p {margin:5px 10px;}
+  .price {color:#e53935; font-weight:bold; font-size:1.2em; margin-top:5px;}
+  .btn-book {display:inline-block; margin:10px 0 15px; padding:10px 20px; background:#e67e22; color:#fff; text-decoration:none; border-radius:8px; transition:background 0.3s;}
+  .btn-book:hover {background:#d35400;}
+  
+  form {background:#fff; padding:20px; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.1); max-width:600px; margin:40px auto; transition: transform 0.3s;}
+  form:hover {transform: scale(1.01);}
+  form h3 {text-align:center; color:#022c43;}
+  form input, form select, form textarea {width:100%; padding:10px; margin:10px 0; border-radius:6px; border:1px solid #ccc;}
+  form button {width:100%; padding:12px; background:#00796b; color:#fff; font-size:1.1em; border:none; border-radius:6px; cursor:pointer; transition:background 0.3s;}
+  form button:hover {background:#004d40;}
+  
+  footer {background:#022c43; color:#fff; text-align:center; padding:15px; margin-top:50px;}
 
-/* HERO */
-.hero{
-  text-align:center;
-  padding:80px 20px;
-  background:linear-gradient(135deg,#000,#111);
-}
+  @media(max-width:768px){ .cars {flex-direction:column; align-items:center;} .car-card {width:90%;} }
 
-.hero h1{
-  font-size:3rem;
-  color:#ffd700;
-}
-
-.badge{
-  background:red;
-  display:inline-block;
-  padding:5px 12px;
-  border-radius:20px;
-  margin-top:10px;
-  font-size:0.9rem;
-}
-
-/* TIMER */
-#timer{
-  font-size:1.2rem;
-  color:#ffd700;
-  margin-top:10px;
-}
-
-/* GRID */
-.products{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:20px;
-  padding:30px;
-}
-
-.card{
-  background:#111;
-  padding:15px;
-  border-radius:15px;
-  text-align:center;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-.card img{
-  width:100%;
-  border-radius:10px;
-}
-
-.card:hover{
-  transform:scale(1.05);
-}
-
-.selected{
-  border:2px solid gold;
-}
-
-/* VIDEO */
-.video{
-  text-align:center;
-  padding:30px;
-}
-
-.video iframe{
-  width:90%;
-  height:250px;
-  border-radius:15px;
-}
-
-/* REVIEWS */
-.reviews{
-  padding:30px;
-}
-
-.review{
-  background:#111;
-  padding:15px;
-  border-radius:10px;
-  margin-bottom:10px;
-}
-
-/* FORM */
-.form{
-  padding:30px;
-}
-
-input,button{
-  width:100%;
-  padding:15px;
-  margin-top:10px;
-  border-radius:10px;
-  border:none;
-}
-
-input{
-  background:#111;
-  color:white;
-}
-
-button{
-  background:#ffd700;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-/* FOOTER INFO */
-.footer{
-  text-align:center;
-  padding:20px;
-  color:#aaa;
-}
-
-/* ANIMATION */
-.fade{
-  opacity:0;
-  transform:translateY(30px);
-  transition:1s;
-}
-
-.show{
-  opacity:1;
-  transform:translateY(0);
-}
 </style>
 </head>
-
 <body>
 
-<div class="hero">
-  <h1>Ki Shop Perfumes</h1>
-  <p>20 عطر فاخر بثمن 49dh فقط 🔥</p>
-  <div class="badge">OFFRE LIMITÉE</div>
-  <div id="timer"></div>
-  <p>🔥 +1000 clients satisfaits</p>
+<header>
+  <h1>🌍 كراء السيارات في المغرب – KS Rental Cars</h1>
+  <p>أفضل الأسعار اليومية + أسعار حسب الموسم</p>
+</header>
+
+<div class="container">
+  <div class="cars">
+
+    <div class="car-card">
+      <img loading="lazy" src="https://i.imgur.com/2y8nT3H.jpg" alt="Citadine économique">
+      <h3>🚗 صغيرة / اقتصادية</h3>
+      <p>Dacia Sandero, Renault Clio</p>
+      <p class="price">اليومي: 200 DH | Saison basse: 150 DH | Saison haute: 250 DH</p>
+      <a href="https://wa.me/212681984326?text=حجز%20سيارة%20صغيرة" class="btn-book" target="_blank">احجز عبر WhatsApp</a>
+    </div>
+
+    <div class="car-card">
+      <img loading="lazy" src="https://i.imgur.com/FV7z9kT.jpg" alt="SUV 4x4">
+      <h3>🚙 SUV / 4×4</h3>
+      <p>Dacia Duster, Hyundai Creta</p>
+      <p class="price">اليومي: 500 DH | Saison basse: 350 DH | Saison haute: 850 DH</p>
+      <a href="https://wa.me/212681984326?text=حجز%20SUV" class="btn-book" target="_blank">احجز عبر WhatsApp</a>
+    </div>
+
+    <div class="car-card">
+      <img loading="lazy" src="https://i.imgur.com/UgXbA2M.jpg" alt="Familiale">
+      <h3>👨‍👩‍👧 سيارة عائلية</h3>
+      <p>Peugeot 3008, VW Golf</p>
+      <p class="price">اليومي: 360 DH | Saison basse: 260 DH | Saison haute: 460 DH</p>
+      <a href="https://wa.me/212681984326?text=حجز%20سيارة%20عائلية" class="btn-book" target="_blank">احجز عبر WhatsApp</a>
+    </div>
+
+    <div class="car-card">
+      <img loading="lazy" src="https://i.imgur.com/z4J9bYu.jpg" alt="Premium">
+      <h3>🚘 فخمة / Premium</h3>
+      <p>Mercedes, Range Rover</p>
+      <p class="price">اليومي: 1200 DH | Saison basse: 500 DH | Saison haute: 3500 DH</p>
+      <a href="https://wa.me/212681984326?text=حجز%20Premium" class="btn-book" target="_blank">احجز عبر WhatsApp</a>
+    </div>
+
+  </div>
+
+  <!-- Booking Form -->
+  <form id="booking">
+    <h3>📋 نموذج الحجز</h3>
+    <input type="text" id="name" placeholder="الاسم الكامل" required>
+    <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+    <input type="tel" id="phone" placeholder="رقم الهاتف" required>
+    <select id="car_type" required>
+      <option value="">اختر نوع السيارة</option>
+      <option value="Citadine">صغيرة / اقتصادية</option>
+      <option value="SUV">SUV / 4x4</option>
+      <option value="Familiale">عائلية</option>
+      <option value="Premium">فخمة / Premium</option>
+    </select>
+    <input type="date" id="start_date" required>
+    <input type="date" id="end_date" required>
+    <textarea id="message" placeholder="ملاحظات إضافية"></textarea>
+    <button type="submit">إرسال الحجز</button>
+  </form>
+
 </div>
 
-<!-- PRODUCTS -->
-<div class="products" id="products"></div>
-
-<!-- VIDEO -->
-<div class="video fade">
-  <h2>🎥 شاهد الجودة</h2>
-  <iframe src="https://www.youtube.com/embed/VIDEO_ID"></iframe>
-</div>
-
-<!-- REVIEWS -->
-<div class="reviews fade">
-  <h2>⭐ آراء الزبناء</h2>
-
-  <div class="review">⭐⭐⭐⭐⭐ - محمد: عطر زوين وبثمن رخيص 😍</div>
-  <div class="review">⭐⭐⭐⭐⭐ - سارة: توصيل سريع وجودة ممتازة</div>
-  <div class="review">⭐⭐⭐⭐ - يوسف: غادي نعاود نطلب 👍</div>
-
-</div>
-
-<!-- FORM -->
-<div class="form fade">
-  <h2>اطلب دابا</h2>
-  <input id="name" placeholder="الاسم">
-  <input id="phone" placeholder="رقم الهاتف">
-  <button onclick="sendOrder()">إرسال عبر واتساب</button>
-</div>
-
-<div class="footer">
-  الدفع عند الاستلام 🚚 | توصيل لجميع المدن
-</div>
+<footer>
+  <p>© 2026 KS Rental Cars | WhatsApp: +212 681-984326</p>
+</footer>
 
 <script>
+document.getElementById('booking').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const car_type = document.getElementById('car_type').value;
+  const start = document.getElementById('start_date').value;
+  const end = document.getElementById('end_date').value;
+  const msg = document.getElementById('message').value.trim();
 
-let perfumes = [
-"Amber","Oud Royal","Rose Musk","Vanilla Dream","Black Orchid",
-"White Musk","Jasmine Gold","Ocean Fresh","Night Intense","Sweet Candy",
-"Dark Wood","Royal Gold","Cherry Love","Fresh Lemon","Spicy Oud",
-"Blue Sky","Coffee Mix","Floral Touch","Magic Night","Luxury Mix"
-];
-
-let selected = [];
-
-let container = document.getElementById("products");
-
-perfumes.forEach((p,i)=>{
-  let div = document.createElement("div");
-  div.className="card fade";
-
-  div.innerHTML = `
-    <img src="https://picsum.photos/200?random=${i}">
-    <p>${p}</p>
-    <strong>49dh</strong>
-  `;
-
-  div.onclick=()=>{
-    div.classList.toggle("selected");
-
-    if(selected.includes(p)){
-      selected = selected.filter(x=>x!==p);
-    }else{
-      selected.push(p);
-    }
-  }
-
-  container.appendChild(div);
-});
-
-function sendOrder(){
-  let name = document.getElementById("name").value;
-  let phone = document.getElementById("phone").value;
-
-  if(name==="" || phone==="" || selected.length===0){
-    alert("عمر المعلومات كاملة");
+  if(!name || !email || !phone || !car_type || !start || !end){
+    alert("المرجو ملء جميع الحقول المطلوبة!");
     return;
   }
 
-  let text = `طلب جديد - Ki Shop Perfumes
-الاسم: ${name}
-الهاتف: ${phone}
-العطور: ${selected.join(", ")}
-المجموع: ${selected.length*49} DH`;
+  // فتح WhatsApp مع نص الحجز
+  const text = `حجز سيارة: ${car_type}\nالاسم: ${name}\nالبريد: ${email}\nالهاتف: ${phone}\nمن: ${start}\nإلى: ${end}\nملاحظات: ${msg}`;
+  const url = `https://wa.me/212681984326?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank');
 
-  let url = "https://wa.me/212600315821?text=" + encodeURIComponent(text);
-
-  window.open(url);
-}
-
-/* TIMER */
-let time = 3600;
-setInterval(()=>{
-  let m = Math.floor(time/60);
-  let s = time%60;
-  document.getElementById("timer").innerText = `ينتهي العرض خلال ${m}:${s}`;
-  time--;
-},1000);
-
-/* ANIMATION SCROLL */
-let elements = document.querySelectorAll(".fade");
-
-window.addEventListener("scroll",()=>{
-  elements.forEach(el=>{
-    let pos = el.getBoundingClientRect().top;
-    if(pos < window.innerHeight){
-      el.classList.add("show");
-    }
-  });
+  // تأكيد إرسال
+  alert("تم إرسال الحجز! سيتم التواصل معك عبر WhatsApp.");
+  this.reset();
 });
-
 </script>
 
 </body>
