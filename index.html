@@ -3,38 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elite Coffee Shop</title>
+<title>Elite Coffee Business System</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter;
+}
 
 body{
-background:#0a0a0a;
+background:#050505;
 color:#fff;
+overflow-x:hidden;
+}
+
+/* GLOW BACKGROUND */
+body::before{
+content:"";
+position:fixed;
+width:600px;
+height:600px;
+background:radial-gradient(circle,#d4a24c,transparent 60%);
+filter:blur(140px);
+top:-100px;
+left:-100px;
+opacity:0.3;
+}
+
+body::after{
+content:"";
+position:fixed;
+width:500px;
+height:500px;
+background:radial-gradient(circle,#25d366,transparent 60%);
+filter:blur(140px);
+bottom:-100px;
+right:-100px;
+opacity:0.2;
 }
 
 /* NAV */
 nav{
 display:flex;
 justify-content:space-between;
+align-items:center;
 padding:20px 40px;
-background:#000;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
 position:sticky;
 top:0;
-z-index:10;
+z-index:100;
+border-bottom:1px solid #222;
 }
 
 nav h1{
 color:#d4a24c;
+font-weight:800;
 }
 
 nav a{
-color:#fff;
-text-decoration:none;
+color:#aaa;
 margin-left:15px;
+text-decoration:none;
 font-size:14px;
+}
+
+nav a:hover{
+color:#d4a24c;
 }
 
 /* HERO */
@@ -45,44 +85,38 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-position:relative;
-overflow:hidden;
 }
 
-.hero::before{
-content:"";
-position:absolute;
-width:600px;
-height:600px;
-background:radial-gradient(circle,#d4a24c,transparent 60%);
-filter:blur(120px);
-opacity:0.25;
-}
-
-.hero h2{
-font-size:60px;
+.hero h1{
+font-size:70px;
 font-weight:800;
+text-shadow:0 0 20px #d4a24c;
 }
 
-.hero span{color:#d4a24c}
+.hero span{
+color:#d4a24c;
+}
 
 .hero p{
+opacity:0.7;
 margin-top:10px;
-opacity:0.8;
 }
 
-.btn{
+.glow-btn{
 margin-top:25px;
-padding:12px 28px;
+padding:14px 30px;
 background:#d4a24c;
 border:none;
-border-radius:30px;
+border-radius:50px;
 font-weight:bold;
 cursor:pointer;
+box-shadow:0 0 20px #d4a24c;
+transition:0.3s;
 }
 
-.btn:hover{
-transform:scale(1.05);
+.glow-btn:hover{
+transform:scale(1.1);
+box-shadow:0 0 35px #d4a24c;
 }
 
 /* MENU */
@@ -93,8 +127,9 @@ text-align:center;
 
 .section h2{
 font-size:40px;
-margin-bottom:30px;
 color:#d4a24c;
+margin-bottom:30px;
+text-shadow:0 0 15px #d4a24c;
 }
 
 .menu{
@@ -106,21 +141,48 @@ margin:auto;
 }
 
 .card{
-background:#111;
+background:rgba(255,255,255,0.05);
+border:1px solid #222;
 padding:20px;
 border-radius:15px;
-border:1px solid #222;
+backdrop-filter:blur(10px);
 transition:0.3s;
+box-shadow:0 0 10px transparent;
 }
 
 .card:hover{
+transform:translateY(-8px);
+box-shadow:0 0 20px #d4a24c;
 border-color:#d4a24c;
-transform:translateY(-5px);
 }
 
 .price{
 color:#d4a24c;
 margin-top:10px;
+}
+
+/* CART */
+.cart{
+position:fixed;
+top:90px;
+right:20px;
+width:220px;
+background:rgba(0,0,0,0.7);
+border:1px solid #222;
+padding:15px;
+border-radius:15px;
+backdrop-filter:blur(10px);
+}
+
+.cart h3{
+color:#d4a24c;
+margin-bottom:10px;
+}
+
+.cart-item{
+font-size:13px;
+margin:5px 0;
+opacity:0.8;
 }
 
 /* CTA */
@@ -130,35 +192,37 @@ color:#000;
 text-align:center;
 padding:60px 20px;
 margin-top:50px;
+box-shadow:0 0 40px #d4a24c;
 }
 
 .cta h2{
 font-size:35px;
 }
 
-/* FOOTER */
-footer{
-text-align:center;
-padding:20px;
-opacity:0.6;
-font-size:14px;
-}
-
 /* WHATSAPP BUTTON */
-.fixed{
+.whatsapp{
 position:fixed;
 bottom:20px;
 right:20px;
 }
 
-.fixed a{
+.whatsapp a{
 background:#25D366;
 color:#fff;
-padding:12px 18px;
+padding:14px 18px;
 border-radius:50px;
 text-decoration:none;
 font-weight:bold;
+box-shadow:0 0 20px #25D366;
 }
+
+footer{
+text-align:center;
+padding:20px;
+opacity:0.5;
+font-size:13px;
+}
+
 </style>
 </head>
 
@@ -174,62 +238,96 @@ font-weight:bold;
 </nav>
 
 <div class="hero">
-<h2>Premium <span>Coffee</span> Experience</h2>
-<p>Luxury taste • Fresh beans • Fast service</p>
+<h1>Elite <span>Coffee</span> System</h1>
+<p>Startup-level coffee business with premium experience</p>
 
-<button class="btn"
-onclick="window.location.href='https://wa.me/212636061058?text=Hello%20I%20want%20to%20order%20coffee'">
+<button class="glow-btn"
+onclick="window.location.href='https://wa.me/212636061058?text=Hello%20I%20want%20coffee%20order'">
 Order Now
 </button>
 </div>
 
+<!-- MENU -->
 <div class="section" id="menu">
-<h2>Menu</h2>
+<h2>Signature Menu</h2>
 
 <div class="menu">
 
 <div class="card">
-<h3>Espresso</h3>
+<h3>Espresso Elite</h3>
 <p class="price">15 MAD</p>
+<button onclick="add('Espresso')" class="glow-btn" style="padding:8px 15px;font-size:12px">Add</button>
 </div>
 
 <div class="card">
-<h3>Cappuccino</h3>
+<h3>Cappuccino Velvet</h3>
 <p class="price">22 MAD</p>
+<button onclick="add('Cappuccino')" class="glow-btn" style="padding:8px 15px;font-size:12px">Add</button>
 </div>
 
 <div class="card">
-<h3>Latte</h3>
+<h3>Golden Latte</h3>
 <p class="price">25 MAD</p>
+<button onclick="add('Latte')" class="glow-btn" style="padding:8px 15px;font-size:12px">Add</button>
 </div>
 
 <div class="card">
-<h3>Cold Brew</h3>
+<h3>Cold Brew Noir</h3>
 <p class="price">28 MAD</p>
-</div>
-
-<div class="card">
-<h3>Mocha</h3>
-<p class="price">30 MAD</p>
+<button onclick="add('Cold Brew')" class="glow-btn" style="padding:8px 15px;font-size:12px">Add</button>
 </div>
 
 </div>
 </div>
 
+<!-- ABOUT -->
 <div class="cta" id="about">
-<h2>Fresh Coffee Every Day ☕</h2>
-<p>We serve premium coffee with modern experience</p>
+<h2>Premium Coffee Business ☕</h2>
+<p>Designed like a real startup system with ordering + glow UI + conversion focus</p>
+</div>
+
+<!-- CART -->
+<div class="cart">
+<h3>🛒 Cart</h3>
+<div id="cartItems"></div>
+<button class="glow-btn" style="width:100%;margin-top:10px"
+onclick="checkout()">
+Checkout WhatsApp
+</button>
+</div>
+
+<!-- WHATSAPP -->
+<div class="whatsapp">
+<a id="wa" href="#">WhatsApp Order</a>
 </div>
 
 <footer>
-© 2026 Elite Coffee Shop
+© Elite Coffee Business System
 </footer>
 
-<div class="fixed">
-<a href="https://wa.me/212636061058?text=I%20want%20coffee%20order">
-📲 WhatsApp Order
-</a>
-</div>
+<script>
+
+let cart = [];
+
+function add(item){
+cart.push(item);
+render();
+}
+
+function render(){
+document.getElementById("cartItems").innerHTML =
+cart.map(c => `<div class="cart-item">☕ ${c}</div>`).join("");
+}
+
+function checkout(){
+let text = "Hello I want order:%0A";
+cart.forEach(c => text += "- " + c + "%0A");
+
+window.location.href =
+"https://wa.me/212636061058?text=" + text;
+}
+
+</script>
 
 </body>
 </html>
