@@ -3,208 +3,232 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elite Coffee Experience</title>
+<title>Elite Coffee Shop</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
-
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter}
 
 body{
 background:#0a0a0a;
 color:#fff;
-overflow-x:hidden;
-scroll-behavior:smooth;
+}
+
+/* NAV */
+nav{
+display:flex;
+justify-content:space-between;
+padding:20px 40px;
+background:#000;
+position:sticky;
+top:0;
+z-index:10;
+}
+
+nav h1{
+color:#d4a24c;
+}
+
+nav a{
+color:#fff;
+text-decoration:none;
+margin-left:15px;
+font-size:14px;
 }
 
 /* HERO */
 .hero{
-height:100vh;
+height:90vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
 position:relative;
-padding:20px;
+overflow:hidden;
 }
 
-.bg{
+.hero::before{
+content:"";
 position:absolute;
-width:500px;
-height:500px;
-background:radial-gradient(circle,#d4a24c,transparent 70%);
+width:600px;
+height:600px;
+background:radial-gradient(circle,#d4a24c,transparent 60%);
 filter:blur(120px);
-animation:move 8s infinite alternate;
 opacity:0.25;
 }
 
-@keyframes move{
-from{transform:translate(-100px,-100px)}
-to{transform:translate(100px,100px)}
-}
-
-h1{
-font-size:72px;
+.hero h2{
+font-size:60px;
 font-weight:800;
-letter-spacing:-2px;
 }
 
-h1 span{color:#d4a24c}
+.hero span{color:#d4a24c}
 
-p{
-max-width:600px;
-margin-top:15px;
+.hero p{
+margin-top:10px;
 opacity:0.8;
 }
 
 .btn{
-margin-top:30px;
-padding:15px 35px;
+margin-top:25px;
+padding:12px 28px;
 background:#d4a24c;
 border:none;
-border-radius:50px;
-font-weight:600;
+border-radius:30px;
+font-weight:bold;
 cursor:pointer;
-transition:0.3s;
 }
 
 .btn:hover{
-transform:scale(1.08);
-box-shadow:0 0 25px rgba(212,162,76,0.5);
+transform:scale(1.05);
 }
 
-/* SECTION */
+/* MENU */
 .section{
-padding:100px 20px;
+padding:80px 20px;
 text-align:center;
 }
 
 .section h2{
-font-size:42px;
-margin-bottom:40px;
+font-size:40px;
+margin-bottom:30px;
+color:#d4a24c;
 }
 
-/* MENU */
 .menu{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
-max-width:1100px;
+max-width:1000px;
 margin:auto;
 }
 
 .card{
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.1);
-padding:25px;
-border-radius:18px;
-backdrop-filter:blur(12px);
+background:#111;
+padding:20px;
+border-radius:15px;
+border:1px solid #222;
 transition:0.3s;
 }
 
 .card:hover{
-transform:translateY(-12px);
 border-color:#d4a24c;
+transform:translateY(-5px);
 }
 
 .price{
 color:#d4a24c;
 margin-top:10px;
-font-weight:600;
 }
 
-/* STICKY CTA */
-.sticky{
-position:fixed;
-bottom:20px;
-right:20px;
-display:flex;
-gap:10px;
+/* CTA */
+.cta{
+background:#d4a24c;
+color:#000;
+text-align:center;
+padding:60px 20px;
+margin-top:50px;
 }
 
-.cta-btn{
-padding:12px 18px;
-border-radius:30px;
-border:none;
-cursor:pointer;
-font-weight:600;
+.cta h2{
+font-size:35px;
 }
-
-.call{background:#25D366;color:#fff}
-.order{background:#d4a24c;color:#111}
 
 /* FOOTER */
 footer{
-padding:40px;
 text-align:center;
+padding:20px;
 opacity:0.6;
+font-size:14px;
 }
 
+/* WHATSAPP BUTTON */
+.fixed{
+position:fixed;
+bottom:20px;
+right:20px;
+}
+
+.fixed a{
+background:#25D366;
+color:#fff;
+padding:12px 18px;
+border-radius:50px;
+text-decoration:none;
+font-weight:bold;
+}
 </style>
 </head>
 
 <body>
 
+<nav>
+<h1>☕ Elite Coffee</h1>
+<div>
+<a href="#">Home</a>
+<a href="#menu">Menu</a>
+<a href="#about">About</a>
+</div>
+</nav>
+
 <div class="hero">
-<div class="bg"></div>
+<h2>Premium <span>Coffee</span> Experience</h2>
+<p>Luxury taste • Fresh beans • Fast service</p>
 
-<h1>Elite <span>Coffee</span> Experience</h1>
-<p>Crafted like a luxury brand. Served like a lifestyle. Designed for people who want premium taste.</p>
-
-<button class="btn">Order Now</button>
+<button class="btn"
+onclick="window.location.href='https://wa.me/212636061058?text=Hello%20I%20want%20to%20order%20coffee'">
+Order Now
+</button>
 </div>
 
-<div class="section">
-<h2>Signature Menu</h2>
+<div class="section" id="menu">
+<h2>Menu</h2>
 
 <div class="menu">
 
 <div class="card">
-<h3>Espresso Elite</h3>
+<h3>Espresso</h3>
 <p class="price">15 MAD</p>
 </div>
 
 <div class="card">
-<h3>Velvet Cappuccino</h3>
+<h3>Cappuccino</h3>
 <p class="price">22 MAD</p>
 </div>
 
 <div class="card">
-<h3>Golden Latte</h3>
+<h3>Latte</h3>
 <p class="price">25 MAD</p>
 </div>
 
 <div class="card">
-<h3>Cold Brew Noir</h3>
+<h3>Cold Brew</h3>
 <p class="price">28 MAD</p>
 </div>
 
 <div class="card">
-<h3>Mocha Signature</h3>
+<h3>Mocha</h3>
 <p class="price">30 MAD</p>
 </div>
 
 </div>
 </div>
 
-<div class="section">
-<h2>Why Us</h2>
-<p>Premium beans • Luxury taste • Fast service • Modern experience • Designed for real coffee lovers</p>
+<div class="cta" id="about">
+<h2>Fresh Coffee Every Day ☕</h2>
+<p>We serve premium coffee with modern experience</p>
 </div>
 
 <footer>
-© Elite Coffee Experience — Premium Brand
+© 2026 Elite Coffee Shop
 </footer>
 
-<!-- STICKY CTA -->
-<div class="sticky">
-<a href="tel:0636061058">
-<button class="cta-btn call">📞 Call</button>
+<div class="fixed">
+<a href="https://wa.me/212636061058?text=I%20want%20coffee%20order">
+📲 WhatsApp Order
 </a>
-
-<button class="cta-btn order">☕ Order</button>
 </div>
 
 </body>
