@@ -3,155 +3,220 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Khatra Shop</title>
+<title>Khatra Shop ☕</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
 <style>
 
+/* ===== BASE ===== */
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter}
-
 body{
-background:#070707;
+background:#120b0b;
 color:#fff;
 overflow-x:hidden;
 }
 
-/* GLOW */
+/* ===== BACKGROUND ATMOSPHERE ===== */
 body::before{
+content:"";
+position:fixed;
+width:600px;
+height:600px;
+background:radial-gradient(circle,#C68B59,transparent 60%);
+filter:blur(140px);
+top:-120px;
+left:-120px;
+opacity:0.25;
+}
+
+body::after{
 content:"";
 position:fixed;
 width:500px;
 height:500px;
-background:radial-gradient(circle,#d4a24c,transparent 60%);
+background:radial-gradient(circle,#3B2F2F,transparent 60%);
 filter:blur(140px);
-top:-100px;
-left:-100px;
-opacity:0.3;
+bottom:-100px;
+right:-100px;
+opacity:0.2;
 }
 
-/* NAV */
+/* floating beans */
+.bean{
+position:fixed;
+width:8px;
+height:8px;
+background:#C68B59;
+border-radius:50%;
+opacity:0.3;
+animation:float 10s infinite linear;
+}
+
+@keyframes float{
+0%{transform:translateY(0)}
+100%{transform:translateY(-100vh)}
+}
+
+/* ===== NAV ===== */
 nav{
 display:flex;
 justify-content:space-between;
 padding:20px 40px;
-background:rgba(0,0,0,0.6);
-backdrop-filter:blur(10px);
 position:sticky;
 top:0;
+backdrop-filter:blur(10px);
+background:rgba(0,0,0,0.5);
 border-bottom:1px solid #222;
+z-index:100;
 }
 
 nav h1{
-font-weight:800;
 letter-spacing:2px;
+font-weight:900;
 }
 
-nav h1 span{
-color:#d4a24c;
-}
+nav span{color:#C68B59}
 
-/* HERO */
+/* ===== HERO ===== */
 .hero{
-height:90vh;
+height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
+position:relative;
+overflow:hidden;
 }
 
+/* steam effect */
+.steam{
+position:absolute;
+width:200px;
+height:200px;
+background:radial-gradient(circle,rgba(255,255,255,0.4),transparent 70%);
+filter:blur(20px);
+animation:steam 3s infinite ease-in-out;
+opacity:0.3;
+}
+
+@keyframes steam{
+0%{transform:translateY(0) scale(1)}
+50%{transform:translateY(-40px) scale(1.2)}
+100%{transform:translateY(0) scale(1)}
+}
+
+/* hero text */
 .hero h1{
 font-size:70px;
 font-weight:900;
-letter-spacing:-2px;
+animation:fadeUp 1.2s ease;
 }
 
-.hero h1 span{
-color:#d4a24c;
-}
+.hero h1 span{color:#C68B59}
 
 .hero p{
 opacity:0.7;
 margin-top:10px;
-max-width:500px;
+animation:fadeUp 1.5s ease;
 }
 
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+/* CTA */
 .btn{
 margin-top:25px;
 padding:14px 30px;
-background:#d4a24c;
+background:#C68B59;
 border:none;
-border-radius:50px;
+border-radius:40px;
 font-weight:bold;
 cursor:pointer;
-box-shadow:0 0 25px #d4a24c;
+box-shadow:0 0 20px #C68B59;
 transition:0.3s;
 }
 
 .btn:hover{
 transform:scale(1.1);
+box-shadow:0 0 35px #C68B59;
 }
 
-/* MENU */
+/* ===== MENU ===== */
 .section{
-padding:80px 20px;
+padding:100px 20px;
 text-align:center;
 }
 
 .section h2{
-font-size:40px;
-color:#d4a24c;
-margin-bottom:30px;
+font-size:42px;
+color:#C68B59;
+margin-bottom:40px;
 }
 
 .menu{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
-max-width:900px;
+max-width:1000px;
 margin:auto;
 }
 
 .card{
 background:rgba(255,255,255,0.05);
-padding:20px;
-border-radius:15px;
 border:1px solid #222;
-transition:0.3s;
+padding:20px;
+border-radius:16px;
+backdrop-filter:blur(10px);
+transition:0.4s;
+opacity:0;
+transform:translateY(30px);
+}
+
+.card.show{
+opacity:1;
+transform:translateY(0);
 }
 
 .card:hover{
-border-color:#d4a24c;
-transform:translateY(-8px);
-box-shadow:0 0 20px #d4a24c;
+transform:translateY(-10px) scale(1.03);
+box-shadow:0 0 25px #C68B59;
+border-color:#C68B59;
 }
 
 .price{
-color:#d4a24c;
+color:#C68B59;
 margin-top:10px;
+font-weight:bold;
 }
 
-/* CTA */
-.cta{
-background:#d4a24c;
-color:#000;
-padding:60px 20px;
-text-align:center;
-margin-top:50px;
+/* ===== CART ===== */
+.cart{
+position:fixed;
+top:90px;
+right:20px;
+width:220px;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
+border:1px solid #222;
+padding:15px;
+border-radius:15px;
 }
 
-.cta h2{
-font-size:35px;
+.cart h3{
+color:#C68B59;
 }
 
-footer{
-text-align:center;
-padding:20px;
-opacity:0.5;
-font-size:13px;
+.cart-item{
+font-size:12px;
+opacity:0.8;
+margin:5px 0;
 }
 
+/* ===== WHATSAPP ===== */
 .whatsapp{
 position:fixed;
 bottom:20px;
@@ -160,18 +225,42 @@ right:20px;
 
 .whatsapp a{
 background:#25D366;
-color:#fff;
 padding:14px 18px;
 border-radius:50px;
+color:#fff;
 text-decoration:none;
 font-weight:bold;
 box-shadow:0 0 20px #25D366;
+}
+
+/* ===== CTA ===== */
+.cta{
+background:#C68B59;
+color:#120b0b;
+text-align:center;
+padding:60px 20px;
+margin-top:60px;
+}
+
+/* ===== SCROLL BAR ===== */
+::-webkit-scrollbar{
+width:6px;
+}
+::-webkit-scrollbar-thumb{
+background:#C68B59;
+border-radius:10px;
 }
 
 </style>
 </head>
 
 <body>
+
+<!-- floating beans -->
+<div class="bean" style="left:10%;animation-delay:0s"></div>
+<div class="bean" style="left:30%;animation-delay:2s"></div>
+<div class="bean" style="left:50%;animation-delay:4s"></div>
+<div class="bean" style="left:70%;animation-delay:1s"></div>
 
 <nav>
 <h1><span>KHATRA</span> SHOP</h1>
@@ -181,37 +270,43 @@ box-shadow:0 0 20px #25D366;
 </div>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
-<h1>KHATRA <span>SHOP</span></h1>
-<p>Premium coffee experience with street luxury identity</p>
+
+<div class="steam"></div>
+
+<h1>KHATRA <span>COFFEE</span></h1>
+<p>Premium coffee experience with cinematic UI & luxury feel</p>
 
 <button class="btn"
 onclick="window.location.href='https://wa.me/212636061058?text=I%20want%20order%20from%20Khatra%20Shop'">
 Order Now
 </button>
+
 </div>
 
+<!-- MENU -->
 <div class="section" id="menu">
-<h2>Menu</h2>
+<h2>Signature Menu</h2>
 
 <div class="menu">
 
-<div class="card">
-<h3>Espresso Khatra</h3>
+<div class="card" onclick="add('Espresso')">
+<h3>Espresso Elite</h3>
 <p class="price">15 MAD</p>
 </div>
 
-<div class="card">
-<h3>Velvet Cappuccino</h3>
+<div class="card" onclick="add('Cappuccino')">
+<h3>Cappuccino Velvet</h3>
 <p class="price">22 MAD</p>
 </div>
 
-<div class="card">
+<div class="card" onclick="add('Latte')">
 <h3>Golden Latte</h3>
 <p class="price">25 MAD</p>
 </div>
 
-<div class="card">
+<div class="card" onclick="add('Cold Brew')">
 <h3>Cold Brew Noir</h3>
 <p class="price">28 MAD</p>
 </div>
@@ -220,17 +315,55 @@ Order Now
 </div>
 
 <div class="cta">
-<h2>KHATRA SHOP EXPERIENCE ☕</h2>
-<p>Luxury taste. Street identity. Fast service.</p>
+<h2>Khatra Shop Experience ☕</h2>
+<p>Luxury taste • Street identity • Premium vibes</p>
 </div>
 
-<footer>
-© Khatra Shop 2026
-</footer>
+<!-- CART -->
+<div class="cart">
+<h3>🛒 Cart</h3>
+<div id="cart"></div>
+<button class="btn" style="width:100%;margin-top:10px" onclick="checkout()">Checkout</button>
+</div>
 
+<!-- WHATSAPP -->
 <div class="whatsapp">
 <a href="https://wa.me/212636061058">WhatsApp</a>
 </div>
+
+<script>
+
+let cart=[];
+
+function add(item){
+cart.push(item);
+render();
+}
+
+function render(){
+document.getElementById("cart").innerHTML =
+cart.map(c=>`<div class='cart-item'>☕ ${c}</div>`).join("");
+}
+
+function checkout(){
+let msg="Hello order:%0A";
+cart.forEach(c=>msg+="- "+c+"%0A");
+window.location.href="https://wa.me/212636061058?text="+msg;
+}
+
+/* scroll reveal */
+const cards=document.querySelectorAll(".card");
+
+window.addEventListener("scroll",()=>{
+cards.forEach(c=>{
+const rect=c.getBoundingClientRect();
+if(rect.top<window.innerHeight-100){
+c.classList.add("show");
+}
+});
+});
+
+</script>
 
 </body>
 </html>
