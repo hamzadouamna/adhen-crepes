@@ -3,725 +3,501 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khatra | Ultra Premium Coffee</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
-    
+    <title>Khatra | خترة - Ultra Premium Coffee</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
-
+    
     <style>
-        :root {
-            --gold: #d4af37;
+        :root { 
+            --gold: #d4af37; 
             --gold-glow: rgba(212, 175, 55, 0.4);
-            --dark: #050505;
-            --darker: #020202;
-            --glass: rgba(20, 20, 20, 0.4);
-            --border: rgba(212, 175, 55, 0.15);
+            --dark: #050505; 
+            --card-bg: rgba(20, 20, 20, 0.4);
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
-            cursor: none; /* Custom cursor */
-        }
-
-        body {
-            background: var(--dark);
-            color: #fff;
-            line-height: 1.6;
-            overflow-x: hidden;
+        
+        * { margin:0; padding:0; box-sizing:border-box; cursor: none; }
+        body { 
+            background: var(--dark); 
+            color: #fff; 
+            font-family: 'Montserrat', sans-serif; 
+            overflow-x: hidden; 
             -webkit-font-smoothing: antialiased;
         }
 
-        ::selection {
-            background: var(--gold);
-            color: var(--dark);
+        /* Custom Cursor */
+        .cursor {
+            position: fixed; top: 0; left: 0; width: 20px; height: 20px;
+            border: 1px solid var(--gold); border-radius: 50%;
+            pointer-events: none; z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background 0.3s;
+            mix-blend-mode: difference;
         }
+        .cursor.hovering {
+            width: 50px; height: 50px; background: var(--gold-glow);
+        }
+
+        /* Loading Screen */
+        .loader {
+            position: fixed; inset: 0; background: var(--dark);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999; flex-direction: column;
+        }
+        .loader h1 {
+            font-family: 'Playfair Display', serif; font-size: 4vw; color: var(--gold);
+            letter-spacing: 10px; overflow: hidden;
+        }
+        .loader-text span { display: inline-block; transform: translateY(100%); }
+        .progress-bar-container {
+            width: 200px; height: 2px; background: rgba(255,255,255,0.1); margin-top: 20px; overflow: hidden;
+        }
+        .progress-bar { width: 0%; height: 100%; background: var(--gold); }
 
         /* Scroll Progress */
         .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: var(--gold);
-            z-index: 9999;
-            box-shadow: 0 0 10px var(--gold-glow);
+            position: fixed; top: 0; left: 0; height: 3px; background: var(--gold);
+            z-index: 9998; width: 0%; box-shadow: 0 0 10px var(--gold);
         }
 
-        /* Custom Cursor */
-        .cursor-dot, .cursor-outline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            z-index: 10000;
-            pointer-events: none;
-        }
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--gold);
-        }
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--gold);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-        .cursor-hover {
-            width: 60px;
-            height: 60px;
-            background-color: var(--gold-glow);
-            border-color: transparent;
-            backdrop-filter: blur(2px);
-        }
-
-        /* Loader */
-        .loader {
-            position: fixed;
-            inset: 0;
-            background: var(--darker);
-            z-index: 99999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        .loader-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: var(--gold);
-            letter-spacing: 10px;
-            text-transform: uppercase;
-            overflow: hidden;
-        }
-        .loader-text span {
-            display: inline-block;
-            transform: translateY(100%);
-        }
-
-        /* Sticky Navbar */
+        /* Navbar */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: transparent;
-            transition: all 0.4s ease;
+            position: fixed; top: 0; width: 100%; padding: 20px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: 0.4s ease;
         }
-        nav.scrolled {
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            padding: 15px 50px;
-        }
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            color: var(--gold);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
+        .logo { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--gold); font-weight: 700; letter-spacing: 2px;}
+        .logo span { font-family: 'Amiri', serif; font-size: 28px; margin-left: 10px; font-weight: normal; }
 
-        /* Hero Section */
+        /* Cinematic Hero */
         .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            height: 100vh; position: relative;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 20px; overflow: hidden;
         }
         .hero-bg {
-            position: absolute;
-            top: -10%;
-            left: -10%;
-            width: 120%;
-            height: 120%;
-            background: linear-gradient(to bottom, rgba(5,5,5,0.4), var(--dark)), 
-                        url('https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=2070');
-            background-size: cover;
-            background-position: center;
-            z-index: -2;
-            will-change: transform;
+            position: absolute; inset: 0; z-index: -2;
+            background: url('https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=2070') center/cover;
+            filter: brightness(0.3) contrast(1.2);
+            transform: scale(1.1);
         }
-        
-        /* Floating Particles / Smoke */
-        .particles {
-            position: absolute;
-            inset: 0;
-            z-index: -1;
-            background: radial-gradient(circle at center, rgba(212,175,55,0.05) 0%, transparent 70%);
-            mix-blend-mode: screen;
+        .zellige-overlay {
+            position: absolute; inset: 0; z-index: -1;
+            /* Zellige subtle pattern overlay inspired by the Moroccan aesthetic */
+            background-image: radial-gradient(var(--gold-glow) 1px, transparent 1px), radial-gradient(var(--gold-glow) 1px, transparent 1px);
+            background-size: 40px 40px; background-position: 0 0, 20px 20px;
+            opacity: 0.05; mix-blend-mode: overlay;
         }
+        #particles { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 
         .hero h1 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: clamp(50px, 8vw, 120px); 
-            color: var(--gold); 
-            text-transform: uppercase; 
-            line-height: 1;
-            margin-bottom: 20px;
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+            font-family: 'Playfair Display', serif; font-size: 7vw; color: #fff; 
+            text-transform: uppercase; letter-spacing: 5px; line-height: 1.1;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
-        .hero .subtitle { 
-            font-size: 1.2rem; 
-            margin-bottom: 40px; 
-            letter-spacing: 8px; 
-            font-weight: 300;
-            text-transform: uppercase;
-            color: #ccc;
-            overflow: hidden;
+        .hero h1 .gold-text { color: var(--gold); font-style: italic; }
+        .hero p { 
+            font-size: 1.2rem; margin: 30px 0; letter-spacing: 8px; opacity: 0.8; 
+            font-weight: 300; text-transform: uppercase;
         }
 
-        /* Magnetic Button */
-        .btn-wrap {
-            position: relative;
-            display: inline-block;
-        }
         .btn {
-            padding: 20px 50px;
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            border-radius: 0;
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
+            position: relative; padding: 18px 45px; background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.5); color: #fff;
+            text-transform: uppercase; letter-spacing: 3px; font-weight: 400;
+            border-radius: 30px; overflow: hidden; display: inline-block;
+            backdrop-filter: blur(5px);
         }
         .btn::before {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gold);
-            transition: all 0.4s cubic-bezier(0.75, 0, 0.125, 1);
-            z-index: -1;
-        }
-        .btn:hover::before { top: 0; }
-        .btn:hover { color: var(--dark); box-shadow: 0 0 30px var(--gold-glow); }
-
-        /* Menu Section */
-        .section { padding: 150px 10%; position: relative; }
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            text-align: center;
-            font-size: clamp(40px, 5vw, 70px);
-            color: #fff;
-            margin-bottom: 80px;
-            position: relative;
-        }
-        .section-title span { color: var(--gold); font-style: italic; }
-
-        .menu-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 40px; 
-            perspective: 1000px;
-        }
-        
-        .card {
-            background: var(--glass);
-            padding: 50px 40px;
-            border: 1px solid var(--border);
-            backdrop-filter: blur(20px);
-            text-align: center;
-            border-radius: 15px;
-            transform-style: preserve-3d;
-            transition: border-color 0.4s, background 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
-            transform: skewX(-20deg);
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
             transition: 0.5s;
         }
-        .card:hover::before { left: 150%; }
-        .card:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
-        
+        .btn:hover::before { left: 100%; }
+        .btn:hover { border-color: var(--gold); box-shadow: 0 0 20px var(--gold-glow); color: var(--gold); }
+
+        /* Sections & Typography */
+        .section { padding: 150px 5%; position: relative; }
+        .section-title {
+            font-family: 'Playfair Display', serif; font-size: 4vw; text-align: center;
+            margin-bottom: 80px; color: #fff;
+        }
+        .section-title span { color: var(--gold); font-style: italic; font-family: 'Amiri', serif;}
+
+        /* Menu Grid - 3D Hover Cards */
+        .menu-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 40px; max-width: 1400px; margin: 0 auto; perspective: 1000px;
+        }
+        .card {
+            background: var(--card-bg); padding: 50px 30px;
+            border: 1px solid rgba(255,255,255,0.05); border-radius: 20px;
+            backdrop-filter: blur(20px); text-align: center;
+            transform-style: preserve-3d; transition: border-color 0.3s;
+            position: relative; overflow: hidden;
+        }
+        .card::after {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(212,175,55,0.1), transparent 50%);
+            opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .card:hover::after { opacity: 1; }
+        .card:hover { border-color: rgba(212,175,55,0.3); }
         .card h3 { 
-            font-family: 'Playfair Display', serif; 
-            color: #fff; 
-            font-size: 28px; 
-            margin-bottom: 15px; 
-            transform: translateZ(30px);
+            font-family: 'Playfair Display', serif; color: #fff; font-size: 28px; 
+            margin-bottom: 15px; transform: translateZ(30px);
         }
-        .card p { color: #aaa; font-weight: 300; transform: translateZ(20px); }
-        .card h4 { 
-            margin-top: 30px; 
-            color: var(--gold); 
-            font-size: 22px; 
-            letter-spacing: 2px;
-            transform: translateZ(40px);
-        }
+        .card p { font-size: 0.9rem; color: #aaa; margin-bottom: 30px; transform: translateZ(20px); }
+        .card .price { font-size: 22px; color: var(--gold); font-weight: 600; transform: translateZ(40px); }
 
-        /* Reviews Section */
-        .reviews {
-            background: var(--darker);
-            padding: 100px 0;
-            overflow: hidden;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-        .marquee {
-            display: flex;
-            width: fit-content;
-            animation: marquee 20s linear infinite;
-        }
+        /* Fake Reviews Section */
+        .reviews { background: #0a0a0a; border-top: 1px solid rgba(255,255,255,0.05); }
+        .review-container { display: flex; gap: 30px; overflow-x: auto; padding-bottom: 40px; scrollbar-width: none; }
+        .review-container::-webkit-scrollbar { display: none; }
         .review-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            padding: 30px;
-            margin: 0 20px;
-            width: 400px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
+            min-width: 350px; background: rgba(255,255,255,0.02); padding: 40px;
+            border-radius: 15px; border-left: 2px solid var(--gold);
         }
-        .review-card p { font-style: italic; color: #ddd; margin-bottom: 15px; }
-        .review-card h5 { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 18px; }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .stars { color: var(--gold); margin-bottom: 15px; letter-spacing: 2px; }
+        .review-text { font-style: italic; color: #ddd; margin-bottom: 20px; }
+        .reviewer { font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); }
 
-        /* CTA Section */
-        .cta-section {
-            text-align: center;
-            padding: 150px 10%;
-            background: radial-gradient(circle at center, rgba(212,175,55,0.1) 0%, var(--dark) 60%);
-        }
-
-        /* Floating Cart / WhatsApp */
+        /* Cart Floating */
         .cart-wrapper {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 15px;
+            position: fixed; bottom: 40px; right: 40px; z-index: 999;
+            display: flex; flex-direction: column; align-items: flex-end; gap: 20px;
         }
-        .wa-float {
-            width: 60px;
-            height: 60px;
-            background: var(--gold);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 20px var(--gold-glow);
-            animation: pulse 2s infinite;
-            transition: transform 0.3s;
-        }
-        .wa-float:hover { transform: scale(1.1); }
-        .wa-float svg { fill: var(--dark); width: 30px; height: 30px; }
-        
         .cart-box { 
-            background: rgba(10, 10, 10, 0.85); 
-            padding: 25px; 
-            border: 1px solid var(--gold); 
-            border-radius: 15px; 
-            backdrop-filter: blur(20px);
-            width: 300px;
-            transform: translateY(20px);
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(10,10,10,0.85); padding: 30px; 
+            border: 1px solid rgba(212,175,55,0.3); border-radius: 20px; 
+            backdrop-filter: blur(25px); width: 320px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transform: translateY(20px); opacity: 0; pointer-events: none; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .cart-box.active {
-            transform: translateY(0);
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .cart-box h3 { font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px;}
-        .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; color: #ccc; }
+        .cart-box.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
+        .cart-box h3 { font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 20px; font-size: 20px;}
+        #cart-list { max-height: 200px; overflow-y: auto; margin-bottom: 20px; font-size: 14px; color: #ccc;}
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.05);}
         
+        .whatsapp-btn {
+            width: 60px; height: 60px; background: var(--gold); border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; cursor: pointer;
+            box-shadow: 0 0 20px var(--gold-glow); transition: 0.3s; position: relative;
+        }
+        .whatsapp-btn::before {
+            content: ''; position: absolute; inset: -5px; border-radius: 50%;
+            border: 1px solid var(--gold); animation: pulse 2s infinite; pointer-events: none;
+        }
+        .whatsapp-btn svg { width: 30px; height: 30px; fill: var(--dark); }
+        .whatsapp-btn:hover { transform: scale(1.1); }
+        .cart-badge {
+            position: absolute; top: -5px; right: -5px; background: #fff; color: var(--dark);
+            width: 24px; height: 24px; border-radius: 50%; font-size: 12px; font-weight: bold;
+            display: flex; justify-content: center; align-items: center; opacity: 0; transition: 0.3s;
+        }
+
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
         }
 
         @media (max-width: 768px) { 
-            .hero h1 { font-size: 50px; } 
-            nav { padding: 20px; }
-            .cart-wrapper { bottom: 20px; right: 20px; }
-            .review-card { width: 300px; }
+            .hero h1 { font-size: 12vw; } 
+            .section-title { font-size: 8vw; }
+            * { cursor: auto; }
+            .cursor { display: none; }
+            .whatsapp-btn { bottom: 20px; right: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="scroll-progress" id="scroll-progress"></div>
-
-    <div class="cursor-dot" id="cursor-dot"></div>
-    <div class="cursor-outline" id="cursor-outline"></div>
+    <div class="cursor"></div>
+    <div class="scroll-progress"></div>
 
     <div class="loader">
-        <div class="loader-text">
+        <h1 class="loader-text">
             <span>K</span><span>H</span><span>A</span><span>T</span><span>R</span><span>A</span>
-        </div>
+        </h1>
+        <div class="progress-bar-container"><div class="progress-bar"></div></div>
     </div>
 
-    <nav id="navbar">
-        <div class="logo">Khatra.</div>
-        <div class="btn-wrap magnetic" data-strength="20">
-            <button class="btn hover-target" style="padding: 10px 20px; font-size: 12px;" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</button>
-        </div>
+    <nav>
+        <div class="logo">KHATRA <span>خترة</span></div>
+        <div class="btn magnetic" style="padding: 10px 25px; font-size: 12px;" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Menu</div>
     </nav>
 
     <div class="hero">
         <div class="hero-bg"></div>
-        <div class="particles" id="particles"></div>
-        <h1 class="hero-title">Khatra Coffee</h1>
-        <div class="subtitle"><span class="hero-sub">The Future of Energy</span></div>
-        <div class="btn-wrap magnetic" data-strength="40">
-            <button class="btn hover-target" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Explore Collection</button>
-        </div>
+        <div class="zellige-overlay"></div>
+        <canvas id="particles"></canvas>
+        <h1 class="hero-title">Experience <br><span class="gold-text">The Energy</span></h1>
+        <p class="hero-subtitle">Ultra Premium Moroccan Roasts</p>
+        <div class="btn magnetic hero-btn" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Explore Selection</div>
     </div>
 
     <div class="section" id="menu">
-        <h2 class="section-title gs-reveal">Curated <span>Selection</span></h2>
+        <h2 class="section-title reveal-text">Our <span>Selection</span></h2>
         <div class="menu-grid">
-            <div class="card hover-target gs-card" onmouseenter="playClick()" onclick="add('Espresso Elite', 15)">
+            <div class="card magnetic-card" onclick="add('Espresso Elite', 15)">
                 <h3>Espresso Elite</h3>
-                <p>Intense, bold, and unapologetically pure.</p>
-                <h4>15 MAD</h4>
+                <p>Intense, bold, and pure. Extracted to absolute perfection.</p>
+                <div class="price">15 MAD</div>
+                <div class="btn" style="margin-top:20px; padding: 10px 20px; font-size:12px; width:100%;">Add to Order</div>
             </div>
-            <div class="card hover-target gs-card" onmouseenter="playClick()" onclick="add('Golden Cappuccino', 22)">
-                <h3>Golden Cappuccino</h3>
-                <p>Velvety micro-foam over rich espresso.</p>
-                <h4>22 MAD</h4>
+            <div class="card magnetic-card" onclick="add('Cappuccino', 22)">
+                <h3>Cappuccino</h3>
+                <p>Velvety micro-foam layered over a rich, golden espresso base.</p>
+                <div class="price">22 MAD</div>
+                <div class="btn" style="margin-top:20px; padding: 10px 20px; font-size:12px; width:100%;">Add to Order</div>
             </div>
-            <div class="card hover-target gs-card" onmouseenter="playClick()" onclick="add('Signature Latte', 25)">
+            <div class="card magnetic-card" onclick="add('Signature Latte', 25)">
                 <h3>Signature Latte</h3>
-                <p>Silky perfection infused with craft elements.</p>
-                <h4>25 MAD</h4>
+                <p>Creamy perfection infused with our secret Khatra essence.</p>
+                <div class="price">25 MAD</div>
+                <div class="btn" style="margin-top:20px; padding: 10px 20px; font-size:12px; width:100%;">Add to Order</div>
             </div>
         </div>
     </div>
 
-    <div class="reviews gs-reveal">
-        <div class="marquee">
-            <div style="display:flex;">
-                <div class="review-card">
-                    <p>"Absolutely the best coffee experience in Marrakech. The aesthetic and the taste are unmatched."</p>
-                    <h5>— Youssef B.</h5>
-                </div>
-                <div class="review-card">
-                    <p>"Premium quality that feels like a luxury escape right here in Gueliz. Highly recommend the Signature Latte."</p>
-                    <h5>— Amina T.</h5>
-                </div>
-                <div class="review-card">
-                    <p>"The energy from Espresso Elite is next level. Stunning branding and perfect delivery."</p>
-                    <h5>— Karim M.</h5>
-                </div>
+    <div class="section reviews">
+        <h2 class="section-title reveal-text">Client <span>Experiences</span></h2>
+        <div class="review-container">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"Absolutely mind-blowing. The Espresso Elite gave me exactly the energy kick I needed. Best coffee in town."</p>
+                <p class="reviewer">- Youssef B.</p>
             </div>
-            <div style="display:flex;">
-                <div class="review-card">
-                    <p>"Absolutely the best coffee experience in Marrakech. The aesthetic and the taste are unmatched."</p>
-                    <h5>— Youssef B.</h5>
-                </div>
-                <div class="review-card">
-                    <p>"Premium quality that feels like a luxury escape right here in Gueliz. Highly recommend the Signature Latte."</p>
-                    <h5>— Amina T.</h5>
-                </div>
-                <div class="review-card">
-                    <p>"The energy from Espresso Elite is next level. Stunning branding and perfect delivery."</p>
-                    <h5>— Karim M.</h5>
-                </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"The branding, the taste, the aroma... Khatra isn't just coffee, it's a luxury experience. Highly recommended!"</p>
+                <p class="reviewer">- Amina T.</p>
             </div>
-        </div>
-    </div>
-
-    <div class="cta-section gs-reveal">
-        <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(30px, 4vw, 50px); margin-bottom: 30px;">Elevate Your Daily Ritual</h2>
-        <div class="btn-wrap magnetic" data-strength="50">
-            <button class="btn hover-target" onclick="toggleCart()">Order Now via VIP WhatsApp</button>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"That Signature Latte is out of this world. Smooth, rich, and the perfect balance of flavors."</p>
+                <p class="reviewer">- Karim M.</p>
+            </div>
         </div>
     </div>
 
     <div class="cart-wrapper">
-        <div class="cart-box" id="cart-box">
-            <h3>Your Selection</h3>
-            <div id="cart-list">
-                <div style="color:#666; font-size:14px; text-align:center; padding:10px 0;">Cart is empty</div>
+        <div class="cart-box" id="cartBox">
+            <h3>Your Order <span>خترة</span></h3>
+            <div id="cart-list">Your cup is empty.</div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px; color:var(--gold); font-weight:bold;">
+                <span>Total:</span> <span id="cart-total">0 MAD</span>
             </div>
-            <div style="border-top:1px solid var(--border); margin-top:10px; padding-top:10px; display:flex; justify-content:space-between; color:var(--gold); font-weight:bold;">
-                <span>Total:</span>
-                <span id="cart-total">0 MAD</span>
-            </div>
-            <button class="btn hover-target" style="width:100%; padding:12px; margin-top:15px; font-size:12px;" onclick="checkout()">Confirm & Secure</button>
+            <button class="btn magnetic" style="width:100%; padding:15px; font-size:12px; border-color:var(--gold); background:var(--gold); color:var(--dark);" onclick="checkout()">
+                Checkout via WhatsApp
+            </button>
         </div>
-        <div class="wa-float hover-target" onclick="toggleCart()">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+        <div class="whatsapp-btn magnetic" onclick="toggleCart()" class="hover-target">
+            <div class="cart-badge" id="cartBadge">0</div>
+            <svg viewBox="0 0 24 24">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.029 18.88c-1.161 0-2.305-.292-3.318-.844l-3.677.964.984-3.595c-.607-1.052-.927-2.246-.926-3.468.001-5.824 4.74-10.563 10.573-10.564 5.824.001 10.566 4.746 10.566 10.564-1.003 5.828-5.748 10.568-10.568 10.568h-.001z"/>
             </svg>
         </div>
     </div>
 
     <script>
-        // --- 1. Audio (Subtle click) ---
-        const clickSound = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA'); // Very short subtle tick
-
-        function playClick() {
-            clickSound.volume = 0.1;
-            clickSound.currentTime = 0;
-            clickSound.play().catch(()=>{}); // Catch policy blocks
-        }
-
-        // --- 2. Smooth Scrolling (Lenis) ---
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            mouseMultiplier: 1,
-        });
-
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
+        // --- Initialization & Setup ---
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Smooth Scrolling (Lenis)
+        const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // --- 3. Custom Cursor & Magnetic Buttons ---
-        const cursorDot = document.getElementById('cursor-dot');
-        const cursorOutline = document.getElementById('cursor-outline');
-        const hoverTargets = document.querySelectorAll('.hover-target');
-
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            
-            // Subtle lag for outline
-            cursorOutline.animate({
-                left: `${posX}px`,
-                top: `${posY}px`
-            }, { duration: 500, fill: "forwards" });
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const hoverTargets = document.querySelectorAll('.magnetic, .card, a');
+        
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power2.out" });
         });
-
+        
         hoverTargets.forEach(target => {
-            target.addEventListener('mouseenter', () => {
-                cursorOutline.classList.add('cursor-hover');
-                playClick();
+            target.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+            target.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+        });
+
+        // Magnetic Physics for Buttons
+        document.querySelectorAll('.magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                gsap.to(this, { x: x * 0.4, y: y * 0.4, duration: 0.4, ease: "power2.out" });
             });
-            target.addEventListener('mouseleave', () => {
-                cursorOutline.classList.remove('cursor-hover');
+            btn.addEventListener('mouseleave', function() {
+                gsap.to(this, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" });
             });
         });
 
-        const magnetics = document.querySelectorAll('.magnetic');
-        magnetics.forEach((magnet) => {
-            magnet.addEventListener('mousemove', (e) => {
-                const strength = magnet.getAttribute('data-strength') || 20;
-                const bounding = magnet.getBoundingClientRect();
-                const x = e.clientX - bounding.left - bounding.width / 2;
-                const y = e.clientY - bounding.top - bounding.height / 2;
-                
-                gsap.to(magnet, {
-                    x: x * (strength / 100),
-                    y: y * (strength / 100),
-                    duration: 1,
-                    ease: "power4.out"
-                });
-            });
-            magnet.addEventListener('mouseleave', () => {
-                gsap.to(magnet, { x: 0, y: 0, duration: 1, ease: "elastic.out(1, 0.3)" });
-            });
-        });
-
-        // --- 4. 3D Card Hover Effect ---
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
+        // 3D Tilt Cards
+        document.querySelectorAll('.magnetic-card').forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+                
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                
                 const rotateX = ((y - centerY) / centerY) * -10;
                 const rotateY = ((x - centerX) / centerX) * 10;
-
-                gsap.to(card, {
-                    rotationX: rotateX,
-                    rotationY: rotateY,
-                    duration: 0.5,
-                    ease: "power2.out"
-                });
+                
+                gsap.to(this, { rotateX, rotateY, transformPerspective: 1000, duration: 0.4, ease: "power2.out" });
             });
-            card.addEventListener('mouseleave', () => {
-                gsap.to(card, { rotationX: 0, rotationY: 0, duration: 0.5, ease: "power2.out" });
+            card.addEventListener('mouseleave', function() {
+                gsap.to(this, { rotateX: 0, rotateY: 0, duration: 0.6, ease: "power2.out" });
             });
         });
 
-        // --- 5. GSAP Animations ---
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Loader Sequence
+        // --- Animations ---
+        // Loading Sequence
         const tlLoader = gsap.timeline();
-        tlLoader.to('.loader-text span', {
-            y: 0, duration: 1, stagger: 0.1, ease: "power4.out", delay: 0.2
-        })
-        .to('.loader-text span', {
-            y: -100, duration: 0.8, stagger: 0.05, ease: "power4.in", delay: 0.5
-        })
-        .to('.loader', {
-            opacity: 0, duration: 0.8, onComplete: () => {
-                document.querySelector('.loader').style.display = 'none';
-                initHeroAnim();
-            }
-        });
+        tlLoader.to('.progress-bar', { width: '100%', duration: 1.5, ease: "power3.inOut" })
+                .to('.loader-text span', { y: 0, duration: 0.8, stagger: 0.1, ease: "back.out(1.7)" }, "-=0.5")
+                .to('.loader', { yPercent: -100, duration: 1, ease: "power4.inOut", delay: 0.5 })
+                .from('.hero-bg', { scale: 1.5, duration: 2, ease: "power3.out" }, "-=1")
+                .from('.hero-title', { y: 50, opacity: 0, duration: 1, ease: "power3.out" }, "-=1")
+                .from('.hero-subtitle', { y: 20, opacity: 0, duration: 1 }, "-=0.8")
+                .from('.hero-btn', { y: 20, opacity: 0, duration: 1 }, "-=0.6");
 
-        function initHeroAnim() {
-            gsap.fromTo('.hero-title', { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 1.5, ease: "power4.out" });
-            gsap.fromTo('.hero-sub', { y: 50 }, { y: 0, duration: 1, delay: 0.5, ease: "power3.out" });
-        }
-
-        // Parallax Hero
-        gsap.to('.hero-bg', {
-            y: "30%",
-            ease: "none",
-            scrollTrigger: {
-                trigger: ".hero",
-                start: "top top",
-                end: "bottom top",
-                scrub: true
-            }
-        });
-
-        // Scroll Progress & Navbar
+        // Scroll Progress Indicator
         window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.body.offsetHeight - window.innerHeight;
-            const scrollPercent = (scrollTop / docHeight) * 100;
-            document.getElementById('scroll-progress').style.width = scrollPercent + '%';
-
-            if (scrollTop > 50) {
-                document.getElementById('navbar').classList.add('scrolled');
-            } else {
-                document.getElementById('navbar').classList.remove('scrolled');
-            }
+            const scrollPx = document.documentElement.scrollTop;
+            const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = `${scrollPx / winHeightPx * 100}%`;
+            document.querySelector('.scroll-progress').style.width = scrolled;
         });
 
         // Section Reveals
-        gsap.utils.toArray('.gs-reveal').forEach(elem => {
-            gsap.fromTo(elem, 
-                { opacity: 0, y: 50 }, 
-                {
-                    opacity: 1, y: 0, duration: 1.2, ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: elem,
-                        start: "top 85%",
-                    }
-                }
-            );
+        gsap.utils.toArray('.section-title').forEach(title => {
+            gsap.from(title, {
+                scrollTrigger: { trigger: title, start: "top 80%" },
+                y: 50, opacity: 0, duration: 1, ease: "power3.out"
+            });
         });
 
-        // Stagger Cards
-        gsap.from('.gs-card', {
-            opacity: 0,
-            y: 100,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power4.out",
-            scrollTrigger: {
-                trigger: ".menu-grid",
-                start: "top 80%"
-            }
+        gsap.from('.card', {
+            scrollTrigger: { trigger: '.menu-grid', start: "top 75%" },
+            y: 100, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out"
         });
 
-        // --- 6. Cart Logic ---
-        let cart = [];
-        let total = 0;
+        gsap.from('.review-card', {
+            scrollTrigger: { trigger: '.reviews', start: "top 75%" },
+            x: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out"
+        });
 
-        function add(item, price) {
-            cart.push({item, price});
-            total += price;
-            render();
-            playClick();
-            
-            // Pop effect on WhatsApp button
-            gsap.fromTo('.wa-float', { scale: 1.3 }, { scale: 1, duration: 0.5, ease: "elastic.out(1, 0.3)" });
-            
-            // Auto open cart briefly
-            const cartBox = document.getElementById("cart-box");
-            if(!cartBox.classList.contains('active')) {
-                toggleCart();
-                setTimeout(() => toggleCart(), 2500);
+        // --- Canvas Particles (Coffee Dust / Gold Sparks) ---
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let width, height, particlesArray;
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particlesArray = [];
+            for(let i=0; i<70; i++){
+                particlesArray.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 2 + 0.5,
+                    speedY: (Math.random() * 1) - 0.5,
+                    speedX: (Math.random() * 0.5) - 0.25,
+                    opacity: Math.random() * 0.5 + 0.1
+                });
             }
         }
 
-        function render() {
-            const list = document.getElementById("cart-list");
-            document.getElementById("cart-count").innerText = cart.length;
-            document.getElementById("cart-total").innerText = total + " MAD";
-            
-            if (cart.length === 0) {
-                list.innerHTML = `<div style="color:#666; font-size:14px; text-align:center; padding:10px 0;">Cart is empty</div>`;
-                return;
-            }
-
-            // Group items
-            let counts = {};
-            cart.forEach(c => {
-                counts[c.item] = (counts[c.item] || 0) + 1;
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = 'rgba(212, 175, 55, 1)';
+            particlesArray.forEach(p => {
+                p.y -= p.speedY;
+                p.x += p.speedX;
+                if(p.y < 0) p.y = height;
+                if(p.x < 0) p.x = width;
+                if(p.x > width) p.x = 0;
+                ctx.globalAlpha = p.opacity;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
             });
+            requestAnimationFrame(animateParticles);
+        }
+        
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        animateParticles();
 
-            list.innerHTML = Object.keys(counts).map(key => {
-                let price = cart.find(c => c.item === key).price;
-                return `<div class="cart-item"><span>${counts[key]}x ${key}</span> <span>${price * counts[key]} MAD</span></div>`;
-            }).join("");
+        // --- Logic (Cart & Audio) ---
+        let cart = [];
+        let total = 0;
+        const cartBox = document.getElementById('cartBox');
+        const cartBadge = document.getElementById('cartBadge');
+        
+        // Subtle UI Click Sound using Web Audio API
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playClick() {
+            if(audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
+            gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        function add(itemName, itemPrice) {
+            playClick();
+            cart.push({name: itemName, price: itemPrice});
+            total += itemPrice;
+            renderCart();
+            
+            // Pop effect on WhatsApp button
+            gsap.fromTo('.whatsapp-btn', {scale: 1.2}, {scale: 1, duration: 0.3, ease: "back.out(2)"});
+            cartBadge.style.opacity = 1;
+            cartBadge.innerText = cart.length;
         }
 
         function toggleCart() {
-            document.getElementById("cart-box").classList.toggle("active");
             playClick();
+            cartBox.classList.toggle('active');
+        }
+
+        function renderCart() {
+            const list = document.getElementById("cart-list");
+            if(cart.length === 0) {
+                list.innerHTML = "Your cup is empty.";
+            } else {
+                list.innerHTML = cart.map(c => `
+                    <div class="cart-item">
+                        <span>${c.name}</span>
+                        <span style="color:var(--gold)">${c.price} MAD</span>
+                    </div>
+                `).join("");
+            }
+            document.getElementById('cart-total').innerText = total + " MAD";
         }
 
         function checkout() {
-            if(cart.length === 0) {
-                alert("Your selection is empty.");
-                return;
-            }
-            
-            let counts = {};
-            cart.forEach(c => { counts[c.item] = (counts[c.item] || 0) + 1; });
-            
-            let msgDetails = Object.keys(counts).map(key => `${counts[key]}x ${key}`).join(", ");
-            let msg = `*VIP Order Request*\n\nItems: ${msgDetails}\nTotal: *${total} MAD*\n\nLooking forward to experiencing Khatra.`;
-            
-            window.location.href = "https://wa.me/212678673336?text=" + encodeURIComponent(msg);
+            playClick();
+            if(cart.length === 0) return alert("Please add items to your order first.");
+            let items = cart.map(c => c.name).join(", ");
+            let msg = `Hello Khatra ☕! I would like to order:\n${items}\n\nTotal: ${total} MAD.`;
+            window.open("https://wa.me/212678673336?text=" + encodeURIComponent(msg), '_blank');
         }
     </script>
 </body>
