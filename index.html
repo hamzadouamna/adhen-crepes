@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Khatra | خترة</title>
+<title>Khatra Coffee</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-:root { 
+:root {
     --gold: #c68b59;
     --dark: #050505;
 }
@@ -51,7 +51,7 @@ nav {
 }
 
 .hero h1 {
-    font-size: 70px;
+    font-size: 60px;
     font-family: 'Playfair Display';
 }
 .hero span { color: var(--gold); }
@@ -94,23 +94,60 @@ nav {
 
 .price { color: var(--gold); }
 
-/* CART */
-.cart {
+/* CART ICON */
+.cart-icon {
     position: fixed;
     bottom: 20px;
+    right: 20px;
+    background: var(--gold);
+    color: #000;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size: 24px;
+    cursor:pointer;
+    box-shadow: 0 0 15px rgba(198,139,89,0.6);
+}
+
+#badge {
+    position:absolute;
+    top:-5px;
+    right:-5px;
+    background:#fff;
+    color:#000;
+    font-size:12px;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* CART BOX */
+.cart {
+    position: fixed;
+    bottom: 100px;
     right: 20px;
     width: 300px;
     background: #000;
     border:1px solid var(--gold);
     border-radius:10px;
     padding:20px;
+    display:none;
 }
 
-.cart h3 { margin-bottom:10px; }
+.cart.active {
+    display:block;
+}
 
 #cart-items {
     max-height:150px;
     overflow-y:auto;
+    margin:10px 0;
 }
 
 .cart-item {
@@ -126,10 +163,11 @@ nav {
 
 /* TOTAL */
 .total {
-    margin-top:10px;
     color: var(--gold);
     font-weight:bold;
+    margin:10px 0;
 }
+
 </style>
 </head>
 
@@ -175,8 +213,14 @@ nav {
 </div>
 </div>
 
-<!-- CART -->
-<div class="cart">
+<!-- CART ICON -->
+<div class="cart-icon" onclick="toggleCart()">
+🛒
+<div id="badge">0</div>
+</div>
+
+<!-- CART BOX -->
+<div class="cart" id="cartBox">
 <h3>🛒 Order</h3>
 <div id="cart-items"></div>
 <div class="total" id="total">0 MAD</div>
@@ -189,6 +233,10 @@ let total = 0;
 
 function scrollToMenu(){
     document.getElementById('menu').scrollIntoView({behavior:'smooth'});
+}
+
+function toggleCart(){
+    document.getElementById("cartBox").classList.toggle("active");
 }
 
 function addItem(name, price){
@@ -216,6 +264,7 @@ function renderCart(){
     `).join("");
 
     document.getElementById("total").innerText = total + " MAD";
+    document.getElementById("badge").innerText = cart.length;
 }
 
 function checkout(){
