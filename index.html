@@ -21,6 +21,35 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+/* 🔥 ZELLIGE MOROCCAN FLOW */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+
+    background-image:
+        radial-gradient(circle at 25% 25%, rgba(198,139,89,0.08) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, rgba(198,139,89,0.08) 1px, transparent 1px);
+
+    background-size: 40px 40px;
+    opacity: 0.25;
+
+    animation: zelligeFlow 20s linear infinite;
+}
+
+@keyframes zelligeFlow {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 200px 200px, -200px -200px; }
+}
+
+/* باش يبقى كلشي فوق الزليج */
+body > * {
+    position: relative;
+    z-index: 1;
+}
+
 /* NAV */
 nav {
     position: fixed;
@@ -167,7 +196,6 @@ nav {
     font-weight:bold;
     margin:10px 0;
 }
-
 </style>
 </head>
 
