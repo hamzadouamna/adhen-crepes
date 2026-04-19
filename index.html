@@ -22,31 +22,28 @@ body {
     overflow-x:hidden;
 }
 
-/* 🔥 ZELLIGE MOROCCAN PREMIUM */
+/* 🔥 MOROCCAN ZELLIGE REAL PATTERN */
 body::before {
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:0;
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
 
-    background-image:
-        repeating-linear-gradient(60deg, rgba(198,139,89,0.12) 0 2px, transparent 2px 40px),
-        repeating-linear-gradient(-60deg, rgba(198,139,89,0.12) 0 2px, transparent 2px 40px),
-        repeating-linear-gradient(0deg, rgba(198,139,89,0.08) 0 1px, transparent 1px 40px);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23000000'/%3E%3Cpath d='M60 5 L78 42 L115 60 L78 78 L60 115 L42 78 L5 60 L42 42 Z' fill='none' stroke='%23c68b59' stroke-width='1.5'/%3E%3Ccircle cx='60' cy='60' r='8' fill='none' stroke='%23c68b59' stroke-width='1'/%3E%3C/svg%3E");
 
-    background-size:80px 80px;
-    opacity:0.5;
+    background-size: 140px 140px;
+    opacity: 0.35;
 
-    animation: flow 25s linear infinite;
+    animation: zelligeFlow 35s linear infinite;
 }
 
-@keyframes flow {
-    0% { background-position:0 0; }
-    100% { background-position:200px 200px; }
+@keyframes zelligeFlow {
+    0% { background-position: 0 0; }
+    100% { background-position: 300px 300px; }
 }
 
-/* layering fix */
+/* keep content above */
 body > * {
     position: relative;
     z-index: 1;
@@ -62,6 +59,7 @@ nav {
     backdrop-filter: blur(10px);
     z-index: 100;
 }
+
 .logo {
     font-family: 'Playfair Display', serif;
     color: var(--gold);
@@ -85,6 +83,7 @@ nav {
     font-size: 60px;
     font-family: 'Playfair Display';
 }
+
 .hero span { color: var(--gold); }
 
 .btn {
@@ -95,6 +94,7 @@ nav {
     cursor:pointer;
     transition:0.3s;
 }
+
 .btn:hover {
     background: var(--gold);
     color:#000;
@@ -117,6 +117,7 @@ nav {
     text-align:center;
     transition:0.3s;
 }
+
 .card:hover {
     transform: translateY(-10px);
     border:1px solid var(--gold);
@@ -168,6 +169,7 @@ nav {
     padding:20px;
     display:none;
 }
+
 .cart.active { display:block; }
 
 #cart-items {
