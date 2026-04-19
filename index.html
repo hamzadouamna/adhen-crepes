@@ -19,32 +19,34 @@ body {
     background: var(--dark);
     color: #fff;
     font-family: 'Montserrat', sans-serif;
+    overflow-x:hidden;
 }
 
-/* 🔥 ZELLIGE MOROCCAN FLOW */
+/* 🔥 ZELLIGE MOROCCAN PREMIUM */
 body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
 
     background-image:
-        radial-gradient(circle at 25% 25%, rgba(198,139,89,0.08) 1px, transparent 1px),
-        radial-gradient(circle at 75% 75%, rgba(198,139,89,0.08) 1px, transparent 1px);
+        repeating-linear-gradient(60deg, rgba(198,139,89,0.12) 0 2px, transparent 2px 40px),
+        repeating-linear-gradient(-60deg, rgba(198,139,89,0.12) 0 2px, transparent 2px 40px),
+        repeating-linear-gradient(0deg, rgba(198,139,89,0.08) 0 1px, transparent 1px 40px);
 
-    background-size: 40px 40px;
-    opacity: 0.25;
+    background-size:80px 80px;
+    opacity:0.5;
 
-    animation: zelligeFlow 20s linear infinite;
+    animation: flow 25s linear infinite;
 }
 
-@keyframes zelligeFlow {
-    0% { background-position: 0 0, 0 0; }
-    100% { background-position: 200px 200px, -200px -200px; }
+@keyframes flow {
+    0% { background-position:0 0; }
+    100% { background-position:200px 200px; }
 }
 
-/* باش يبقى كلشي فوق الزليج */
+/* layering fix */
 body > * {
     position: relative;
     z-index: 1;
@@ -74,7 +76,7 @@ nav {
     align-items:center;
     text-align:center;
     background:
-    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
     url('https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=2070');
     background-size: cover;
 }
@@ -85,7 +87,6 @@ nav {
 }
 .hero span { color: var(--gold); }
 
-/* BUTTON */
 .btn {
     margin-top:20px;
     padding:15px 35px;
@@ -110,7 +111,7 @@ nav {
 
 /* CARD */
 .card {
-    background: rgba(255,255,255,0.03);
+    background: rgba(255,255,255,0.04);
     padding:30px;
     border-radius:10px;
     text-align:center;
@@ -123,7 +124,7 @@ nav {
 
 .price { color: var(--gold); }
 
-/* CART ICON */
+/* CART */
 .cart-icon {
     position: fixed;
     bottom: 20px;
@@ -138,7 +139,6 @@ nav {
     align-items:center;
     font-size: 24px;
     cursor:pointer;
-    box-shadow: 0 0 15px rgba(198,139,89,0.6);
 }
 
 #badge {
@@ -168,10 +168,7 @@ nav {
     padding:20px;
     display:none;
 }
-
-.cart.active {
-    display:block;
-}
+.cart.active { display:block; }
 
 #cart-items {
     max-height:150px;
@@ -185,12 +182,8 @@ nav {
     margin-bottom:8px;
 }
 
-.remove {
-    color:red;
-    cursor:pointer;
-}
+.remove { color:red; cursor:pointer; }
 
-/* TOTAL */
 .total {
     color: var(--gold);
     font-weight:bold;
@@ -241,13 +234,9 @@ nav {
 </div>
 </div>
 
-<!-- CART ICON -->
-<div class="cart-icon" onclick="toggleCart()">
-🛒
-<div id="badge">0</div>
-</div>
+<!-- CART -->
+<div class="cart-icon" onclick="toggleCart()">🛒<div id="badge">0</div></div>
 
-<!-- CART BOX -->
 <div class="cart" id="cartBox">
 <h3>🛒 Order</h3>
 <div id="cart-items"></div>
@@ -256,55 +245,46 @@ nav {
 </div>
 
 <script>
-let cart = [];
-let total = 0;
+let cart=[];
+let total=0;
 
 function scrollToMenu(){
-    document.getElementById('menu').scrollIntoView({behavior:'smooth'});
+document.getElementById('menu').scrollIntoView({behavior:'smooth'});
 }
 
 function toggleCart(){
-    document.getElementById("cartBox").classList.toggle("active");
+document.getElementById("cartBox").classList.toggle("active");
 }
 
-function addItem(name, price){
-    cart.push({name, price});
-    total += price;
-    renderCart();
+function addItem(name,price){
+cart.push({name,price});
+total+=price;
+renderCart();
 }
 
-function removeItem(index){
-    total -= cart[index].price;
-    cart.splice(index,1);
-    renderCart();
+function removeItem(i){
+total-=cart[i].price;
+cart.splice(i,1);
+renderCart();
 }
 
 function renderCart(){
-    const container = document.getElementById("cart-items");
+document.getElementById("cart-items").innerHTML =
+cart.map((item,i)=>`
+<div class="cart-item">
+<span>${item.name}</span>
+<span>${item.price} MAD <span class="remove" onclick="removeItem(${i})">✕</span></span>
+</div>
+`).join("");
 
-    container.innerHTML = cart.map((item, i) => `
-        <div class="cart-item">
-            <span>${item.name}</span>
-            <span>${item.price} MAD 
-                <span class="remove" onclick="removeItem(${i})">✕</span>
-            </span>
-        </div>
-    `).join("");
-
-    document.getElementById("total").innerText = total + " MAD";
-    document.getElementById("badge").innerText = cart.length;
+document.getElementById("total").innerText=total+" MAD";
+document.getElementById("badge").innerText=cart.length;
 }
 
 function checkout(){
-    if(cart.length === 0){
-        alert("Add items first");
-        return;
-    }
-
-    let items = cart.map(i => `${i.name} (${i.price} MAD)`).join(", ");
-    let msg = "Order: " + items + " | Total: " + total + " MAD";
-
-    window.open("https://wa.me/212678673336?text=" + encodeURIComponent(msg), "_blank");
+if(cart.length===0){alert("Add items first");return;}
+let msg=cart.map(i=>`${i.name} (${i.price})`).join(", ")+" | Total: "+total;
+window.open("https://wa.me/212678673336?text="+encodeURIComponent(msg));
 }
 </script>
 
