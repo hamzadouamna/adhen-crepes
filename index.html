@@ -3,90 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Khatra | خترة - Ultra Premium Coffee</title>
+<title>Khatra | خترة</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 :root { 
     --gold: #c68b59;
-    --gold-glow: rgba(198, 139, 89, 0.4);
-    --dark: #050505; 
-    --card-bg: rgba(198, 139, 89, 0.05);
+    --dark: #050505;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
-body { 
-    background: var(--dark); 
-    color: #fff; 
-    font-family: 'Montserrat', sans-serif; 
-    overflow-x: hidden; 
-    cursor: none;
+
+body {
+    background: var(--dark);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
 }
 
-/* Cursor */
-.cursor {
-    position: fixed; width: 20px; height: 20px;
-    border: 1px solid var(--gold); border-radius: 50%;
-    pointer-events: none; z-index: 10000;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: difference;
-}
-
-/* Navbar */
+/* NAV */
 nav {
-    position: fixed; top: 0; width: 100%;
+    position: fixed;
+    width: 100%;
     padding: 20px 5%;
-    display: flex; justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
     backdrop-filter: blur(10px);
+    z-index: 100;
 }
-.logo { font-family: 'Playfair Display'; color: var(--gold); }
+.logo {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+}
 
-/* Hero */
+/* HERO */
 .hero {
     height: 100vh;
-    display:flex; flex-direction:column;
-    justify-content:center; align-items:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
     text-align:center;
+    background:
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url('https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=2070');
+    background-size: cover;
 }
-.hero-bg {
-    position:absolute; inset:0;
-    background:url('https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=2070') center/cover;
-    filter:brightness(0.3);
-    z-index:-1;
-}
-.hero h1 {
-    font-family:'Playfair Display';
-    font-size:7vw;
-}
-.gold-text { color: var(--gold); }
 
+.hero h1 {
+    font-size: 70px;
+    font-family: 'Playfair Display';
+}
+.hero span { color: var(--gold); }
+
+/* BUTTON */
 .btn {
+    margin-top:20px;
     padding:15px 35px;
     border:1px solid var(--gold);
-    color:#fff;
+    color: var(--gold);
     cursor:pointer;
-    margin-top:20px;
+    transition:0.3s;
+}
+.btn:hover {
+    background: var(--gold);
+    color:#000;
 }
 
-/* Menu */
-.section { padding:120px 5%; }
+/* SECTION */
+.section { padding:100px 5%; }
+
 .menu-grid {
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
     gap:30px;
 }
 
+/* CARD */
 .card {
-    background: var(--card-bg);
+    background: rgba(255,255,255,0.03);
     padding:30px;
-    border-radius:15px;
+    border-radius:10px;
     text-align:center;
-    transition:0.4s;
+    transition:0.3s;
 }
 .card:hover {
     transform: translateY(-10px);
@@ -95,105 +94,140 @@ nav {
 
 .price { color: var(--gold); }
 
-/* Cart */
-.cart-box {
-    position:fixed;
-    bottom:20px; right:20px;
-    background:#000;
-    padding:20px;
+/* CART */
+.cart {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background: #000;
     border:1px solid var(--gold);
     border-radius:10px;
+    padding:20px;
 }
 
-@media (max-width:768px){
-    body { cursor:auto; }
-    .cursor { display:none; }
+.cart h3 { margin-bottom:10px; }
+
+#cart-items {
+    max-height:150px;
+    overflow-y:auto;
+}
+
+.cart-item {
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+}
+
+.remove {
+    color:red;
+    cursor:pointer;
+}
+
+/* TOTAL */
+.total {
+    margin-top:10px;
+    color: var(--gold);
+    font-weight:bold;
 }
 </style>
 </head>
 
 <body>
 
-<div class="cursor"></div>
-
 <nav>
-<div class="logo">KHATRA <span>خترة</span></div>
-<div class="btn" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Menu</div>
+<div class="logo">KHATRA خترة</div>
+<div class="btn" onclick="scrollToMenu()">Menu</div>
 </nav>
 
 <div class="hero">
-<div class="hero-bg"></div>
-<h1>Experience <br><span class="gold-text">The Energy</span></h1>
-<p>Ultra Premium Moroccan Coffee</p>
-<div class="btn" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">Explore</div>
+<h1>Khatra <span>Coffee</span></h1>
+<p>Taste the energy</p>
+<div class="btn" onclick="scrollToMenu()">Explore</div>
 </div>
 
 <div class="section" id="menu">
-<h2 style="text-align:center; font-family:'Playfair Display'; margin-bottom:40px;">
-Our <span style="color:var(--gold)">Selection</span>
-</h2>
+<h2 style="text-align:center; margin-bottom:40px;">Our Selection</h2>
 
 <div class="menu-grid">
 
-<div class="card" onclick="add('Espresso Elite',15)">
-<h3>Espresso Elite</h3>
+<div class="card">
+<h3>Espresso</h3>
 <p>Strong & pure</p>
 <div class="price">15 MAD</div>
-<div class="btn" onclick="event.stopPropagation(); add('Espresso Elite',15)">Add</div>
+<div class="btn" onclick="addItem('Espresso',15)">Add</div>
 </div>
 
-<div class="card" onclick="add('Cappuccino',22)">
+<div class="card">
 <h3>Cappuccino</h3>
 <p>Creamy & smooth</p>
 <div class="price">22 MAD</div>
-<div class="btn" onclick="event.stopPropagation(); add('Cappuccino',22)">Add</div>
+<div class="btn" onclick="addItem('Cappuccino',22)">Add</div>
 </div>
 
-<div class="card" onclick="add('Latte',25)">
-<h3>Signature Latte</h3>
+<div class="card">
+<h3>Latte</h3>
 <p>Luxury taste</p>
 <div class="price">25 MAD</div>
-<div class="btn" onclick="event.stopPropagation(); add('Latte',25)">Add</div>
+<div class="btn" onclick="addItem('Latte',25)">Add</div>
 </div>
 
 </div>
 </div>
 
-<div class="cart-box">
+<!-- CART -->
+<div class="cart">
 <h3>🛒 Order</h3>
-<div id="cart-list"></div>
-<div id="total">0 MAD</div>
-<button class="btn" onclick="checkout()">Checkout</button>
+<div id="cart-items"></div>
+<div class="total" id="total">0 MAD</div>
+<button class="btn" style="width:100%;" onclick="checkout()">Checkout</button>
 </div>
 
 <script>
-// Cursor
-const cursor = document.querySelector('.cursor');
-document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-});
-
-// Cart
 let cart = [];
 let total = 0;
 
-function add(name, price){
-    cart.push(name);
-    total += price;
-    render();
+function scrollToMenu(){
+    document.getElementById('menu').scrollIntoView({behavior:'smooth'});
 }
 
-function render(){
-    document.getElementById("cart-list").innerHTML =
-        cart.map(c => `<div>☕ ${c}</div>`).join("");
+function addItem(name, price){
+    cart.push({name, price});
+    total += price;
+    renderCart();
+}
+
+function removeItem(index){
+    total -= cart[index].price;
+    cart.splice(index,1);
+    renderCart();
+}
+
+function renderCart(){
+    const container = document.getElementById("cart-items");
+
+    container.innerHTML = cart.map((item, i) => `
+        <div class="cart-item">
+            <span>${item.name}</span>
+            <span>${item.price} MAD 
+                <span class="remove" onclick="removeItem(${i})">✕</span>
+            </span>
+        </div>
+    `).join("");
+
     document.getElementById("total").innerText = total + " MAD";
 }
 
 function checkout(){
-    if(cart.length === 0) return alert("Add items first");
-    let msg = "Order: " + cart.join(", ") + " | Total: " + total + " MAD";
-    window.open("https://wa.me/212678673336?text=" + encodeURIComponent(msg));
+    if(cart.length === 0){
+        alert("Add items first");
+        return;
+    }
+
+    let items = cart.map(i => `${i.name} (${i.price} MAD)`).join(", ");
+    let msg = "Order: " + items + " | Total: " + total + " MAD";
+
+    window.open("https://wa.me/212678673336?text=" + encodeURIComponent(msg), "_blank");
 }
 </script>
 
