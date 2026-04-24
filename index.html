@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tire Finder Maroc | Pneus Compatibles</title>
+<title>Galerie Pneus Maroc</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
@@ -19,41 +19,68 @@ color:white;
 
 .container{
 width:90%;
-max-width:1000px;
+max-width:1200px;
 margin:auto;
 padding:40px 0;
 }
 
-h1{text-align:center;font-size:40px;}
+h1{
+text-align:center;
+font-size:40px;
+margin-bottom:10px;
+}
 
-.search-box{
-width:100%;
-padding:15px;
-border-radius:10px;
-border:none;
-margin-top:20px;
-font-size:16px;
+p{
+text-align:center;
+color:#94a3b8;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+margin-top:40px;
 }
 
 .card{
 background:#1e293b;
+border-radius:15px;
 padding:20px;
-margin-top:15px;
-border-radius:12px;
 transition:0.3s;
+box-shadow:0 10px 20px rgba(0,0,0,0.3);
 }
 
-.card:hover{transform:scale(1.02);}
+.card:hover{
+transform:translateY(-8px);
+}
 
 .brand{
-color:#38bdf8;
+font-size:18px;
 font-weight:bold;
-margin-top:25px;
+color:#38bdf8;
+margin-bottom:10px;
 }
 
 .size{
+display:block;
 color:#facc15;
-margin-left:10px;
+font-size:14px;
+margin:3px 0;
+}
+
+.btn{
+margin-top:10px;
+width:100%;
+padding:10px;
+border:none;
+border-radius:10px;
+background:#3b82f6;
+color:white;
+cursor:pointer;
+}
+
+.btn:hover{
+background:#2563eb;
 }
 
 .whatsapp{
@@ -64,18 +91,17 @@ background:#25D366;
 padding:15px;
 border-radius:50%;
 font-size:22px;
-text-decoration:none;
 color:white;
+text-decoration:none;
 }
 
-button{
-background:#3b82f6;
+.search{
+width:100%;
+padding:15px;
+border-radius:10px;
 border:none;
-padding:10px 15px;
-color:white;
-border-radius:8px;
-cursor:pointer;
-margin-top:10px;
+margin-top:20px;
+font-size:16px;
 }
 
 </style>
@@ -85,12 +111,12 @@ margin-top:10px;
 
 <div class="container">
 
-<h1>🔎 Tire Finder Maroc</h1>
-<p style="text-align:center;">Choisis ta voiture et découvre les pneus compatibles</p>
+<h1>🛞 Galerie Pneus Maroc</h1>
+<p>Choisis ta voiture et commande directement</p>
 
-<input class="search-box" id="search" placeholder="Ex: Clio, Golf, Corolla..." onkeyup="searchCar()">
+<input class="search" id="search" placeholder="Rechercher voiture..." onkeyup="filterCars()">
 
-<div id="results"></div>
+<div class="grid" id="grid"></div>
 
 </div>
 
@@ -98,12 +124,11 @@ margin-top:10px;
 
 <script>
 
-// 📊 DATABASE (cars + sizes)
-const data = [
+const cars = [
 
 {brand:"Renault Clio 4 / 5", sizes:["185/65 R15","195/55 R16"]},
 {brand:"Renault Megane 3 / 4", sizes:["195/65 R15","205/55 R16","225/45 R17"]},
-{brand:"Renault Dacia Logan", sizes:["165/80 R14","185/65 R15"]},
+{brand:"Dacia Logan", sizes:["165/80 R14","185/65 R15"]},
 {brand:"Dacia Duster", sizes:["215/65 R16","215/60 R17","225/60 R17"]},
 
 {brand:"VW Golf 6 / 7 / 8", sizes:["195/65 R15","205/55 R16","225/45 R17","225/40 R18"]},
@@ -124,50 +149,58 @@ const data = [
 
 ];
 
-// 🔎 search function
-function searchCar(){
+function render(list){
 
-let input = document.getElementById("search").value.toLowerCase();
-let results = document.getElementById("results");
+let grid=document.getElementById("grid");
+grid.innerHTML="";
 
-results.innerHTML="";
+list.forEach(car=>{
 
-data.forEach(car=>{
-
-if(car.brand.toLowerCase().includes(input)){
-
-results.innerHTML += `
+grid.innerHTML += `
 <div class="card">
 <div class="brand">${car.brand}</div>
 <div>🛞 Sizes:</div>
-${car.sizes.map(s=>`<span class="size">${s}</span>`).join(" ")}
-<br>
-<button onclick="order('${car.brand}')">Commander</button>
+${car.sizes.map(s=>`<span class="size">${s}</span>`).join("")}
+<button class="btn" onclick="order('${car.brand}')">Commander</button>
 </div>
 `;
-
-}
 
 });
 
 }
 
-// 💬 WhatsApp order
-function order(car){
-let phone="212622251754";
-let msg="Bonjour, je veux des pneus pour: "+car;
-window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`);
+function filterCars(){
+
+let input=document.getElementById("search").value.toLowerCase();
+
+let filtered=cars.filter(c =>
+c.brand.toLowerCase().includes(input)
+);
+
+render(filtered);
+
 }
 
-// floating WhatsApp
+function order(car){
+
+let phone="212622251754";
+let msg="Bonjour, je veux commander des pneus pour: "+car;
+
+window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`);
+
+}
+
 function openWhatsApp(){
+
 let phone="212622251754";
 let msg="Bonjour, je cherche des pneus.";
+
 window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`);
+
 }
 
-// load all at start
-searchCar();
+// init
+render(cars);
 
 </script>
 
