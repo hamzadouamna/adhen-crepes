@@ -4,21 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pneus Maroc | IT BLUE</title>
-<meta name="description" content="Meilleur service de pneus au Maroc. Montage rapide, prix imbattables. Réservez maintenant.">
+<title>Pneus Maroc | Vente & Montage Rapide</title>
 
-<!-- SEO -->
-<meta name="keywords" content="pneus maroc, pneus rabat, montage pneus maroc">
-
-<!-- Open Graph -->
-<meta property="og:title" content="Pneus Premium Maroc">
-<meta property="og:image" content="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2">
+<meta name="description" content="Achetez vos pneus au meilleur prix au Maroc. Montage rapide, toutes marques disponibles. Contactez-nous sur WhatsApp.">
+<meta name="keywords" content="pneus maroc, acheter pneus rabat, pneus pas cher maroc">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
+
 :root{
---primary:#3b82f6;
+--primary:#e11d48;
 --dark:#0f172a;
 --card:#1e293b;
 }
@@ -33,21 +29,21 @@ body{background:var(--dark);color:white;}
 height:100vh;
 display:flex;
 align-items:center;
-background:url('https://images.unsplash.com/photo-1616789916437-bbf724d6c0a7') center/cover;
+background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.8)),
+url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2') center/cover;
 }
 
-.hero-content{max-width:600px;}
-
-.hero h1{font-size:50px;}
-.hero p{margin:20px 0;}
+.hero h1{font-size:48px;}
+.hero p{margin:20px 0;font-size:18px;}
 
 .btn{
 background:var(--primary);
 padding:15px 30px;
-border-radius:30px;
 border:none;
+border-radius:30px;
 cursor:pointer;
 color:white;
+font-size:16px;
 }
 
 .grid{
@@ -64,22 +60,28 @@ border-radius:15px;
 transition:.3s;
 }
 
-.card:hover{transform:scale(1.05);}
+.card:hover{transform:translateY(-8px);}
 
 section{padding:80px 0;}
 
-input,select{
+input{
 width:100%;
 padding:15px;
 margin:10px 0;
-border-radius:10px;
 border:none;
+border-radius:10px;
 }
 
 form{
 background:var(--card);
 padding:30px;
 border-radius:20px;
+}
+
+.brands img{
+width:120px;
+margin:15px;
+filter:grayscale(1);
 }
 
 .whatsapp{
@@ -89,6 +91,9 @@ right:20px;
 background:#25D366;
 padding:15px;
 border-radius:50%;
+font-size:22px;
+text-decoration:none;
+color:white;
 }
 
 </style>
@@ -98,10 +103,10 @@ border-radius:50%;
 
 <!-- HERO -->
 <section class="hero">
-<div class="container hero-content">
-<h1>Pneus Haute Qualité au Maroc</h1>
-<p>Montage rapide - Service professionnel - Prix compétitifs</p>
-<button class="btn" onclick="scrollToForm()">Réserver maintenant</button>
+<div class="container">
+<h1>Pneus Toutes Marques au Maroc</h1>
+<p>Prix imbattables - Montage rapide - Livraison disponible</p>
+<button class="btn" onclick="goWhatsApp()">Commander maintenant</button>
 </div>
 </section>
 
@@ -109,82 +114,78 @@ border-radius:50%;
 <section class="container">
 <h2>Nos Services</h2>
 <div class="grid">
-<div class="card">Montage pneus</div>
-<div class="card">Équilibrage</div>
-<div class="card">Parallélisme</div>
-<div class="card">Réparation crevaison</div>
+<div class="card">🔧 Vente pneus toutes tailles</div>
+<div class="card">⚖️ Équilibrage précis</div>
+<div class="card">📏 Parallélisme</div>
+<div class="card">🚗 Réparation crevaison</div>
 </div>
 </section>
 
-<!-- TRUST -->
+<!-- BRANDS -->
+<section class="container brands">
+<h2>Nos Marques</h2>
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Michelin_logo.svg">
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Bridgestone_logo.svg">
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Continental_AG_logo.svg">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Pirelli_logo.svg">
+</section>
+
+<!-- WHY -->
 <section class="container">
-<h2>Pourquoi nous ?</h2>
+<h2>Pourquoi nous choisir ?</h2>
 <div class="grid">
-<div class="card">+500 clients satisfaits</div>
-<div class="card">Service rapide</div>
-<div class="card">Prix compétitifs</div>
-<div class="card">Garantie qualité</div>
+<div class="card">💰 Prix compétitifs</div>
+<div class="card">⚡ Service rapide</div>
+<div class="card">⭐ Clients satisfaits</div>
+<div class="card">🚚 Livraison possible</div>
 </div>
 </section>
 
 <!-- FORM -->
-<section class="container" id="form">
-<h2>Réserver maintenant</h2>
+<section class="container">
+<h2>Demande rapide</h2>
 
 <form onsubmit="sendLead(event)">
 <input type="text" id="name" placeholder="Nom" required>
 <input type="tel" id="phone" placeholder="Téléphone" required>
-
-<select id="service">
-<option>Montage pneus</option>
-<option>Réparation</option>
-<option>Équilibrage</option>
-</select>
+<input type="text" id="car" placeholder="Voiture / Taille pneus">
 
 <button class="btn">Envoyer</button>
 </form>
+
 </section>
 
-<!-- FOOTER -->
-<section class="container">
-<p>© 2026 IT BLUE</p>
+<!-- CTA -->
+<section class="container" style="text-align:center;">
+<h2>Commandez maintenant via WhatsApp</h2>
+<button class="btn" onclick="goWhatsApp()">Contact WhatsApp</button>
 </section>
 
-<a class="whatsapp" href="#" onclick="openWhatsApp()">💬</a>
+<footer style="text-align:center;padding:20px;">
+<p>© 2026 Pneus Maroc</p>
+</footer>
+
+<a class="whatsapp" href="#" onclick="goWhatsApp()">💬</a>
 
 <script>
 
-// Scroll smooth
-function scrollToForm(){
-document.getElementById("form").scrollIntoView({behavior:"smooth"});
+function goWhatsApp(){
+let phone="212622251754";
+let msg="Bonjour, je veux acheter des pneus.";
+window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`);
 }
 
-// WhatsApp redirect avec message auto
-function openWhatsApp(){
-let phone="212600000000";
-let message="Bonjour, je veux plus d'informations sur les pneus.";
-window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`);
-}
-
-// Lead capture + WhatsApp funnel
 function sendLead(e){
 e.preventDefault();
 
 let name=document.getElementById("name").value;
 let phone=document.getElementById("phone").value;
-let service=document.getElementById("service").value;
+let car=document.getElementById("car").value;
 
-// هنا تقدر تربط API ديالك مستقبلا
-console.log({name,phone,service});
+let message=`Nom: ${name} - Tel: ${phone} - Voiture: ${car}`;
 
-// تحويل مباشر لواتساب
-let msg=`Nom: ${name} - Tel: ${phone} - Service: ${service}`;
-window.open(`https://wa.me/212600000000?text=${encodeURIComponent(msg)}`);
-
+window.open(`https://wa.me/212622251754?text=${encodeURIComponent(message)}`);
 }
-
-// Fake analytics tracking
-console.log("User visit tracked");
 
 </script>
 
