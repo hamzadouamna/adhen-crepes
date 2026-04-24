@@ -111,9 +111,9 @@ text-decoration:none;
 <div class="container">
 
 <h1>🛞 Catalogue Pneus Maroc</h1>
-<p>Recherchez votre voiture et commandez directement</p>
+<p>Recherchez par voiture ou taille de pneu</p>
 
-<input class="search" id="search" placeholder="Ex: Clio, Golf, Corolla..." onkeyup="filterCars()">
+<input class="search" id="search" placeholder="Ex: Clio, Golf, 195/65 R15..." onkeyup="filterCars()">
 
 <div class="grid" id="grid"></div>
 
@@ -123,8 +123,7 @@ text-decoration:none;
 
 <script>
 
-// 📊 FULL DATABASE (Morocco market cars)
-
+// 📊 DATABASE
 const cars = [
 
 {brand:"Renault Clio 4 / 5", sizes:["185/65 R15","195/55 R16"]},
@@ -146,11 +145,11 @@ const cars = [
 
 {brand:"Hyundai i20", sizes:["185/65 R15","195/55 R16"]},
 {brand:"Hyundai Tucson", sizes:["225/60 R17","225/55 R18","235/55 R19"]},
-{brand:"Kia Sportage", sizes:["215/70 R16","225/60 R17","235/55 R18"]},
+{brand:"Kia Sportage", sizes:["215/70 R16","225/60 R17","235/55 R18"]}
 
 ];
 
-// 🎨 Render gallery
+// 🎨 render function
 function render(list){
 
 let grid=document.getElementById("grid");
@@ -176,14 +175,22 @@ Commander
 
 }
 
-// 🔎 filter
+// 🔎 FIXED SEARCH (brand + sizes)
 function filterCars(){
 
-let input=document.getElementById("search").value.toLowerCase();
+let input = document.getElementById("search").value.toLowerCase();
 
-let filtered=cars.filter(c =>
-c.brand.toLowerCase().includes(input)
+let filtered = cars.filter(c => {
+
+let brandMatch = c.brand.toLowerCase().includes(input);
+
+let sizeMatch = c.sizes.some(s =>
+s.toLowerCase().includes(input)
 );
+
+return brandMatch || sizeMatch;
+
+});
 
 render(filtered);
 
