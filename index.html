@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pneus Maroc - Catalogue Complet</title>
+<title>Pneus Maroc - Galerie</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
@@ -24,15 +24,7 @@ margin:auto;
 padding:40px 0;
 }
 
-h1{
-text-align:center;
-font-size:42px;
-}
-
-p{
-text-align:center;
-color:#94a3b8;
-}
+h1{text-align:center;font-size:42px;}
 
 .search{
 width:100%;
@@ -52,14 +44,22 @@ margin-top:40px;
 
 .card{
 background:#1e293b;
-padding:20px;
 border-radius:15px;
-transition:0.3s;
+overflow:hidden;
 box-shadow:0 10px 25px rgba(0,0,0,0.3);
+transition:0.3s;
 }
 
-.card:hover{
-transform:translateY(-8px);
+.card:hover{transform:translateY(-8px);}
+
+.card img{
+width:100%;
+height:160px;
+object-fit:cover;
+}
+
+.content{
+padding:15px;
 }
 
 .brand{
@@ -72,7 +72,7 @@ margin-bottom:10px;
 .size{
 display:block;
 color:#facc15;
-font-size:14px;
+font-size:13px;
 margin:3px 0;
 }
 
@@ -87,9 +87,7 @@ color:white;
 cursor:pointer;
 }
 
-.btn:hover{
-background:#2563eb;
-}
+.btn:hover{background:#2563eb;}
 
 .whatsapp{
 position:fixed;
@@ -110,10 +108,9 @@ text-decoration:none;
 
 <div class="container">
 
-<h1>🛞 Catalogue Pneus Maroc</h1>
-<p>Recherchez par voiture ou taille de pneu</p>
+<h1>🛞 Galerie Pneus Maroc</h1>
 
-<input class="search" id="search" placeholder="Ex: Clio, Golf, 195/65 R15..." onkeyup="filterCars()">
+<input class="search" id="search" placeholder="Rechercher voiture ou taille..." onkeyup="filterCars()">
 
 <div class="grid" id="grid"></div>
 
@@ -123,33 +120,54 @@ text-decoration:none;
 
 <script>
 
-// 📊 DATABASE
+// 📊 DATABASE + IMAGES
 const cars = [
 
-{brand:"Renault Clio 4 / 5", sizes:["185/65 R15","195/55 R16"]},
-{brand:"Renault Megane 3 / 4", sizes:["195/65 R15","205/55 R16","225/45 R17"]},
-{brand:"Renault Logan", sizes:["165/80 R14","185/65 R15"]},
-{brand:"Dacia Duster", sizes:["215/65 R16","215/60 R17","225/60 R17"]},
+{
+brand:"Renault Clio 4 / 5",
+img:"https://cdn.pixabay.com/photo/2016/12/07/21/50/car-1890494_1280.jpg",
+sizes:["185/65 R15","195/55 R16"]
+},
 
-{brand:"VW Golf 6 / 7 / 8", sizes:["195/65 R15","205/55 R16","225/45 R17","225/40 R18"]},
-{brand:"VW Polo", sizes:["175/70 R14","185/65 R15","195/55 R16"]},
-{brand:"VW Passat", sizes:["215/60 R16","215/55 R17","235/45 R18"]},
+{
+brand:"Renault Megane",
+img:"https://cdn.pixabay.com/photo/2017/01/06/19/15/car-1957037_1280.jpg",
+sizes:["195/65 R15","205/55 R16","225/45 R17"]
+},
 
-{brand:"Peugeot 208", sizes:["185/65 R15","195/55 R16"]},
-{brand:"Peugeot 308", sizes:["195/65 R15","205/55 R16","225/45 R17"]},
-{brand:"Peugeot 508", sizes:["215/60 R16","215/55 R17","235/45 R18"]},
+{
+brand:"Dacia Duster",
+img:"https://cdn.pixabay.com/photo/2019/05/22/17/20/dacia-4223058_1280.jpg",
+sizes:["215/65 R16","215/60 R17","225/60 R17"]
+},
 
-{brand:"Toyota Corolla", sizes:["195/65 R15","205/55 R16","225/45 R17"]},
-{brand:"Toyota Yaris", sizes:["175/65 R15","185/60 R15","195/50 R16"]},
-{brand:"Toyota Prado", sizes:["265/65 R17","265/60 R18","275/55 R19"]},
+{
+brand:"VW Golf",
+img:"https://cdn.pixabay.com/photo/2017/01/06/19/15/volkswagen-1957038_1280.jpg",
+sizes:["195/65 R15","205/55 R16","225/45 R17","225/40 R18"]
+},
 
-{brand:"Hyundai i20", sizes:["185/65 R15","195/55 R16"]},
-{brand:"Hyundai Tucson", sizes:["225/60 R17","225/55 R18","235/55 R19"]},
-{brand:"Kia Sportage", sizes:["215/70 R16","225/60 R17","235/55 R18"]}
+{
+brand:"Peugeot 208",
+img:"https://cdn.pixabay.com/photo/2017/03/27/14/56/auto-2179220_1280.jpg",
+sizes:["185/65 R15","195/55 R16"]
+},
+
+{
+brand:"Toyota Corolla",
+img:"https://cdn.pixabay.com/photo/2016/11/29/03/53/automobile-1868726_1280.jpg",
+sizes:["195/65 R15","205/55 R16","225/45 R17"]
+},
+
+{
+brand:"Hyundai Tucson",
+img:"https://cdn.pixabay.com/photo/2018/05/16/21/14/hyundai-3400120_1280.jpg",
+sizes:["225/60 R17","225/55 R18","235/55 R19"]
+}
 
 ];
 
-// 🎨 render function
+// 🎨 render
 function render(list){
 
 let grid=document.getElementById("grid");
@@ -159,14 +177,21 @@ list.forEach(car=>{
 
 grid.innerHTML += `
 <div class="card">
+
+<img src="${car.img}" alt="${car.brand}">
+
+<div class="content">
+
 <div class="brand">${car.brand}</div>
 
-<div>🛞 Tailles disponibles:</div>
+<div>🛞 Tailles:</div>
 ${car.sizes.map(s=>`<span class="size">${s}</span>`).join("")}
 
 <button class="btn" onclick="order('${car.brand}')">
 Commander
 </button>
+
+</div>
 
 </div>
 `;
@@ -175,44 +200,34 @@ Commander
 
 }
 
-// 🔎 FIXED SEARCH (brand + sizes)
+// 🔎 search
 function filterCars(){
 
-let input = document.getElementById("search").value.toLowerCase();
+let input=document.getElementById("search").value.toLowerCase();
 
-let filtered = cars.filter(c => {
-
-let brandMatch = c.brand.toLowerCase().includes(input);
-
-let sizeMatch = c.sizes.some(s =>
-s.toLowerCase().includes(input)
+let filtered=cars.filter(c =>
+c.brand.toLowerCase().includes(input) ||
+c.sizes.some(s=>s.toLowerCase().includes(input))
 );
-
-return brandMatch || sizeMatch;
-
-});
 
 render(filtered);
 
 }
 
-// 💬 WhatsApp order
+// 💬 WhatsApp
 function order(car){
 
 let phone="212622251754";
-
-let msg="Bonjour, je veux commander des pneus pour: "+car;
+let msg="Bonjour, je veux des pneus pour: "+car;
 
 window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`);
 
 }
 
-// floating WhatsApp
 function openWhatsApp(){
 
 let phone="212622251754";
-
-let msg="Bonjour, je cherche des pneus pour ma voiture.";
+let msg="Bonjour, je cherche des pneus.";
 
 window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`);
 
