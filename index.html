@@ -1,326 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Khatra Coffee</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Pneus Maroc | IT BLUE</title>
+<meta name="description" content="Meilleur service de pneus au Maroc. Montage rapide, prix imbattables. Réservez maintenant.">
+
+<!-- SEO -->
+<meta name="keywords" content="pneus maroc, pneus rabat, montage pneus maroc">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Pneus Premium Maroc">
+<meta property="og:image" content="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
-    --gold: #c68b59;
-    --dark: #050505;
+:root{
+--primary:#3b82f6;
+--dark:#0f172a;
+--card:#1e293b;
 }
 
-* { margin:0; padding:0; box-sizing:border-box; }
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;}
 
-body {
-    background: var(--dark);
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    overflow-x:hidden;
+body{background:var(--dark);color:white;}
+
+.container{width:90%;max-width:1200px;margin:auto;}
+
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+background:url('https://images.unsplash.com/photo-1616789916437-bbf724d6c0a7') center/cover;
 }
 
-/* 🔥 MOROCCAN ZELLIGE BACKGROUND */
-body::before {
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:0;
+.hero-content{max-width:600px;}
 
-    background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='%23000000'/%3E%3Cpath d='M60 5 L78 42 L115 60 L78 78 L60 115 L42 78 L5 60 L42 42 Z' fill='none' stroke='%23c68b59' stroke-width='1.5'/%3E%3Ccircle cx='60' cy='60' r='8' fill='none' stroke='%23c68b59' stroke-width='1'/%3E%3C/svg%3E");
+.hero h1{font-size:50px;}
+.hero p{margin:20px 0;}
 
-    background-size:140px 140px;
-    opacity:0.35;
-
-    animation: flow 35s linear infinite;
+.btn{
+background:var(--primary);
+padding:15px 30px;
+border-radius:30px;
+border:none;
+cursor:pointer;
+color:white;
 }
 
-@keyframes flow {
-    0% { background-position:0 0; }
-    100% { background-position:300px 300px; }
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+margin-top:40px;
 }
 
-/* keep content above bg */
-body > * { position:relative; z-index:1; }
-
-/* NAV */
-nav {
-    position:fixed;
-    width:100%;
-    padding:20px 5%;
-    display:flex;
-    justify-content:space-between;
-    backdrop-filter:blur(10px);
-    z-index:100;
+.card{
+background:var(--card);
+padding:25px;
+border-radius:15px;
+transition:.3s;
 }
 
-.logo {
-    font-family:'Playfair Display', serif;
-    color:var(--gold);
+.card:hover{transform:scale(1.05);}
+
+section{padding:80px 0;}
+
+input,select{
+width:100%;
+padding:15px;
+margin:10px 0;
+border-radius:10px;
+border:none;
 }
 
-/* HERO */
-.hero {
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-
-    background:
-    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
-    url('https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=2070');
-    background-size:cover;
+form{
+background:var(--card);
+padding:30px;
+border-radius:20px;
 }
 
-.hero h1 {
-    font-size:60px;
-    font-family:'Playfair Display';
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+padding:15px;
+border-radius:50%;
 }
 
-.hero span { color:var(--gold); }
-
-.btn {
-    margin-top:20px;
-    padding:15px 35px;
-    border:1px solid var(--gold);
-    color:var(--gold);
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.btn:hover {
-    background:var(--gold);
-    color:#000;
-}
-
-/* MENU */
-.section { padding:100px 5%; }
-
-.menu-grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
-}
-
-.card {
-    background:rgba(255,255,255,0.04);
-    padding:30px;
-    border-radius:10px;
-    text-align:center;
-    transition:0.3s;
-}
-
-.card:hover {
-    transform:translateY(-10px);
-    border:1px solid var(--gold);
-}
-
-.price { color:var(--gold); }
-
-/* CART */
-.cart-icon {
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    background:var(--gold);
-    color:#000;
-    width:60px;
-    height:60px;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:24px;
-    cursor:pointer;
-}
-
-#badge {
-    position:absolute;
-    top:-5px;
-    right:-5px;
-    background:#fff;
-    color:#000;
-    font-size:12px;
-    width:20px;
-    height:20px;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-/* CART BOX */
-.cart {
-    position:fixed;
-    bottom:100px;
-    right:20px;
-    width:300px;
-    background:#000;
-    border:1px solid var(--gold);
-    border-radius:10px;
-    padding:20px;
-    display:none;
-}
-
-.cart.active { display:block; }
-
-#cart-items {
-    max-height:150px;
-    overflow-y:auto;
-    margin:10px 0;
-}
-
-.cart-item {
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:8px;
-}
-
-.remove { color:red; cursor:pointer; }
-
-.total {
-    color:var(--gold);
-    font-weight:bold;
-    margin:10px 0;
-}
-
-/* FOOTER */
-.footer {
-    padding:60px 5%;
-    text-align:center;
-    margin-top:100px;
-    background:rgba(0,0,0,0.6);
-    border-top:1px solid rgba(198,139,89,0.4);
-    backdrop-filter:blur(10px);
-}
-
-.footer .desc {
-    font-size:18px;
-    line-height:1.8;
-    max-width:600px;
-    margin:auto;
-    color:#fff;
-}
-
-.footer .desc::before {
-    content:"";
-    display:block;
-    width:80px;
-    height:2px;
-    background:var(--gold);
-    margin:0 auto 15px auto;
-}
 </style>
 </head>
 
 <body>
 
-<nav>
-<div class="logo">KHATRA خترة</div>
-<div class="btn" onclick="scrollToMenu()">Menu</div>
-</nav>
-
-<div class="hero">
-<h1>Khatra <span>Coffee</span></h1>
-<p>Taste the energy</p>
-<div class="btn" onclick="scrollToMenu()">Explore</div>
+<!-- HERO -->
+<section class="hero">
+<div class="container hero-content">
+<h1>Pneus Haute Qualité au Maroc</h1>
+<p>Montage rapide - Service professionnel - Prix compétitifs</p>
+<button class="btn" onclick="scrollToForm()">Réserver maintenant</button>
 </div>
+</section>
 
-<div class="section" id="menu">
-<h2 style="text-align:center;margin-bottom:40px;">Our Selection</h2>
-
-<div class="menu-grid">
-
-<div class="card">
-<h3>Espresso</h3>
-<p>Strong & pure</p>
-<div class="price">15 MAD</div>
-<div class="btn" onclick="addItem('Espresso',15)">Add</div>
+<!-- SERVICES -->
+<section class="container">
+<h2>Nos Services</h2>
+<div class="grid">
+<div class="card">Montage pneus</div>
+<div class="card">Équilibrage</div>
+<div class="card">Parallélisme</div>
+<div class="card">Réparation crevaison</div>
 </div>
+</section>
 
-<div class="card">
-<h3>Cappuccino</h3>
-<p>Creamy & smooth</p>
-<div class="price">22 MAD</div>
-<div class="btn" onclick="addItem('Cappuccino',22)">Add</div>
+<!-- TRUST -->
+<section class="container">
+<h2>Pourquoi nous ?</h2>
+<div class="grid">
+<div class="card">+500 clients satisfaits</div>
+<div class="card">Service rapide</div>
+<div class="card">Prix compétitifs</div>
+<div class="card">Garantie qualité</div>
 </div>
+</section>
 
-<div class="card">
-<h3>Latte</h3>
-<p>Luxury taste</p>
-<div class="price">25 MAD</div>
-<div class="btn" onclick="addItem('Latte',25)">Add</div>
-</div>
+<!-- FORM -->
+<section class="container" id="form">
+<h2>Réserver maintenant</h2>
 
-</div>
-</div>
+<form onsubmit="sendLead(event)">
+<input type="text" id="name" placeholder="Nom" required>
+<input type="tel" id="phone" placeholder="Téléphone" required>
 
-<!-- CART -->
-<div class="cart-icon" onclick="toggleCart()">🛒<div id="badge">0</div></div>
+<select id="service">
+<option>Montage pneus</option>
+<option>Réparation</option>
+<option>Équilibrage</option>
+</select>
 
-<div class="cart" id="cartBox">
-<h3>🛒 Order</h3>
-<div id="cart-items"></div>
-<div class="total" id="total">0 MAD</div>
-<button class="btn" style="width:100%;" onclick="checkout()">Checkout</button>
-</div>
+<button class="btn">Envoyer</button>
+</form>
+</section>
 
 <!-- FOOTER -->
-<footer class="footer">
-    <p class="desc">
-        قهوة مغربية بروح عصرية<br>
-        لكل فنجان حكاية ديال الذوق والطاقة
-    </p>
-</footer>
+<section class="container">
+<p>© 2026 IT BLUE</p>
+</section>
+
+<a class="whatsapp" href="#" onclick="openWhatsApp()">💬</a>
 
 <script>
-let cart=[];
-let total=0;
 
-function scrollToMenu(){
-document.getElementById('menu').scrollIntoView({behavior:'smooth'});
+// Scroll smooth
+function scrollToForm(){
+document.getElementById("form").scrollIntoView({behavior:"smooth"});
 }
 
-function toggleCart(){
-document.getElementById("cartBox").classList.toggle("active");
+// WhatsApp redirect avec message auto
+function openWhatsApp(){
+let phone="212600000000";
+let message="Bonjour, je veux plus d'informations sur les pneus.";
+window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`);
 }
 
-function addItem(name,price){
-cart.push({name,price});
-total+=price;
-renderCart();
+// Lead capture + WhatsApp funnel
+function sendLead(e){
+e.preventDefault();
+
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+let service=document.getElementById("service").value;
+
+// هنا تقدر تربط API ديالك مستقبلا
+console.log({name,phone,service});
+
+// تحويل مباشر لواتساب
+let msg=`Nom: ${name} - Tel: ${phone} - Service: ${service}`;
+window.open(`https://wa.me/212600000000?text=${encodeURIComponent(msg)}`);
+
 }
 
-function removeItem(i){
-total-=cart[i].price;
-cart.splice(i,1);
-renderCart();
-}
+// Fake analytics tracking
+console.log("User visit tracked");
 
-function renderCart(){
-document.getElementById("cart-items").innerHTML =
-cart.map((item,i)=>`
-<div class="cart-item">
-<span>${item.name}</span>
-<span>${item.price} MAD <span class="remove" onclick="removeItem(${i})">✕</span></span>
-</div>
-`).join("");
-
-document.getElementById("total").innerText=total+" MAD";
-document.getElementById("badge").innerText=cart.length;
-}
-
-function checkout(){
-if(cart.length===0){alert("Add items first");return;}
-let msg=cart.map(i=>`${i.name} (${i.price})`).join(", ")+" | Total: "+total;
-window.open("https://wa.me/212678673336?text="+encodeURIComponent(msg));
-}
 </script>
 
 </body>
