@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Quad Adventure Marrakech</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="description" content="Premium Quad Adventure in Marrakech with Camel Ride, Tea Pause, Buggy, Raptor 700cc and Moto Cross experiences.">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
+
+:root{
+    --orange:#ff6b00;
+    --orange-light:#ff8f3d;
+    --dark:#0b0b0b;
+    --glass:rgba(255,255,255,0.08);
+}
 
 *{
     margin:0;
@@ -22,52 +32,118 @@ html{
 }
 
 body{
-    background:#0b0b0b;
+    background:var(--dark);
     color:white;
     overflow-x:hidden;
+}
+
+/* LOADER */
+
+.loader{
+    position:fixed;
+    inset:0;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:99999;
+    transition:1s;
+}
+
+.loader img{
+    width:180px;
+    animation:spin 4s linear infinite;
+}
+
+.loader p{
+    margin-top:20px;
+    letter-spacing:4px;
+    color:white;
+}
+
+.loader.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+@keyframes spin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
 }
 
 /* NAVBAR */
 
 nav{
-    width:100%;
     position:fixed;
     top:0;
-    left:0;
-    z-index:999;
+    width:100%;
     padding:20px 8%;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    background:rgba(0,0,0,0.65);
-    backdrop-filter:blur(10px);
+    z-index:999;
+    background:rgba(0,0,0,0.5);
+    backdrop-filter:blur(15px);
 }
 
 .logo{
-    font-size:28px;
+    font-size:30px;
     font-weight:800;
-    color:#ff6b00;
+    color:var(--orange);
 }
 
 .logo span{
     color:white;
 }
 
-nav ul{
+.nav-links{
     display:flex;
     list-style:none;
     gap:30px;
 }
 
-nav ul li a{
+.nav-links a{
     color:white;
     text-decoration:none;
     transition:0.3s;
     font-weight:500;
 }
 
-nav ul li a:hover{
-    color:#ff6b00;
+.nav-links a:hover{
+    color:var(--orange);
+}
+
+.menu-btn{
+    display:none;
+    font-size:32px;
+    cursor:pointer;
+}
+
+/* MOBILE MENU */
+
+.mobile-menu{
+    position:fixed;
+    top:0;
+    right:-100%;
+    width:80%;
+    height:100vh;
+    background:#111;
+    padding:120px 40px;
+    z-index:9999;
+    transition:0.4s;
+}
+
+.mobile-menu.active{
+    right:0;
+}
+
+.mobile-menu a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    margin:25px 0;
+    font-size:22px;
 }
 
 /* HERO */
@@ -78,34 +154,60 @@ nav ul li a:hover{
     justify-content:center;
     align-items:center;
     text-align:center;
-    padding:120px 8% 60px;
-    background:
-    linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
-    url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop');
-    background-size:cover;
-    background-position:center;
+    position:relative;
+    overflow:hidden;
+    padding:120px 8%;
+}
+
+.hero video{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-2;
+}
+
+.hero::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.75);
+    z-index:-1;
 }
 
 .hero-content{
-    max-width:900px;
+    max-width:1000px;
+    animation:fadeUp 1.2s ease;
+}
+
+.hero-logo{
+    width:240px;
+    margin-bottom:25px;
+    animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
 }
 
 .hero h1{
-    font-size:72px;
-    line-height:1.1;
-    margin-bottom:20px;
-    font-weight:800;
+    font-size:85px;
+    line-height:1.05;
+    margin-bottom:25px;
+    font-weight:900;
 }
 
 .hero h1 span{
-    color:#ff6b00;
+    color:var(--orange);
 }
 
 .hero p{
     color:#ddd;
-    font-size:20px;
-    line-height:1.8;
-    margin-bottom:35px;
+    font-size:22px;
+    line-height:1.9;
+    margin-bottom:45px;
 }
 
 .hero-buttons{
@@ -116,88 +218,86 @@ nav ul li a:hover{
 }
 
 .btn{
-    padding:16px 38px;
+    padding:18px 40px;
     border-radius:50px;
     text-decoration:none;
     font-weight:700;
-    transition:0.3s;
+    transition:0.4s;
 }
 
 .btn-main{
-    background:#ff6b00;
+    background:var(--orange);
     color:white;
+    box-shadow:0 0 25px rgba(255,107,0,0.4);
 }
 
 .btn-main:hover{
-    background:#ff8f3d;
-    transform:translateY(-4px);
+    transform:translateY(-5px);
+    background:var(--orange-light);
 }
 
 .btn-outline{
-    border:2px solid #ff6b00;
-    color:#ff6b00;
+    border:2px solid var(--orange);
+    color:var(--orange);
 }
 
 .btn-outline:hover{
-    background:#ff6b00;
+    background:var(--orange);
     color:white;
 }
 
-/* SECTION */
+/* GLASS */
+
+.glass{
+    background:var(--glass);
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(18px);
+}
+
+/* SECTIONS */
 
 section{
-    padding:100px 8%;
+    padding:120px 8%;
 }
 
 .section-title{
     text-align:center;
-    font-size:52px;
+    font-size:55px;
+    color:var(--orange);
     margin-bottom:70px;
-    color:#ff6b00;
     font-weight:800;
 }
 
 /* SERVICES */
 
-.services{
-    background:#111;
-}
-
 .cards{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
     gap:30px;
 }
 
 .card{
-    background:#1a1a1a;
-    padding:40px 30px;
-    border-radius:25px;
+    padding:40px;
+    border-radius:30px;
     transition:0.4s;
-    border:1px solid rgba(255,255,255,0.05);
 }
 
 .card:hover{
     transform:translateY(-10px);
-    border-color:#ff6b00;
 }
 
 .card h3{
+    color:var(--orange);
+    font-size:28px;
     margin-bottom:15px;
-    color:#ff6b00;
-    font-size:24px;
 }
 
 .card p{
-    color:#ccc;
+    color:#ddd;
     line-height:1.8;
 }
 
 /* OFFERS */
-
-.offers{
-    background:#0d0d0d;
-}
 
 .offers-grid{
     display:grid;
@@ -205,229 +305,168 @@ section{
     gap:35px;
 }
 
-.offer-card{
-    background:#161616;
-    border-radius:30px;
+.offer{
     padding:45px 35px;
+    border-radius:35px;
     position:relative;
     transition:0.4s;
-    border:1px solid rgba(255,255,255,0.05);
 }
 
-.offer-card:hover{
-    transform:translateY(-10px);
-    border-color:#ff6b00;
+.offer:hover{
+    transform:translateY(-12px);
 }
 
-.offer-badge{
+.badge{
     position:absolute;
     top:20px;
     right:20px;
-    background:#ff6b00;
-    color:white;
+    background:var(--orange);
     padding:8px 16px;
     border-radius:30px;
-    font-size:13px;
+    font-size:12px;
     font-weight:700;
 }
 
-.premium-badge{
-    background:#ffd700;
-    color:black;
-}
-
-.offer-card h3{
+.offer h3{
     font-size:32px;
     margin-bottom:20px;
 }
 
-.offer-price{
+.price{
     font-size:55px;
-    font-weight:800;
-    color:#ff6b00;
+    font-weight:900;
+    color:var(--orange);
     margin-bottom:30px;
 }
 
-.offer-price span{
-    font-size:18px;
-    color:#aaa;
-}
-
-.offer-card ul{
+.offer ul{
     list-style:none;
     margin-bottom:35px;
 }
 
-.offer-card ul li{
+.offer ul li{
     padding:12px 0;
-    border-bottom:1px solid rgba(255,255,255,0.05);
     color:#ddd;
+    border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
-.offer-btn{
-    display:inline-block;
+/* BOOKING */
+
+.booking-form{
+    max-width:900px;
+    margin:auto;
+    padding:50px;
+    border-radius:35px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.booking-form input,
+.booking-form select,
+.booking-form textarea{
     width:100%;
-    text-align:center;
-    background:#ff6b00;
-    color:white;
-    text-decoration:none;
     padding:18px;
+    border:none;
+    outline:none;
     border-radius:15px;
+    background:#1c1c1c;
+    color:white;
+}
+
+.booking-form textarea{
+    height:150px;
+    resize:none;
+}
+
+.submit-btn{
+    width:100%;
+    margin-top:25px;
+    padding:18px;
+    border:none;
+    border-radius:15px;
+    background:var(--orange);
+    color:white;
+    font-size:18px;
     font-weight:700;
+    cursor:pointer;
     transition:0.3s;
 }
 
-.offer-btn:hover{
-    background:#ff8f3d;
-}
-
-.premium-btn{
-    background:#ffd700;
-    color:black;
-}
-
-.premium-btn:hover{
-    background:#ffe75e;
-}
-
-.extra-list{
-    margin:35px 0;
-}
-
-.extra-item{
-    display:flex;
-    justify-content:space-between;
-    padding:18px 0;
-    border-bottom:1px solid rgba(255,255,255,0.08);
-}
-
-.extra-item strong{
-    color:#ff6b00;
-}
-
-/* GALLERY */
-
-.gallery{
-    background:#111;
-}
-
-.gallery-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:25px;
-}
-
-.gallery-grid img{
-    width:100%;
-    height:320px;
-    object-fit:cover;
-    border-radius:20px;
-    transition:0.4s;
-}
-
-.gallery-grid img:hover{
-    transform:scale(1.04);
+.submit-btn:hover{
+    background:var(--orange-light);
 }
 
 /* CTA */
 
 .cta{
-    position:relative;
     text-align:center;
-    background:
-    linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),
-    url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop');
-    background-size:cover;
-    background-position:center;
 }
 
 .cta h2{
-    font-size:60px;
+    font-size:65px;
     margin-bottom:25px;
-    font-weight:800;
 }
 
 .cta h2 span{
-    color:#ff6b00;
+    color:var(--orange);
 }
 
 .cta p{
-    color:#ddd;
-    font-size:20px;
-    line-height:1.9;
     max-width:900px;
     margin:auto;
-    margin-bottom:50px;
-}
-
-.cta-features{
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    flex-wrap:wrap;
-    margin-bottom:50px;
-}
-
-.cta-box{
-    background:rgba(255,255,255,0.08);
-    padding:18px 28px;
-    border-radius:50px;
-    border:1px solid rgba(255,255,255,0.1);
-    transition:0.3s;
-}
-
-.cta-box:hover{
-    transform:translateY(-5px);
-    border-color:#ff6b00;
-}
-
-.whatsapp-btn{
-    display:inline-block;
-    background:#25D366;
-    color:white;
-    text-decoration:none;
-    padding:18px 40px;
-    border-radius:50px;
-    font-size:20px;
-    font-weight:700;
-    transition:0.3s;
-}
-
-.whatsapp-btn:hover{
-    transform:scale(1.05);
+    color:#ddd;
+    line-height:1.9;
+    margin-bottom:45px;
 }
 
 /* FOOTER */
 
 footer{
-    background:black;
-    padding:30px;
+    padding:35px;
     text-align:center;
+    background:black;
     color:#888;
+}
+
+/* ANIMATION */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 /* RESPONSIVE */
 
-@media(max-width:768px){
-
-    nav ul{
-        display:none;
-    }
+@media(max-width:900px){
 
     .hero h1{
-        font-size:45px;
+        font-size:55px;
     }
 
     .section-title{
-        font-size:38px;
-    }
-
-    .cta h2{
         font-size:40px;
     }
 
-    .offer-price{
+    .cta h2{
         font-size:42px;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .menu-btn{
+        display:block;
     }
 
 }
@@ -437,6 +476,16 @@ footer{
 
 <body>
 
+<!-- LOADER -->
+
+<div class="loader" id="loader">
+
+<img src="logo.png" alt="Logo">
+
+<p>LOADING ADVENTURE...</p>
+
+</div>
+
 <!-- NAVBAR -->
 
 <nav>
@@ -445,21 +494,45 @@ footer{
 QUAD <span>Adventure</span>
 </div>
 
-<ul>
+<ul class="nav-links">
+
 <li><a href="#">Home</a></li>
 <li><a href="#services">Services</a></li>
 <li><a href="#offers">Offers</a></li>
-<li><a href="#gallery">Gallery</a></li>
+<li><a href="#booking">Booking</a></li>
 <li><a href="#contact">Contact</a></li>
+
 </ul>
 
+<div class="menu-btn" onclick="openMenu()">
+☰
+</div>
+
 </nav>
+
+<!-- MOBILE MENU -->
+
+<div class="mobile-menu" id="mobileMenu">
+
+<a href="#">Home</a>
+<a href="#services">Services</a>
+<a href="#offers">Offers</a>
+<a href="#booking">Booking</a>
+<a href="#contact">Contact</a>
+
+</div>
 
 <!-- HERO -->
 
 <section class="hero">
 
+<video autoplay muted loop playsinline>
+<source src="https://cdn.coverr.co/videos/coverr-driving-through-the-desert-1563955624897?download=1080p" type="video/mp4">
+</video>
+
 <div class="hero-content">
+
+<img src="logo.png" class="hero-logo" alt="Logo">
 
 <h1>
 QUAD <span>Adventure</span><br>
@@ -467,9 +540,9 @@ Marrakech
 </h1>
 
 <p>
-Experience unforgettable quad adventures,
-camel rides, tea pauses,
-and amazing photo spots in Marrakech.
+Premium quad adventures in Marrakech with camel rides,
+tea pauses, buggy tours,
+raptor 700cc and moto cross experiences.
 </p>
 
 <div class="hero-buttons">
@@ -493,39 +566,39 @@ View Offers
 
 <!-- SERVICES -->
 
-<section class="services" id="services">
+<section id="services">
 
 <h2 class="section-title">
-Our Experiences
+Adventure Experiences
 </h2>
 
 <div class="cards">
 
-<div class="card">
+<div class="card glass">
 <h3>Quad Tours</h3>
 <p>
-Adventure rides through desert tracks and palm groves.
+Experience powerful quad rides across desert landscapes.
 </p>
 </div>
 
-<div class="card">
+<div class="card glass">
 <h3>Camel Ride</h3>
 <p>
-Traditional camel experience in authentic Marrakech landscapes.
+Traditional camel experience with beautiful Marrakech views.
 </p>
 </div>
 
-<div class="card">
+<div class="card glass">
 <h3>Tea Pause</h3>
 <p>
-Relax with Moroccan tea during your desert adventure.
+Relax with authentic Moroccan tea during your adventure.
 </p>
 </div>
 
-<div class="card">
+<div class="card glass">
 <h3>Photo Stops</h3>
 <p>
-Capture unforgettable moments with amazing desert views.
+Capture unforgettable moments and premium desert photos.
 </p>
 </div>
 
@@ -535,7 +608,7 @@ Capture unforgettable moments with amazing desert views.
 
 <!-- OFFERS -->
 
-<section class="offers" id="offers">
+<section id="offers">
 
 <h2 class="section-title">
 Adventure Offers
@@ -545,9 +618,9 @@ Adventure Offers
 
 <!-- NORMAL -->
 
-<div class="offer-card">
+<div class="offer glass">
 
-<div class="offer-badge">
+<div class="badge">
 POPULAR
 </div>
 
@@ -555,44 +628,8 @@ POPULAR
 Normal Pack
 </h3>
 
-<div class="offer-price">
+<div class="price">
 150 DH
-<span>/ person</span>
-</div>
-
-<ul>
-
-<li>✔ Quad</li>
-<li>✔ Camel</li>
-<li>✔ Pause de Thé</li>
-<li>✔ Pause Photo</li>
-
-</ul>
-
-<a 
-href="https://wa.me/212625959229?text=Hello%20I%20want%20to%20book%20the%20Normal%20Pack"
-class="offer-btn"
->
-Book Now
-</a>
-
-</div>
-
-<!-- PREMIUM -->
-
-<div class="offer-card">
-
-<div class="offer-badge premium-badge">
-PREMIUM
-</div>
-
-<h3>
-Dinner Pack
-</h3>
-
-<div class="offer-price">
-250 DH
-<span>/ person</span>
 </div>
 
 <ul>
@@ -601,7 +638,41 @@ Dinner Pack
 <li>✔ Camel</li>
 <li>✔ Tea Pause</li>
 <li>✔ Photo Pause</li>
-<li>✔ Tajine (Chicken or Meat)</li>
+
+</ul>
+
+<a 
+href="https://wa.me/212625959229?text=Hello%20I%20want%20to%20book%20the%20Normal%20Pack"
+class="btn btn-main"
+>
+Book Now
+</a>
+
+</div>
+
+<!-- DINNER -->
+
+<div class="offer glass">
+
+<div class="badge">
+PREMIUM
+</div>
+
+<h3>
+Dinner Pack
+</h3>
+
+<div class="price">
+250 DH
+</div>
+
+<ul>
+
+<li>✔ Quad</li>
+<li>✔ Camel</li>
+<li>✔ Tea Pause</li>
+<li>✔ Photo Pause</li>
+<li>✔ Tajine</li>
 <li>✔ Moroccan Salad</li>
 <li>✔ Mixed Dessert</li>
 
@@ -609,7 +680,7 @@ Dinner Pack
 
 <a 
 href="https://wa.me/212625959229?text=Hello%20I%20want%20to%20book%20the%20Dinner%20Pack"
-class="offer-btn premium-btn"
+class="btn btn-main"
 >
 Reserve Premium
 </a>
@@ -618,9 +689,9 @@ Reserve Premium
 
 <!-- EXTRA -->
 
-<div class="offer-card">
+<div class="offer glass">
 
-<div class="offer-badge">
+<div class="badge">
 EXTRA
 </div>
 
@@ -628,28 +699,21 @@ EXTRA
 Extra Activities
 </h3>
 
-<div class="extra-list">
-
-<div class="extra-item">
-<span>Buggy</span>
-<strong>500 - 1500 DH</strong>
+<div class="price">
+VIP
 </div>
 
-<div class="extra-item">
-<span>Raptor 700cc</span>
-<strong>900 DH</strong>
-</div>
+<ul>
 
-<div class="extra-item">
-<span>Moto Cross 85cc - 400cc</span>
-<strong>900 DH</strong>
-</div>
+<li>✔ Buggy : 500 - 1500 DH</li>
+<li>✔ Raptor 700cc : 900 DH</li>
+<li>✔ Moto Cross : 900 DH</li>
 
-</div>
+</ul>
 
 <a 
-href="https://wa.me/212625959229?text=Hello%20I%20want%20more%20information%20about%20the%20extra%20activities"
-class="offer-btn"
+href="https://wa.me/212625959229"
+class="btn btn-main"
 >
 More Information
 </a>
@@ -660,23 +724,84 @@ More Information
 
 </section>
 
-<!-- GALLERY -->
+<!-- BOOKING -->
 
-<section class="gallery" id="gallery">
+<section id="booking">
 
 <h2 class="section-title">
-Adventure Gallery
+Booking Form
 </h2>
 
-<div class="gallery-grid">
+<form class="booking-form glass">
 
-<img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop">
+<div class="form-grid">
 
-<img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1200&auto=format&fit=crop">
+<input type="text" placeholder="Full Name">
 
-<img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?q=80&w=1200&auto=format&fit=crop">
+<input type="tel" placeholder="Phone Number">
+
+<select>
+
+<option>Select Offer</option>
+
+<option>Normal Pack</option>
+<option>Dinner Pack</option>
+<option>Buggy</option>
+<option>Raptor 700cc</option>
+<option>Moto Cross</option>
+
+</select>
+
+<select>
+
+<option>Select Number Of Persons</option>
+
+<option>1 Person</option>
+<option>2 Persons</option>
+<option>3 Persons</option>
+<option>4 Persons</option>
+<option>5 Persons</option>
+<option>6 Persons</option>
+<option>7 Persons</option>
+<option>8 Persons</option>
+<option>9 Persons</option>
+<option>10 Persons</option>
+
+<option>11 Persons</option>
+<option>12 Persons</option>
+<option>13 Persons</option>
+<option>14 Persons</option>
+<option>15 Persons</option>
+<option>16 Persons</option>
+<option>17 Persons</option>
+<option>18 Persons</option>
+<option>19 Persons</option>
+<option>20 Persons</option>
+
+<option>21 Persons</option>
+<option>22 Persons</option>
+<option>23 Persons</option>
+<option>24 Persons</option>
+<option>25 Persons</option>
+<option>26 Persons</option>
+<option>27 Persons</option>
+<option>28 Persons</option>
+<option>29 Persons</option>
+<option>30 Persons</option>
+
+</select>
+
+<input type="date">
 
 </div>
+
+<textarea placeholder="Your Message"></textarea>
+
+<button class="submit-btn">
+Send Reservation
+</button>
+
+</form>
 
 </section>
 
@@ -689,35 +814,13 @@ Ready For Your <span>Adventure?</span>
 </h2>
 
 <p>
-Book your Marrakech quad experience now
-and enjoy desert rides,
-camel tours, tea pauses,
-and unforgettable memories.
+Book now and enjoy unforgettable desert experiences
+with professional guides and premium activities in Marrakech.
 </p>
 
-<div class="cta-features">
-
-<div class="cta-box">
-🔥 Desert Adventure
-</div>
-
-<div class="cta-box">
-📸 Photo Stops
-</div>
-
-<div class="cta-box">
-🍵 Tea Pause
-</div>
-
-<div class="cta-box">
-🐪 Camel Ride
-</div>
-
-</div>
-
-<a
+<a 
 href="https://wa.me/212625959229?text=Hello%20I%20want%20to%20book%20a%20quad%20tour"
-class="whatsapp-btn"
+class="btn btn-main"
 >
 Book On WhatsApp
 </a>
@@ -727,8 +830,30 @@ Book On WhatsApp
 <!-- FOOTER -->
 
 <footer>
-© 2026 Quad Adventure Marrakech - All Rights Reserved
+
+© 2026 Quad Adventure Marrakech — All Rights Reserved
+
 </footer>
+
+<script>
+
+/* LOADER */
+
+window.addEventListener("load", () => {
+
+document.getElementById("loader").classList.add("hide");
+
+});
+
+/* MOBILE MENU */
+
+function openMenu(){
+
+document.getElementById("mobileMenu").classList.toggle("active");
+
+}
+
+</script>
 
 </body>
 </html>
